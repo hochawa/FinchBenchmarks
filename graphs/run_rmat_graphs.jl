@@ -130,7 +130,7 @@ function generate_rmat_graph(scale, edge_factor, a=0.57, b=0.19, c=0.19, d=0.05)
 				src += stride
 				dst += stride
 			end
-			stride = stride ÷ 2
+			stride = stride / 2
 		end
 
 		if src != dst
