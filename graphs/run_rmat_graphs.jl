@@ -119,26 +119,20 @@ function generate_rmat_graph(scale, edge_factor, a=0.57, b=0.19, c=0.19, d=0.05)
 		src, dst = 1, 1
 		stride = num_vertices /2
 
-		# Recursively select which quadrant to place the edge in
 		for _ in 1:scale
 			rand_val = rand()
 			if rand_val < a
-				# Stay in top-left quadrant
 			elseif rand_val < a + b
-				# Move to top-right quadrant
 				dst += stride
 			elseif rand_val < a + b + c
-				# Move to bottom-left quadrant
 				src += stride
 			else
-				# Move to bottom-right quadrant
 				src += stride
 				dst += stride
 			end
 			stride = stride ÷ 2
 		end
 
-		# Avoid self-loops
 		if src != dst
 			push!(edges, (src, dst))
 			edge_weights[(src, dst)] = rand()  # Assign a random weight to the edge (between 0 and 1)
@@ -146,10 +140,8 @@ function generate_rmat_graph(scale, edge_factor, a=0.57, b=0.19, c=0.19, d=0.05)
 
 	end
 
-	# Create the LightGraphs graph
 	g = SimpleWeightedGraph(num_vertices)
 	for (src, dst) in edges
-		#LightGraphs.add_edge!(g, src, dst)
 		add_edge!(g, src, dst, edge_weights[(src, dst)])
 
 	end
