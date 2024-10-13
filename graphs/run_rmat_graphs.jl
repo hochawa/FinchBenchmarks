@@ -21,6 +21,7 @@ using MatrixDepot
 using Finch
 using Graphs
 using SimpleWeightedGraphs
+using MatrixMarket
 #using LightGraphs
 
 s = ArgParseSettings("Run graph experiments.")
@@ -168,32 +169,55 @@ function graph_to_sparsematrix_with_weights(g::SimpleWeightedGraph, edge_weights
     return sparse(rows, cols, vals, num_vertices, num_vertices)  # Create SparseMatrixCSC
 end
 
+function load_mtx_as_sparsematrixcsc(filename::String)
+    # Read the Matrix Market file
+    coo_matrix = MatrixMarket.mmread(filename)
+
+    # Extract row indices, column indices, and non-zero values
+    row_indices, col_indices, values = findnz(coo_matrix)
+
+    # Determine the dimensions of the matrix
+    num_rows, num_cols = size(coo_matrix)
+
+    # Construct SparseMatrixCSC using row, column indices and values
+    sparse_matrix = SparseMatrixCSC(num_rows, num_cols, row_indices, col_indices, values)
+
+    return sparse_matrix
+end
+
+
 results = []
 
 
 for mtx in datasets[parsed_args["dataset"]]
-    scale = 0
-    edge_factor = 0
-    if mtx == "rmat_s22_e64"
-	    scale = 22
-	    edge_factor = 64
-    elseif mtx == "rmat_s23_e32"
-	    scale = 23
-	    edge_factor = 32
-    elseif mtx == "rmat_s24_e16"
-	    scale = 24
-	    edge_factor = 16
-    end
+#    scale = 0
+#    edge_factor = 0
+#    if mtx == "rmat_s22_e64"
+#	    scale = 22
+#	    edge_factor = 64
+#   elseif mtx == "rmat_s23_e32"
+#	    scale = 23
+#	    edge_factor = 32
+#    elseif mtx == "rmat_s24_e16"
+#	    scale = 24
+#	    edge_factor = 16
+#    elseif mtx == "soc-orkut"
+#	    scale = -1
+#    end
+	manual = 0
+	  if mtx == "rmat_s22_e64" || mtx == "rmat_s23_e32" || mtx == "rmat_s24_e16" || mtx == "soc-orkut"
+		manual = 1
+	end
 
-    if scale > 0
-	    g, edge_weights = generate_rmat_graph(scale, edge_factor)
-	    #src = edges[:, 1]
-	    #dst = edges[:, 2]
-	    #n = 2^scale
-	    #vals = rand(Float64, length(src))
-	    #A = SparseMatrixCSC(n, n, src, dst, vals)
-	    A= graph_to_sparsematrix_with_weights(g, edge_weights)
-
+#    if scale > 0
+#	    g, edge_weights = generate_rmat_graph(scale, edge_factor)
+#	    A= graph_to_sparsematrix_with_weights(g, edge_weights)
+#
+#
+    if manual == 1
+	    filename = mtx * ".mtx"
+	    A = mmread(filename)
+	    #A = load_mtx_as_sparsematrixcsc("soc-orkut.mtx")
     else
 	    A = SparseMatrixCSC(matrixdepot(mtx))
     end
@@ -215,6 +239,10 @@ for mtx in datasets[parsed_args["dataset"]]
             ]
         ),
     ]
+	if mtx in ["DIMACS10/rgg_n_2_24_s0", "GAP/GAP-road", "DIMACS10/road_usa"] && op_name == "bellmanford"
+		continue
+	end
+
         @info "testing" op_name mtx
         reference = nothing
         for (key, method) in methods

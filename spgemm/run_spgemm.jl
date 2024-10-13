@@ -15,6 +15,7 @@ using JSON
 using SparseArrays
 using Finch
 using LinearAlgebra
+using MatrixMarket
 
 #Here is where we use the julia arg parser to collect an input dataset keyword and an output file path
 
@@ -28,7 +29,9 @@ s = ArgParseSettings("Run spgemm experiments.")
     "--dataset", "-d"
         arg_type = String
         help = "dataset keyword"
-        default = "small"
+        #default = "small"
+        #default = "short"
+        default = "random"
     "--batch", "-b"
         arg_type = Int
         help = "batch number"
@@ -44,7 +47,8 @@ s = ArgParseSettings("Run spgemm experiments.")
     "--kernels"
         arg_type = String
         help = "set of kernels to run"
-        default = "gustavson"
+        #default = "gustavson"
+        default = "all"
 end
 
 parsed_args = parse_args(ARGS, s)
@@ -54,8 +58,8 @@ num_iters = parsed_args["num_iters"]
 datasets = Dict(
     "short" => [
         "HB/arc130",
-        #"HB/gre_216b",
-        #"HB/bcspwr07",
+        "HB/gre_216b",
+        "HB/bcspwr07",
     ],
     "small" => [
         "SNAP/email-Eu-core",
@@ -91,6 +95,16 @@ datasets = Dict(
         "SNAP/roadNet-CA",
         "SNAP/p2p-Gnutella31",
         "Pajek/patents_main"
+    ],
+    "random" => [
+        "rand_128.mtx",
+        "rand_256.mtx",
+        "rand_512.mtx",
+        "rand_1024.mtx",
+        "rand_2048.mtx",
+        "rand_4096.mtx",
+        "rand_8192.mtx",
+        "rand_16384.mtx"
     ]
 )
 
@@ -134,7 +148,11 @@ batch = let
 end
 
 for mtx in batch
-    A = SparseMatrixCSC(matrixdepot(mtx))
+	if startswith(string(mtx), "rand_")
+		A = MatrixMarket.mmread(string(mtx)) 
+	else
+		A = SparseMatrixCSC(matrixdepot(mtx))
+	end
     B = A
     C_ref = nothing
     for (key, method) in methods[parsed_args["kernels"]]
