@@ -1,98 +1,83 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <iostream>
+#include <fstream>
+#include <set>
+#include <vector>
+#include <random>
+#include <algorithm>
 
-typedef struct {
-    int src;
-    int dst;
-    double weight;
-} Edge;
+void generate_rmat_graph(int scale, int avg_edges_per_vertex) {
+    int num_vertices = 1 << scale;  // 2^scale
+    int num_edges = num_vertices * avg_edges_per_vertex;
 
-void generate_rmat_edge(int *src, int *dst, int scale, double a, double b, double c, double d) {
-    *src = 1;
-    *dst = 1;
-    int stride = 1 << (scale - 1);
+    // Using a set to store unique edges (src, dst)
+    std::set<std::pair<int, int>> edges;
 
-    for (int i = 0; i < scale; i++) {
-        double r = (double)rand() / RAND_MAX;
-        if (r < a) {
-        } else if (r < a + b) {
-            *dst += stride;
-        } else if (r < a + b + c) {
-            *src += stride;
-        } else {
-            *src += stride;
-            *dst += stride;
+    // Random number generator for weights
+    std::default_random_engine generator;
+    std::uniform_real_distribution<double> weight_distribution(0.0, 1.0); // Weights between 0 and 1
+
+    // Edge generation parameters
+    double a = 0.57, b = 0.19, c = 0.19, d = 0.05;
+
+    while (edges.size() < num_edges) {
+        int src = 1, dst = 1;
+        int stride = num_vertices / 2;
+
+        for (int i = 0; i < scale; ++i) {
+            double rand_val = static_cast<double>(rand()) / RAND_MAX;
+            if (rand_val < a) {
+                // Stay in top-left quadrant
+            } else if (rand_val < a + b) {
+                // Move to top-right quadrant
+                dst += stride;
+            } else if (rand_val < a + b + c) {
+                // Move to bottom-left quadrant
+                src += stride;
+            } else {
+                // Move to bottom-right quadrant
+                src += stride;
+                dst += stride;
+            }
+            stride /= 2;
         }
-        stride /= 2;
-    }
-}
 
-int edge_compare(const void *a, const void *b) {
-    Edge *edge1 = (Edge *)a;
-    Edge *edge2 = (Edge *)b;
-
-    if (edge1->src != edge2->src) {
-        return edge1->src - edge2->src;
-    }
-    return edge1->dst - edge2->dst;
-}
-
-void generate_rmat_graph(int num_edges, int scale, double a, double b, double c, double d, const char *filename) {
-    int num_vertices = 1 << scale;
-    Edge *edges = (Edge *)malloc(num_edges * sizeof(Edge));
-    int edge_count = 0;
-
-    for (int i = 0; i < num_edges; i++) {
-        int src, dst;
-        generate_rmat_edge(&src, &dst, scale, a, b, c, d);
+        // Ensure src and dst are different
         if (src != dst) {
-            double weight = (double)rand() / RAND_MAX;
-            edges[edge_count++] = (Edge){src, dst, weight};
+            edges.emplace(src, dst);
         }
     }
 
-    qsort(edges, edge_count, sizeof(Edge), edge_compare);
+    // Sort edges based on src, then dst
+    std::vector<std::pair<int, int>> sorted_edges(edges.begin(), edges.end());
 
-    FILE *file = fopen(filename, "w");
-    if (!file) {
-        fprintf(stderr, "Error opening file for writing\n");
-        exit(1);
+    // Write to .mtx file
+    std::ofstream outfile("rmat_s" + std::to_string(scale) + "_e" + std::to_string(avg_edges_per_vertex) + ".mtx");
+    if (outfile.is_open()) {
+        outfile << "%%MatrixMarket matrix coordinate real general\n";
+        outfile << num_vertices << " " << num_vertices << " " << sorted_edges.size() << "\n";
+
+        for (const auto& edge : sorted_edges) {
+            int src = edge.first;
+            int dst = edge.second;
+            double weight = weight_distribution(generator);  // Generate weight for the edge (0 to 1)
+            outfile << src << " " << dst << " " << weight << "\n"; // Write src, dst, and weight
+        }
+        outfile.close();
+    } else {
+        std::cerr << "Unable to open file for writing." << std::endl;
     }
-
-    fprintf(file, "%%MatrixMarket matrix coordinate real general\n");
-    fprintf(file, "%d %d %d\n", num_vertices, num_vertices, edge_count);
-
-    for (int i = 0; i < edge_count; i++) {
-        fprintf(file, "%d %d %f\n", edges[i].src, edges[i].dst, edges[i].weight);
-    }
-
-    fclose(file);
-    free(edges);
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* args[]) {
     if (argc != 3) {
-        fprintf(stderr, "Usage: %s <scale> <edge_factor>\n", argv[0]);
+        std::cerr << "Usage: " << args[0] << " <scale> <avg_edges_per_vertex>" << std::endl;
         return 1;
     }
 
-    int scale = atoi(argv[1]);
-    int edge_factor = atoi(argv[2]);
-    int num_edges = edge_factor * (1 << scale);
-    double a = 0.57;
-    double b = 0.19;
-    double c = 0.19;
-    double d = 0.05;
+    int scale = std::stoi(args[1]);
+    int avg_edges_per_vertex = std::stoi(args[2]);
 
-    srand(time(NULL));
-
-    char filename[50];
-    snprintf(filename, sizeof(filename), "rmat_s%d_e%d.mtx", scale, edge_factor);
-
-    generate_rmat_graph(num_edges, scale, a, b, c, d, filename);
-
-    printf("RMAT graph generation complete. Output saved to %s\n", filename);
+    generate_rmat_graph(scale, avg_edges_per_vertex);
     return 0;
 }
 
