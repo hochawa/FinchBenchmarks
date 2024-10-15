@@ -1,41 +1,41 @@
 [
     {
-        "time": 0.000235167,
+        "time": 0.000235042,
         "n_threads": 2,
         "method": "serialize_default_implementation",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.092869875,
+        "time": 0.086336958,
         "n_threads": 2,
         "method": "parallel_row",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.001348459,
+        "time": 0.001340375,
         "n_threads": 2,
         "method": "parallel_col_atomic",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.001902334,
+        "time": 0.001899083,
         "n_threads": 2,
         "method": "serialize_default_implementation",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.61569875,
+        "time": 0.558570125,
         "n_threads": 2,
         "method": "parallel_row",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.006982667,
+        "time": 0.00694925,
         "n_threads": 2,
         "method": "parallel_col_atomic",
         "dataset": "FEMLAB",
@@ -52,7 +52,7 @@
         }
     },
     {
-        "time": 0.007131125,
+        "time": 0.006243167,
         "n_threads": 2,
         "method": "parallel_row",
         "dataset": "uniform",
@@ -62,7 +62,7 @@
         }
     },
     {
-        "time": 0.000390834,
+        "time": 0.000521625,
         "n_threads": 2,
         "method": "parallel_col_atomic",
         "dataset": "uniform",
@@ -72,7 +72,7 @@
         }
     },
     {
-        "time": 0.004342958,
+        "time": 0.004285459,
         "n_threads": 2,
         "method": "serialize_default_implementation",
         "dataset": "uniform",
@@ -82,7 +82,7 @@
         }
     },
     {
-        "time": 0.069996458,
+        "time": 0.066496333,
         "n_threads": 2,
         "method": "parallel_row",
         "dataset": "uniform",
@@ -92,7 +92,7 @@
         }
     },
     {
-        "time": 0.0302505,
+        "time": 0.029871125,
         "n_threads": 2,
         "method": "parallel_col_atomic",
         "dataset": "uniform",

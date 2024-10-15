@@ -36,8 +36,7 @@ function spmv(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{F
                 Finch.resize_if_smaller!(y_lvl_val, A_lvl_2.shape)
                 Finch.fill_range!(y_lvl_val, 0.0, 1, A_lvl_2.shape)
 
-                (_, n) = size(A)
-                for j = 1:n
+                for j = 1:A_lvl.shape
                         for q in A_lvl_ptr[j]:A_lvl_ptr[j+1]-1
                                 i = A_lvl_idx[q]
                                 println(y_lvl_val[i])

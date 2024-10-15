@@ -33,13 +33,11 @@ function spmv(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{F
 
                 x_lvl.shape == A_lvl.shape || throw(DimensionMismatch("mismatched dimension limits ($(x_lvl.shape) != $(A_lvl.shape))"))
                 Finch.resize_if_smaller!(y_lvl_val, A_lvl_2.shape)
-                Finch.fill_range!(y_lvl_val, 0.0, 1, A_lvl_2.shape)
 
                 # Create atomic temp
-                y_lvl_val_atomic = [Threads.Atomic{Float64}(val) for val in y_lvl_val]
+                y_lvl_val_atomic = [Threads.Atomic{Float64}(0.0) for _ = 1:A_lvl_2.shape]
 
-                (_, n) = size(A)
-                Threads.@threads for j = 1:n
+                Threads.@threads for j = 1:A_lvl.shape
                         for q in A_lvl_ptr[j]:A_lvl_ptr[j+1]-1
                                 i = A_lvl_idx[q]
                                 Threads.atomic_add!(y_lvl_val_atomic[i], A_lvl_2_val[q] * x_lvl_val[j])
