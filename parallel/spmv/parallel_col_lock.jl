@@ -3,7 +3,7 @@ using BenchmarkTools
 using Base.Threads
 
 
-function parallel_col_atomic_mul(y, A, x)
+function parallel_col_lock_mul(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
@@ -33,21 +33,21 @@ function spmv(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{F
 
                 x_lvl.shape == A_lvl.shape || throw(DimensionMismatch("mismatched dimension limits ($(x_lvl.shape) != $(A_lvl.shape))"))
                 Finch.resize_if_smaller!(y_lvl_val, A_lvl_2.shape)
+                Finch.fill_range!(y_lvl_val, 0.0, 1, A_lvl_2.shape)
 
-                y_lvl_val_atomic = Vector{Threads.Atomic{Float64}}(undef, A_lvl_2.shape)
+                lock_list = Vector{ReentrantLock}(undef, A_lvl_2.shape)
                 Threads.@threads for i = 1:A_lvl_2.shape
-                        y_lvl_val_atomic[i] = Threads.Atomic{Float64}(0.0)
+                        lock_list[i] = ReentrantLock()
                 end
 
                 Threads.@threads for j = 1:A_lvl.shape
                         for q in A_lvl_ptr[j]:A_lvl_ptr[j+1]-1
                                 i = A_lvl_idx[q]
-                                Threads.atomic_add!(y_lvl_val_atomic[i], A_lvl_2_val[q] * x_lvl_val[j])
+                                temp_val = A_lvl_2_val[q] * x_lvl_val[j]
+                                lock(lock_list[i]) do
+                                        y_lvl_val[i] += temp_val
+                                end
                         end
-                end
-
-                Threads.@threads for i = 1:y_lvl.shape
-                        y_lvl_val[i] = y_lvl_val_atomic[i][]
                 end
         end)
 end

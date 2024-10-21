@@ -11,14 +11,20 @@ RESULTS_FOLDER = "results"
 NTHREADS = [1, 2, 3, 4]
 
 DEFAULT_METHOD = "serial_default_implementation"
-METHODS = [DEFAULT_METHOD, "parallel_row", "parallel_col_atomic"]
+METHODS = [
+    DEFAULT_METHOD,
+    # "parallel_row",
+    "parallel_col_atomic",
+    "parallel_col_lock",
+    "separated_memory",
+]
 
 DATASETS = [
     {"uniform": ["1000-0.1", "10000-0.1"]},
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
 ]
 
-COLORS = ["gray", "cadetblue", "saddlebrown", "navy"]
+COLORS = ["gray", "cadetblue", "saddlebrown", "navy", "black"]
 
 
 def load_json():

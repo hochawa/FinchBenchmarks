@@ -50,12 +50,14 @@ datasets = Dict(
 include("serial_default_implementation.jl")
 # include("parallel_row.jl")
 include("parallel_col_atomic.jl")
+include("parallel_col_lock.jl")
 include("separated_memory.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
     # "parallel_row" => parallel_row_mul,
     "parallel_col_atomic" => parallel_col_atomic_mul,
+    "parallel_col_lock" => parallel_col_lock_mul,
     "separated_memory" => separated_memory_mul,
 )
 
