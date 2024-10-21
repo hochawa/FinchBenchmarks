@@ -10,7 +10,7 @@ function separated_memory_mul(y, A, x)
         time = @belapsed begin
                 (_y, _A, _x) = $(_y, _A, _x)
                 spmv(_y, _A, _x)
-        end samples = 1 evals = 1
+        end 
         return (; time=time, y=_y)
 end
 
