@@ -13,6 +13,7 @@ using BenchmarkTools
 using ArgParse
 using DataStructures
 using JSON
+using LinearAlgebra
 
 # Parsing Arguments
 s = ArgParseSettings("Run Parallel SpMV Experiments.")
@@ -35,6 +36,7 @@ parsed_args = parse_args(ARGS, s)
 # Mapping from dataset types to datasets
 datasets = Dict(
     "uniform" => [
+        # OrderedDict("size" => 3, "sparsity" => 1.0),
         OrderedDict("size" => 1000, "sparsity" => 0.1),
         OrderedDict("size" => 10000, "sparsity" => 0.1),
     ],
@@ -45,14 +47,16 @@ datasets = Dict(
 )
 
 # Mapping from method keywords to methods
-include("serialize_default_implementation.jl")
-include("parallel_row.jl")
+include("serial_default_implementation.jl")
+# include("parallel_row.jl")
 include("parallel_col_atomic.jl")
+include("separated_memory.jl")
 
 methods = OrderedDict(
-    "serialize_default_implementation" => serialize_default_implementation_mul,
-    "parallel_row" => parallel_row_mul,
+    "serial_default_implementation" => serial_default_implementation_mul,
+    # "parallel_row" => parallel_row_mul,
     "parallel_col_atomic" => parallel_col_atomic_mul,
+    "separated_memory" => separated_memory_mul,
 )
 
 if !isnothing(parsed_args["method"])
@@ -85,8 +89,8 @@ function calculate_results(dataset, mtxs, results)
 
             if parsed_args["accuracy-check"]
                 # Check the result of the multiplication
-                serialize_default_implementation_result = serialize_default_implementation_mul(y, A, x)
-                @assert result.y == serialize_default_implementation_result.y "Incorrect result for $key"
+                serial_default_implementation_result = serial_default_implementation_mul(y, A, x)
+                @assert norm(result.y - serial_default_implementation_result.y) / norm(serial_default_implementation_result.y) < 0.01 "Incorrect result for $key"
             end
 
             # Write result

@@ -8,10 +8,11 @@ function parallel_row_mul(y, A, x)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
                 (_y, _A, _x) = $(_y, _A, _x)
+                _A = permutedims(_A)
                 @finch mode = :fast begin
                         _y .= 0
-                        for j = _, i = parallel(_)
-                                _y[i] = _A[i, j] * _x[j]
+                        for j = parallel(_), i = _
+                                _y[j] += _A[i, j] * _x[i]
                         end
                 end
         end

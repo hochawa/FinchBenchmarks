@@ -10,7 +10,7 @@ RESULTS_FOLDER = "results"
 
 NTHREADS = [1, 2, 3, 4]
 
-DEFAULT_METHOD = "serialize_default_implementation"
+DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [DEFAULT_METHOD, "parallel_row", "parallel_col_atomic"]
 
 DATASETS = [
