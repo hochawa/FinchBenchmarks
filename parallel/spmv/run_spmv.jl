@@ -37,6 +37,7 @@ parsed_args = parse_args(ARGS, s)
 datasets = Dict(
     "uniform" => [
         # OrderedDict("size" => 10, "sparsity" => 1.0),
+        OrderedDict("size" => 10_000_000, "sparsity" => 0.000001),
         OrderedDict("size" => 1000, "sparsity" => 0.1),
         OrderedDict("size" => 10000, "sparsity" => 0.1),
     ],
