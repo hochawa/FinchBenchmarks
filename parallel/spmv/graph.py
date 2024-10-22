@@ -8,7 +8,7 @@ SPEEDUP_FOLDER = "speedup"
 RUNTIME_FOLDER = "runtime"
 RESULTS_FOLDER = "results"
 
-NTHREADS = [i + 1 for i in range(4)]
+NTHREADS = [i + 1 for i in range(8)]
 
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
