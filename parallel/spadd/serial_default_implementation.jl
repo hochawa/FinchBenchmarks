@@ -2,7 +2,7 @@ using Finch
 using BenchmarkTools
 
 
-function serialize_default_implementation_add(C, A, B)
+function serial_default_implementation_add(C, A, B)
         _C = Tensor(Dense(SparseList(Element(0.0))), C)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _B = Tensor(Dense(SparseList(Element(0.0))), B)

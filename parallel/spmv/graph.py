@@ -8,7 +8,7 @@ SPEEDUP_FOLDER = "speedup"
 RUNTIME_FOLDER = "runtime"
 RESULTS_FOLDER = "results"
 
-NTHREADS = [i + 1 for i in range(8)]
+NTHREADS = [i + 1 for i in range(12)]
 
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
@@ -65,7 +65,9 @@ def plot_speedup_result(results, dataset, matrix, save_location):
             linewidth=1,
         )
 
-    plt.title(f"Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})")
+    plt.title(
+        f"SpMV - Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})"
+    )
     # plt.yscale("log", base=10)
     plt.xticks(NTHREADS)
     plt.xlabel("Number of Threads")
@@ -88,7 +90,7 @@ def plot_runtime_result(results, dataset, matrix, save_location):
             linewidth=1,
         )
 
-    plt.title(f"Runtime for {dataset}: {matrix}")
+    plt.title(f"SpMV - Runtime for {dataset}: {matrix}")
     # plt.yscale("log", base=10)
     plt.xticks(NTHREADS)
     plt.xlabel("Number of Threads")
