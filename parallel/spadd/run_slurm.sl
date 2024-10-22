@@ -7,6 +7,6 @@
 #SBATCH --partition=lanka-v3
 #SBATCH --qos=commit-main
 #SBATCH --mem 102400
-cd /data/scratch/paramuth/FinchBenchmarks/parallel/spmv
-source run.sh 12
+cd /data/scratch/paramuth/FinchBenchmarks/parallel/spadd
+source run.sh
 

@@ -8,9 +8,9 @@ SPEEDUP_FOLDER = "speedup"
 RUNTIME_FOLDER = "runtime"
 RESULTS_FOLDER = "results"
 
-NTHREADS = [1, 2, 3, 4]
+NTHREADS = [i + 1 for i in range(12)]
 
-DEFAULT_METHOD = "serialize_default_implementation"
+DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [DEFAULT_METHOD, "parallel_col"]
 
 DATASETS = [
@@ -18,7 +18,7 @@ DATASETS = [
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
 ]
 
-COLORS = ["gray", "cadetblue", "saddlebrown", "navy"]
+COLORS = ["gray", "cadetblue", "saddlebrown", "navy", "black"]
 
 
 def load_json():
@@ -58,7 +58,10 @@ def plot_speedup_result(results, dataset, matrix, save_location):
             linewidth=1,
         )
 
-    plt.title(f"Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})")
+    plt.title(
+        f"SpAdd - Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})"
+    )
+    # plt.yscale("log", base=10)
     plt.xticks(NTHREADS)
     plt.xlabel("Number of Threads")
     plt.ylabel(f"Speedup")
@@ -80,8 +83,8 @@ def plot_runtime_result(results, dataset, matrix, save_location):
             linewidth=1,
         )
 
-    plt.title(f"Runtime for {dataset}: {matrix}")
-    plt.yscale("log", base=10)
+    plt.title(f"SpAdd - Runtime for {dataset}: {matrix}")
+    # plt.yscale("log", base=10)
     plt.xticks(NTHREADS)
     plt.xlabel("Number of Threads")
     plt.ylabel(f"Runtime (in seconds)")

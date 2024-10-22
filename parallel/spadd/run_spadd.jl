@@ -46,11 +46,11 @@ datasets = Dict(
 )
 
 # Mapping from method keywords to methods
-include("serialize_default_implementation.jl")
+include("serial_default_implementation.jl")
 include("parallel_col.jl")
 
 methods = OrderedDict(
-    "serialize_default_implementation" => serialize_default_implementation_add,
+    "serial_default_implementation" => serial_default_implementation_add,
     "parallel_col" => parallel_col_add,
 )
 
