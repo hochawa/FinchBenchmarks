@@ -8,14 +8,15 @@ SPEEDUP_FOLDER = "speedup"
 RUNTIME_FOLDER = "runtime"
 RESULTS_FOLDER = "results"
 
-NTHREADS = [i + 1 for i in range(24)]
+NTHREADS = [i + 1 for i in range(4)]
 
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
     # "parallel_row",
+    # "parallel_col",
     "parallel_col_atomic",
-    "parallel_col_lock",
+    # "parallel_col_lock",
     "separated_memory",
 ]
 

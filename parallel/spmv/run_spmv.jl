@@ -36,9 +36,9 @@ parsed_args = parse_args(ARGS, s)
 # Mapping from dataset types to datasets
 datasets = Dict(
     "uniform" => [
-        OrderedDict("size" => 10, "sparsity" => 1.0),
-        # OrderedDict("size" => 1000, "sparsity" => 0.1),
-        # OrderedDict("size" => 10000, "sparsity" => 0.1),
+        # OrderedDict("size" => 10, "sparsity" => 1.0),
+        OrderedDict("size" => 1000, "sparsity" => 0.1),
+        OrderedDict("size" => 10000, "sparsity" => 0.1),
     ],
     "FEMLAB" => [
         "FEMLAB/poisson3Da",
@@ -48,14 +48,18 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
+# include("parallel_row.jl")
+# include("parallel_col.jl")
 include("parallel_col_atomic.jl")
-include("parallel_col_lock.jl")
+# include("parallel_col_lock.jl")
 include("separated_memory.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
+    # "parallel_row" => parallel_row_mul,
+    # "parallel_col" => parallel_col_mul,
     "parallel_col_atomic" => parallel_col_atomic_mul,
-    "parallel_col_lock" => parallel_col_lock_mul,
+    # "parallel_col_lock" => parallel_col_lock_mul,
     "separated_memory" => separated_memory_mul,
 )
 
