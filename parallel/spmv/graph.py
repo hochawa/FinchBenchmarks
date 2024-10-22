@@ -66,7 +66,7 @@ def plot_speedup_result(results, dataset, matrix, save_location):
         )
 
     plt.title(f"Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})")
-    plt.yscale("log", base=10)
+    # plt.yscale("log", base=10)
     plt.xticks(NTHREADS)
     plt.xlabel("Number of Threads")
     plt.ylabel(f"Speedup")
@@ -89,7 +89,7 @@ def plot_runtime_result(results, dataset, matrix, save_location):
         )
 
     plt.title(f"Runtime for {dataset}: {matrix}")
-    plt.yscale("log", base=10)
+    # plt.yscale("log", base=10)
     plt.xticks(NTHREADS)
     plt.xlabel("Number of Threads")
     plt.ylabel(f"Runtime (in seconds)")
