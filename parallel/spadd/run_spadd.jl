@@ -48,10 +48,12 @@ datasets = Dict(
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
 include("parallel_col.jl")
+include("separated_memory.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_add,
     "parallel_col" => parallel_col_add,
+    "separated_memory" => separated_memory_add,
 )
 
 if !isnothing(parsed_args["method"])
@@ -77,17 +79,13 @@ function calculate_results(dataset, mtxs, results)
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
-        (num_rows, num_cols) = size(A)
-        # x is a dense vector
-        C = zeros(num_rows, num_cols)
-
         for (key, method) in methods
-            result = method(C, A, B)
+            result = method(A, B)
 
             if parsed_args["accuracy-check"]
                 # Check the result of the multiplication
-                serialize_default_implementation_result = serialize_default_implementation_add(C, A, B)
-                @assert result.C == serialize_default_implementation_result.C "Incorrect result for $key"
+                serial_default_implementation_result = serial_default_implementation_add(A, B)
+                @assert result.C == serial_default_implementation_result.C "Incorrect result for $key"
             end
 
             # Write result
