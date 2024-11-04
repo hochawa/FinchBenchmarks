@@ -1,4 +1,5 @@
 using Finch
+using Base.Threads
 
 function concat(A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, B::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}})
     @inbounds @fastmath(begin
@@ -36,20 +37,24 @@ function concat(A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},V
     end)
 end
 
-function concat_vec(V::Vector{Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}})
+function concat_vec(V::Vector{Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}, nonzero_offset::Vector{Int64}, columns::Vector{Int64})
     @inbounds @fastmath(begin
         # val
-        B_lvl_2_val = reduce(vcat, (A.lvl.lvl.lvl.val for A in V))
-        B_lvl_3 = Element{0.0,Float64,Int64}(B_lvl_2_val)
+        B_lvl_2_val = Vector{Float64}(undef, last(nonzero_offset))
         # shape
         B_lvl_shape = V[1].lvl.lvl.shape
         # pointer
-        B_lvl_ptr = V[1].lvl.lvl.ptr
-        for index = 2:length(V)
-            append!(B_lvl_ptr, V[index].lvl.lvl.ptr[2:end] .+ (last(B_lvl_ptr) - 1))
+        B_lvl_ptr = Vector{Int64}(undef, last(columns) + 1)
+        B_lvl_ptr[1] = 1
+        # idx
+        B_lvl_idx = Vector{Int64}(undef, last(nonzero_offset))
+
+        Threads.@threads for i in 1:length(V)
+            B_lvl_2_val[nonzero_offset[i]+1:nonzero_offset[i+1]] .= V[i].lvl.lvl.lvl.val
+            B_lvl_idx[nonzero_offset[i]+1:nonzero_offset[i+1]] .= V[i].lvl.lvl.idx
+            B_lvl_ptr[columns[i]+2:columns[i+1]+1] = V[i].lvl.lvl.ptr[2:end] .+ nonzero_offset[i]
         end
-        # index
-        B_lvl_idx = reduce(vcat, (A.lvl.lvl.idx for A in V))
+        B_lvl_3 = Element{0.0,Float64,Int64}(B_lvl_2_val)
 
         B_lvl_2 = SparseList{Int64}(B_lvl_3, B_lvl_shape, B_lvl_ptr, B_lvl_idx)
         B_lvl = Dense{Int64}(B_lvl_2, mapreduce(A -> A.lvl.shape, +, V))

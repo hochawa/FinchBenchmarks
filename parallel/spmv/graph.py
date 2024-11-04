@@ -14,9 +14,7 @@ DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
     # "parallel_row",
-    # "parallel_col",
     "parallel_col_atomic",
-    # "parallel_col_lock",
     "separated_memory",
 ]
 

@@ -11,12 +11,26 @@ function separated_memory_add(A, B)
         (_A, _B) = $(_A, _B)
         num_threads = Threads.nthreads()
         partial_sum = Vector{Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}(undef, num_threads)
+        partial_nonzero_ptr = Vector{Int64}(undef, num_threads + 1)
+        partial_nonzero_ptr[1] = 0
+        partial_column = Vector{Int64}(undef, num_threads + 1)
+        partial_column[1] = 0
+
         num_col = size(_A)[2]
         Threads.@threads for k = 1:num_threads
-            partial_sum[k] = partial_add(_A, _B, 1 + div((k - 1) * num_col, num_threads), div(k * num_col, num_threads))
+            start_col = 1 + div((k - 1) * num_col, num_threads)
+            stop_col = div(k * num_col, num_threads)
+            partial_column[k+1] = stop_col
+            result = partial_add(_A, _B, start_col, stop_col)
+            partial_sum[k] = result.tensor
+            partial_nonzero_ptr[k+1] = result.num_nonzero
         end
 
-        global _C = concat_vec(partial_sum)
+        for i in 2:length(partial_nonzero_ptr)
+            partial_nonzero_ptr[i] += partial_nonzero_ptr[i-1]
+        end
+
+        global _C = concat_vec(partial_sum, partial_nonzero_ptr, partial_column)
     end
     return (; time=time, C=_C)
 end
@@ -71,12 +85,12 @@ function partial_add(A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int
                 end
             end
 
-            append!(C_lvl_2_val, A_lvl_2_val[A_idx:A_lvl_ptr[j+1]-1])
-            append!(C_lvl_idx, A_lvl_idx[A_idx:A_lvl_ptr[j+1]-1])
+            append!(C_lvl_2_val, @view A_lvl_2_val[A_idx:A_lvl_ptr[j+1]-1])
+            append!(C_lvl_idx, @view A_lvl_idx[A_idx:A_lvl_ptr[j+1]-1])
             current_ptr += A_lvl_ptr[j+1] - A_idx
 
-            append!(C_lvl_2_val, B_lvl_2_val[B_idx:B_lvl_ptr[j+1]-1])
-            append!(C_lvl_idx, B_lvl_idx[B_idx:B_lvl_ptr[j+1]-1])
+            append!(C_lvl_2_val, @view B_lvl_2_val[B_idx:B_lvl_ptr[j+1]-1])
+            append!(C_lvl_idx, @view B_lvl_idx[B_idx:B_lvl_ptr[j+1]-1])
             current_ptr += B_lvl_ptr[j+1] - B_idx
 
             append!(C_lvl_ptr, current_ptr)
@@ -89,6 +103,6 @@ function partial_add(A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int
         C_lvl = Dense{Int64}(C_lvl_2, stop_col - start_col + 1)
 
         C = Tensor(C_lvl)
-        return C
+        return (tensor=C, num_nonzero=current_ptr - 1)
     end)
 end

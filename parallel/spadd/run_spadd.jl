@@ -15,6 +15,8 @@ using DataStructures
 using JSON
 using Random
 
+Random.seed!(1234)
+
 # Parsing Arguments
 s = ArgParseSettings("Run Parallel SpAdd Experiments.")
 @add_arg_table! s begin
@@ -36,8 +38,9 @@ parsed_args = parse_args(ARGS, s)
 # Mapping from dataset types to datasets
 datasets = Dict(
     "uniform" => [
-        OrderedDict("size" => 1000, "sparsity" => 0.1),
-        OrderedDict("size" => 10000, "sparsity" => 0.1),
+        OrderedDict("size" => 1_000, "sparsity" => 0.1),
+        OrderedDict("size" => 10_000, "sparsity" => 0.1),
+        OrderedDict("size" => 1_000_000, "sparsity" => 3_000_000),
     ],
     "FEMLAB" => [
         "FEMLAB/poisson3Da",
