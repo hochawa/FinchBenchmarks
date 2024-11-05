@@ -31,10 +31,9 @@ function separate_sparselist_separated_memory_add_static(y::Tensor{DenseLevel{In
                 Finch.fill_range!(y_lvl_val, 0.0, 1, A_lvl_3.shape)
 
                 num_threads = Threads.nthreads()
-                y_temps = Vector{typeof(y_lvl_val)}(undef, num_threads)
+                y_temps = [zeros(Float64, y_lvl.shape) for _ in 1:num_threads]
 
                 Threads.@threads for k = 1:num_threads
-                        y_temps[k] = copy(y_lvl_val)
                         for j = 1+div((k - 1) * A_lvl.shape, num_threads):div(k * A_lvl.shape, num_threads)
                                 A_lvl_2_ptr = A_lvl_val[j]
                                 A_lvl_2_ptr_lvl_val = A_lvl_2_ptr.lvl.val
