@@ -49,18 +49,16 @@ datasets = Dict(
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
 # include("parallel_row.jl")
-# include("parallel_col.jl")
 include("parallel_col_atomic.jl")
-# include("parallel_col_lock.jl")
 include("separated_memory.jl")
+include("separated_memory_separated_sparselist.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
     # "parallel_row" => parallel_row_mul,
-    # "parallel_col" => parallel_col_mul,
     "parallel_col_atomic" => parallel_col_atomic_mul,
-    # "parallel_col_lock" => parallel_col_lock_mul,
     "separated_memory" => separated_memory_mul,
+    "separated_memory_separated_sparselist" => separated_memory_separated_sparselist_mul,
 )
 
 if !isnothing(parsed_args["method"])
