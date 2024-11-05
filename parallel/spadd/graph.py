@@ -11,7 +11,11 @@ RESULTS_FOLDER = "results"
 NTHREADS = [i + 1 for i in range(12)]
 
 DEFAULT_METHOD = "serial_default_implementation"
-METHODS = [DEFAULT_METHOD, "parallel_col", "separated_memory"]
+METHODS = [
+    DEFAULT_METHOD,
+    "parallel_default_implementation",
+    "separated_memory_concatenate_results",
+]
 
 DATASETS = [
     {"uniform": ["1000-0.1", "10000-0.1", "1000000-3000000"]},

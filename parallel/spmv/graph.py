@@ -13,10 +13,10 @@ NTHREADS = [i + 1 for i in range(12)]
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
-    # "parallel_row",
-    "parallel_col_atomic",
-    "separated_memory",
-    "separated_memory_separated_sparselist",
+    "hardware_atomic_add",
+    "separated_memory_add_static",
+    "separated_memory_add_dynamic",
+    "separate_sparselist_separated_memory_add_static",
 ]
 
 DATASETS = [

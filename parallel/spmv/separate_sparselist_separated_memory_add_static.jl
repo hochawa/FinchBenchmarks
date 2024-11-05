@@ -3,18 +3,18 @@ using BenchmarkTools
 using Base.Threads
 
 
-function separated_memory_separated_sparselist_mul(y, A, x)
+function separate_sparselist_separated_memory_add_static_mul(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(Separate(SparseList(Element(0.0)))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
                 (_y, _A, _x) = $(_y, _A, _x)
-                separated_memory_separated_sparselist(_y, _A, _x)
+                separate_sparselist_separated_memory_add_static(_y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function separated_memory_separated_sparselist(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SeparateLevel{SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}},Vector{SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function separate_sparselist_separated_memory_add_static(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SeparateLevel{SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}},Vector{SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 y_lvl = y.lvl
                 y_lvl_val = y_lvl.lvl.val
@@ -37,9 +37,12 @@ function separated_memory_separated_sparselist(y::Tensor{DenseLevel{Int64,Elemen
                         y_temps[k] = copy(y_lvl_val)
                         for j = 1+div((k - 1) * A_lvl.shape, num_threads):div(k * A_lvl.shape, num_threads)
                                 A_lvl_2_ptr = A_lvl_val[j]
-                                for q in A_lvl_2_ptr.ptr[1]:A_lvl_2_ptr.ptr[2]-1
-                                        i = A_lvl_2_ptr.idx[q]
-                                        temp_val = A_lvl_2_ptr.lvl.val[q] * x_lvl_val[j]
+                                A_lvl_2_ptr_lvl_val = A_lvl_2_ptr.lvl.val
+                                A_lvl_2_ptr_idx = A_lvl_2_ptr.idx
+                                A_lvl_2_ptr_ptr = A_lvl_2_ptr.ptr
+                                for q in A_lvl_2_ptr_ptr[1]:A_lvl_2_ptr_ptr[2]-1
+                                        i = A_lvl_2_ptr_idx[q]
+                                        temp_val = A_lvl_2_ptr_lvl_val[q] * x_lvl_val[j]
                                         y_temps[k][i] += temp_val
                                 end
                         end

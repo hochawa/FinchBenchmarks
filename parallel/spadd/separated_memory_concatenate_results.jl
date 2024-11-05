@@ -4,7 +4,7 @@ using Base.Threads
 
 include("concat.jl")
 
-function separated_memory_add(A, B)
+function separated_memory_concatenate_results_add(A, B)
     _A = Tensor(Dense(SparseList(Element(0.0))), A)
     _B = Tensor(Dense(SparseList(Element(0.0))), B)
     time = @belapsed begin

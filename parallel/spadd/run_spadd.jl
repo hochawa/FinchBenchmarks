@@ -50,13 +50,13 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-include("parallel_col.jl")
-include("separated_memory.jl")
+include("parallel_default_implementation.jl")
+include("separated_memory_concatenate_results.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_add,
-    "parallel_col" => parallel_col_add,
-    "separated_memory" => separated_memory_add,
+    "parallel_default_implementation" => parallel_default_implementation_add,
+    "separated_memory_concatenate_results" => separated_memory_concatenate_results_add,
 )
 
 if !isnothing(parsed_args["method"])
