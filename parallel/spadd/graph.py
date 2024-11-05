@@ -14,7 +14,7 @@ DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [DEFAULT_METHOD, "parallel_col", "separated_memory"]
 
 DATASETS = [
-    {"uniform": ["1000-0.1", "10000-0.1"]},
+    {"uniform": ["1000-0.1", "10000-0.1", "1000000-3000000"]},
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
 ]
 

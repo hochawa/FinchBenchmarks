@@ -16,10 +16,11 @@ METHODS = [
     # "parallel_row",
     "parallel_col_atomic",
     "separated_memory",
+    "separated_memory_separated_sparselist",
 ]
 
 DATASETS = [
-    {"uniform": ["1000-0.1", "10000-0.1"]},
+    {"uniform": ["1000-0.1", "10000-0.1", "1000000-3000000"]},
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
 ]
 
