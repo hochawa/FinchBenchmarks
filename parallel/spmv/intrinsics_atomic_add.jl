@@ -1,20 +1,21 @@
 using Finch
 using BenchmarkTools
 using Base.Threads
+using Atomix
 
 
-function hardware_atomic_add_mul(y, A, x)
+function intrinsics_atomic_add_mul(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
                 (_y, _A, _x) = $(_y, _A, _x)
-                hardware_atomic_add(_y, _A, _x)
+                intrinsics_atomic_add(_y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function hardware_atomic_add(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function intrinsics_atomic_add(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 y_lvl = y.lvl # DenseLevel
                 # y_lvl_2 = y_lvl.lvl # ElementLevel
@@ -33,14 +34,17 @@ function hardware_atomic_add(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64
 
                 x_lvl.shape == A_lvl.shape || throw(DimensionMismatch("mismatched dimension limits ($(x_lvl.shape) != $(A_lvl.shape))"))
                 Finch.resize_if_smaller!(y_lvl_val, A_lvl_2.shape)
+                Finch.fill_range!(y_lvl_val, 0.0, 1, A_lvl_2.shape)
 
                 Threads.@threads for j = 1:A_lvl.shape
                         Finch.@barrier begin
                                 for q in A_lvl_ptr[j]:A_lvl_ptr[j+1]-1
                                         i = A_lvl_idx[q]
-                                        #y_lvl_val[i] += A_lvl_2_val[q] * x_lvl_val[j]
-                                        # Core.Intrinsics.atomic_pointermodify(pointer(y_lvl_val, i), +, A_lvl_2_val[q] * x_lvl_val[j], :sequentially_consistent)
-                                        Base.unsafe_modify!(pointer(y_lvl_val, i), +, A_lvl_2_val[q] * x_lvl_val[j])
+                                        temp = A_lvl_2_val[q] * x_lvl_val[j]
+                                        Core.Intrinsics.atomic_pointermodify(pointer(y_lvl_val, i), +, temp, :sequentially_consistent)
+
+                                        # Incorrect
+                                        # Base.unsafe_modify!(pointer(y_lvl_val, i), +, temp)
                                 end
                         end
                 end

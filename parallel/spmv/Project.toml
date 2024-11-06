@@ -1,5 +1,6 @@
 [deps]
 ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
+Atomix = "a9b6321e-bd34-4604-b9c9-b65b8de01458"
 BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
 Finch = "9177782c-1635-4eb9-9bfb-d9dfa25e6bce"
