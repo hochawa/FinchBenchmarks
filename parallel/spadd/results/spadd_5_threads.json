@@ -9,7 +9,7 @@
     {
         "time": 0.052393424,
         "n_threads": 5,
-        "method": "parallel_default_implementation",
+        "method": "parallel_col_separate_sparselist_results",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
@@ -30,7 +30,7 @@
     {
         "time": 0.34473256,
         "n_threads": 5,
-        "method": "parallel_default_implementation",
+        "method": "parallel_col_separate_sparselist_results",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
@@ -54,7 +54,7 @@
     {
         "time": 0.005564533,
         "n_threads": 5,
-        "method": "parallel_default_implementation",
+        "method": "parallel_col_separate_sparselist_results",
         "dataset": "uniform",
         "matrix": {
             "size": 1000,
@@ -84,7 +84,7 @@
     {
         "time": 0.158092057,
         "n_threads": 5,
-        "method": "parallel_default_implementation",
+        "method": "parallel_col_separate_sparselist_results",
         "dataset": "uniform",
         "matrix": {
             "size": 10000,
@@ -114,7 +114,7 @@
     {
         "time": 3.625150086,
         "n_threads": 5,
-        "method": "parallel_default_implementation",
+        "method": "parallel_col_separate_sparselist_results",
         "dataset": "uniform",
         "matrix": {
             "size": 1000000,

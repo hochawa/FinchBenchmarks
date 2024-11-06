@@ -2,7 +2,7 @@ using Finch
 using BenchmarkTools
 
 
-function parallel_default_implementation_add(A, B)
+function parallel_col_separate_sparselist_results_add(A, B)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _B = Tensor(Dense(SparseList(Element(0.0))), B)
         time = @belapsed begin
