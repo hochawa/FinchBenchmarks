@@ -21,7 +21,7 @@ METHODS = [
 ]
 
 DATASETS = [
-    {"uniform": ["1000-0.1", "10000-0.1", "1000000-3000000"]},
+    {"uniform": ["1024-0.1", "8192-0.1", "1048576-3000000"]},
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
 ]
 
