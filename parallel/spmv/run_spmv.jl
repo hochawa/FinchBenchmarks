@@ -84,9 +84,9 @@ function calculate_results(dataset, mtxs, results)
 
         (num_rows, num_cols) = size(A)
         # x is a dense vector
-        x = rand(num_rows)
+        x = rand(num_cols)
         # y is the result vector
-        y = zeros(num_cols)
+        y = zeros(num_rows)
 
         for (key, method) in methods
             result = method(y, A, x)
