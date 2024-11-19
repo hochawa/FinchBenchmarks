@@ -1,6 +1,6 @@
 [submodule "deps/SparseRooflineBenchmark"]
 	path = deps/SparseRooflineBenchmark
-	url = https://github.com/SparseRooflineBenchmark/SparseRooflineBenchmark
+	url = git@github.com:Paramuths/SparseRooflineBenchmark.git
 [submodule "deps/taco"]
 	path = deps/taco
 	url = https://github.com/tensor-compiler/taco
