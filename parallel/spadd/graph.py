@@ -13,7 +13,7 @@ NTHREADS = [i + 1 for i in range(12)]
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
-    "parallel_col_separate_sparselist_results",
+    # "parallel_col_separate_sparselist_results",
     "separated_memory_concatenate_results",
 ]
 

@@ -2,7 +2,7 @@ using Base: nothing_sentinel
 #!/usr/bin/env julia
 if abspath(PROGRAM_FILE) == @__FILE__
     using Pkg
-    Pkg.activate(@__DIR__)
+    Pkg.activate(dirname(@__DIR__))
     Pkg.instantiate()
 end
 include("../../deps/diagnostics.jl")

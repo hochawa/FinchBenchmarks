@@ -2,7 +2,7 @@ using Base: nothing_sentinel
 #!/usr/bin/env julia
 if abspath(PROGRAM_FILE) == @__FILE__
     using Pkg
-    Pkg.activate(@__DIR__)
+    Pkg.activate(dirname(@__DIR__))
     Pkg.instantiate()
 end
 include("../../deps/diagnostics.jl")
@@ -50,12 +50,12 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-include("parallel_col_separate_sparselist_results.jl")
+# include("parallel_col_separate_sparselist_results.jl")
 include("separated_memory_concatenate_results.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_add,
-    "parallel_col_separate_sparselist_results" => parallel_col_separate_sparselist_results_add,
+    # "parallel_col_separate_sparselist_results" => parallel_col_separate_sparselist_results_add,
     "separated_memory_concatenate_results" => separated_memory_concatenate_results_add,
 )
 
