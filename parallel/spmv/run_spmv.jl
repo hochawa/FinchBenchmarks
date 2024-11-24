@@ -48,19 +48,21 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-include("intrinsics_atomic_add.jl")
-include("atomix_atomic_add.jl")
+# include("intrinsics_atomic_add.jl")
+# include("atomix_atomic_add.jl")
 include("separated_memory_add_static.jl")
+include("separated_memory_add_balance_static.jl")
 include("separated_memory_add_dynamic.jl")
-include("separate_sparselist_separated_memory_add_static.jl")
+# include("separate_sparselist_separated_memory_add_static.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
-    "intrinsics_atomic_add" => intrinsics_atomic_add_mul,
-    "atomix_atomic_add" => atomix_atomic_add_mul,
+    # "intrinsics_atomic_add" => intrinsics_atomic_add_mul,
+    # "atomix_atomic_add" => atomix_atomic_add_mul,
     "separated_memory_add_static" => separated_memory_add_static_mul,
+    "separated_memory_add_balance_static" => separated_memory_add_balance_static_mul,
     "separated_memory_add_dynamic" => separated_memory_add_dynamic_mul,
-    "separate_sparselist_separated_memory_add_static" => separate_sparselist_separated_memory_add_static_mul,
+    # "separate_sparselist_separated_memory_add_static" => separate_sparselist_separated_memory_add_static_mul,
 )
 
 if !isnothing(parsed_args["method"])
