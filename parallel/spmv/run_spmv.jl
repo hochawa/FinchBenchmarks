@@ -35,11 +35,11 @@ parsed_args = parse_args(ARGS, s)
 
 # Mapping from dataset types to datasets
 datasets = Dict(
-    # "uniform" => [
-    #     OrderedDict("size" => 2^10, "sparsity" => 0.1),
-    #     OrderedDict("size" => 2^13, "sparsity" => 0.1),
-    #     OrderedDict("size" => 2^20, "sparsity" => 3_000_000)
-    # ],
+    "uniform" => [
+        OrderedDict("size" => 2^10, "sparsity" => 0.1),
+        OrderedDict("size" => 2^13, "sparsity" => 0.1),
+        OrderedDict("size" => 2^20, "sparsity" => 3_000_000)
+    ],
     "FEMLAB" => [
         "FEMLAB/poisson3Da",
         "FEMLAB/poisson3Db",
@@ -60,9 +60,9 @@ methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
     # "intrinsics_atomic_add" => intrinsics_atomic_add_mul,
     # "atomix_atomic_add" => atomix_atomic_add_mul,
-    # "separated_memory_add_static" => separated_memory_add_static_mul,
-    # "separated_memory_add_balance_static" => separated_memory_add_balance_static_mul,
-    # "separated_memory_add_dynamic" => separated_memory_add_dynamic_mul,
+    "separated_memory_add_static" => separated_memory_add_static_mul,
+    "separated_memory_add_balance_static" => separated_memory_add_balance_static_mul,
+    "separated_memory_add_dynamic" => separated_memory_add_dynamic_mul,
     "separated_memory_add_balance_grain_10" => separated_memory_add_balance_grain_mul(10),
     "separated_memory_add_balance_grain_50" => separated_memory_add_balance_grain_mul(50),
     "separated_memory_add_balance_grain_100" => separated_memory_add_balance_grain_mul(100),
