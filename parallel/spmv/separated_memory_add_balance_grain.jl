@@ -2,19 +2,23 @@ using Finch
 using BenchmarkTools
 using Base.Threads
 
+function separated_memory_add_balance_grain_mul(grain_size)
+        return (y, A, x) -> separated_memory_add_balance_grain_helper(grain_size, y, A, x)
+end
 
-function separated_memory_add_balance_grain_300_mul(y, A, x)
+
+function separated_memory_add_balance_grain_helper(grain_size, y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
-                (_y, _A, _x) = $(_y, _A, _x)
-                separated_memory_add_balance_grain_300(_y, _A, _x)
+                (grain_size, _y, _A, _x) = $(grain_size, _y, _A, _x)
+                separated_memory_add_balance_grain(grain_size, _y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function separated_memory_add_balance_grain_300(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function separated_memory_add_balance_grain(grain_size::Int64, y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 y_lvl = y.lvl # DenseLevel
                 # y_lvl_2 = y_lvl.lvl # ElementLevel
@@ -39,7 +43,6 @@ function separated_memory_add_balance_grain_300(y::Tensor{DenseLevel{Int64,Eleme
                 y_temps = [zeros(Float64, y_lvl.shape) for _ in 1:num_threads]
 
                 # Load Balancing
-                grain_size = 300
                 num_nz = A_lvl_ptr[A_lvl.shape+1] - 1
                 num_iter = div(num_nz, grain_size, RoundUp)
 

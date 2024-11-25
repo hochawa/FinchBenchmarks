@@ -53,9 +53,7 @@ include("serial_default_implementation.jl")
 include("separated_memory_add_static.jl")
 include("separated_memory_add_balance_static.jl")
 include("separated_memory_add_dynamic.jl")
-include("separated_memory_add_balance_grain_100.jl")
-include("separated_memory_add_balance_grain_200.jl")
-include("separated_memory_add_balance_grain_300.jl")
+include("separated_memory_add_balance_grain.jl")
 # include("separate_sparselist_separated_memory_add_static.jl")
 
 methods = OrderedDict(
@@ -65,9 +63,11 @@ methods = OrderedDict(
     # "separated_memory_add_static" => separated_memory_add_static_mul,
     # "separated_memory_add_balance_static" => separated_memory_add_balance_static_mul,
     # "separated_memory_add_dynamic" => separated_memory_add_dynamic_mul,
-    "separated_memory_add_balance_grain_100" => separated_memory_add_balance_grain_100_mul,
-    "separated_memory_add_balance_grain_200" => separated_memory_add_balance_grain_200_mul,
-    "separated_memory_add_balance_grain_300" => separated_memory_add_balance_grain_300_mul,
+    "separated_memory_add_balance_grain_10" => separated_memory_add_balance_grain_mul(10),
+    "separated_memory_add_balance_grain_50" => separated_memory_add_balance_grain_mul(50),
+    "separated_memory_add_balance_grain_100" => separated_memory_add_balance_grain_mul(100),
+    "separated_memory_add_balance_grain_300" => separated_memory_add_balance_grain_mul(300),
+    "separated_memory_add_balance_grain_500" => separated_memory_add_balance_grain_mul(500),
     # "separate_sparselist_separated_memory_add_static" => separate_sparselist_separated_memory_add_static_mul,
 )
 
