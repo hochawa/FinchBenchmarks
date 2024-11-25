@@ -18,6 +18,11 @@ METHODS = [
     "separated_memory_add_static",
     "separated_memory_add_dynamic",
     "separated_memory_add_balance_static",
+    # "separated_memory_add_balance_grain_10",
+    # "separated_memory_add_balance_grain_50",
+    # "separated_memory_add_balance_grain_100",
+    # "separated_memory_add_balance_grain_300",
+    "separated_memory_add_balance_grain_500",
     # "separate_sparselist_separated_memory_add_static",
 ]
 
