@@ -3,18 +3,18 @@ using BenchmarkTools
 using Base.Threads
 
 
-function separated_memory_add_balance_grain_50_mul(y, A, x)
+function separated_memory_add_balance_grain_200_mul(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
                 (_y, _A, _x) = $(_y, _A, _x)
-                separated_memory_add_balance_grain_50(_y, _A, _x)
+                separated_memory_add_balance_grain_200(_y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function separated_memory_add_balance_grain_50(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function separated_memory_add_balance_grain_200(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 y_lvl = y.lvl # DenseLevel
                 # y_lvl_2 = y_lvl.lvl # ElementLevel
@@ -39,7 +39,7 @@ function separated_memory_add_balance_grain_50(y::Tensor{DenseLevel{Int64,Elemen
                 y_temps = [zeros(Float64, y_lvl.shape) for _ in 1:num_threads]
 
                 # Load Balancing
-                grain_size = 50
+                grain_size = 200
                 num_nz = A_lvl_ptr[A_lvl.shape+1] - 1
                 num_iter = div(num_nz, grain_size, RoundUp)
 
