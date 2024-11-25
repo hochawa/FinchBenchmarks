@@ -13,11 +13,12 @@ NTHREADS = [i + 1 for i in range(12)]
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
-    "intrinsics_atomic_add",
-    "atomix_atomic_add",
+    # "intrinsics_atomic_add",
+    # "atomix_atomic_add",
     "separated_memory_add_static",
     "separated_memory_add_dynamic",
-    "separate_sparselist_separated_memory_add_static",
+    "separated_memory_add_balance_static",
+    # "separate_sparselist_separated_memory_add_static",
 ]
 
 DATASETS = [
