@@ -2,23 +2,23 @@ using Finch
 using BenchmarkTools
 using Base.Threads
 
-function separated_memory_add_balance_grain_mul(grain_size)
-        return (y, A, x) -> separated_memory_add_balance_grain_helper(grain_size, y, A, x)
+function split_nonzeros_grain_mul(grain_size)
+        return (y, A, x) -> split_nonzeros_grain_helper(grain_size, y, A, x)
 end
 
 
-function separated_memory_add_balance_grain_helper(grain_size, y, A, x)
+function split_nonzeros_grain_helper(grain_size, y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
                 (grain_size, _y, _A, _x) = $(grain_size, _y, _A, _x)
-                separated_memory_add_balance_grain(grain_size, _y, _A, _x)
+                split_nonzeros_grain(grain_size, _y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function separated_memory_add_balance_grain(grain_size::Int64, y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function split_nonzeros_grain(grain_size::Int64, y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 y_lvl = y.lvl # DenseLevel
                 # y_lvl_2 = y_lvl.lvl # ElementLevel

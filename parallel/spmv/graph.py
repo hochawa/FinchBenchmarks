@@ -13,17 +13,16 @@ NTHREADS = [i + 1 for i in range(12)]
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
-    # "intrinsics_atomic_add",
-    # "atomix_atomic_add",
-    "separated_memory_add_static",
-    "separated_memory_add_dynamic",
-    "separated_memory_add_balance_static",
-    # "separated_memory_add_balance_grain_10",
-    # "separated_memory_add_balance_grain_50",
-    # "separated_memory_add_balance_grain_100",
-    # "separated_memory_add_balance_grain_300",
-    "separated_memory_add_balance_grain_500",
-    # "separate_sparselist_separated_memory_add_static",
+    "intrinsics_atomic_add",
+    "atomix_atomic_add",
+    "split_cols",
+    "split_cols_grain",
+    # "split_nonzeros",
+    # "split_nonzeros_grain_10",
+    # "split_nonzeros_grain_50",
+    # "split_nonzeros_grain_100",
+    # "split_nonzeros_grain_300",
+    # "split_nonzeros_grain_500",
 ]
 
 DATASETS = [
@@ -31,7 +30,7 @@ DATASETS = [
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
 ]
 
-COLORS = ["gray", "cadetblue", "saddlebrown", "navy", "black", "orange"]
+COLORS = ["gray", "cadetblue", "saddlebrown", "navy", "black", "orange", "green"]
 
 
 def load_json():

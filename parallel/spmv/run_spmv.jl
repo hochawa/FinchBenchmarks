@@ -48,27 +48,27 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-# include("intrinsics_atomic_add.jl")
-# include("atomix_atomic_add.jl")
-include("separated_memory_add_static.jl")
-include("separated_memory_add_balance_static.jl")
-include("separated_memory_add_dynamic.jl")
-include("separated_memory_add_balance_grain.jl")
-# include("separate_sparselist_separated_memory_add_static.jl")
+include("intrinsics_atomic_add.jl")
+include("atomix_atomic_add.jl")
+include("atomic_element.jl")
+include("split_cols.jl")
+include("split_nonzeros.jl")
+include("split_cols_grain.jl")
+include("split_nonzeros_grain.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
     # "intrinsics_atomic_add" => intrinsics_atomic_add_mul,
     # "atomix_atomic_add" => atomix_atomic_add_mul,
-    "separated_memory_add_static" => separated_memory_add_static_mul,
-    "separated_memory_add_balance_static" => separated_memory_add_balance_static_mul,
-    "separated_memory_add_dynamic" => separated_memory_add_dynamic_mul,
-    "separated_memory_add_balance_grain_10" => separated_memory_add_balance_grain_mul(10),
-    "separated_memory_add_balance_grain_50" => separated_memory_add_balance_grain_mul(50),
-    "separated_memory_add_balance_grain_100" => separated_memory_add_balance_grain_mul(100),
-    "separated_memory_add_balance_grain_300" => separated_memory_add_balance_grain_mul(300),
-    "separated_memory_add_balance_grain_500" => separated_memory_add_balance_grain_mul(500),
-    # "separate_sparselist_separated_memory_add_static" => separate_sparselist_separated_memory_add_static_mul,
+    # "atomic_element" => atomic_element_mul,
+    # "split_cols" => split_cols_mul,
+    # "split_nonzeros" => split_nonzeros_mul,
+    "split_cols_grain_1" => split_cols_grain_mul(1),
+    "split_cols_grain_10" => split_cols_grain_mul(10),
+    "split_cols_grain_50" => split_cols_grain_mul(50),
+    "split_cols_grain_100" => split_cols_grain_mul(100),
+    "split_cols_grain_300" => split_cols_grain_mul(300),
+    # "split_nonzeros_grain_500" => split_nonzeros_grain_mul(500),
 )
 
 if !isnothing(parsed_args["method"])

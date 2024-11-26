@@ -3,18 +3,18 @@ using BenchmarkTools
 using Base.Threads
 
 
-function separated_memory_add_dynamic_mul(y, A, x)
+function split_cols_mul(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
                 (_y, _A, _x) = $(_y, _A, _x)
-                separated_memory_add_dynamic(_y, _A, _x)
+                split_cols(_y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function separated_memory_add_dynamic(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function split_cols(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 y_lvl = y.lvl # DenseLevel
                 # y_lvl_2 = y_lvl.lvl # ElementLevel
@@ -38,12 +38,13 @@ function separated_memory_add_dynamic(y::Tensor{DenseLevel{Int64,ElementLevel{0.
                 num_threads = Threads.nthreads()
                 y_temps = [zeros(Float64, y_lvl.shape) for _ in 1:num_threads]
 
-                Threads.@threads for j = 1:A_lvl.shape
-                        y_temp = y_temps[Threads.threadid()]
-                        for q in A_lvl_ptr[j]:A_lvl_ptr[j+1]-1
-                                i = A_lvl_idx[q]
-                                temp_val = A_lvl_2_val[q] * x_lvl_val[j]
-                                y_temp[i] += temp_val
+                Threads.@threads for k = 1:num_threads
+                        for j = 1+div((k - 1) * A_lvl.shape, num_threads):div(k * A_lvl.shape, num_threads)
+                                for q in A_lvl_ptr[j]:A_lvl_ptr[j+1]-1
+                                        i = A_lvl_idx[q]
+                                        temp_val = A_lvl_2_val[q] * x_lvl_val[j]
+                                        y_temps[k][i] += temp_val
+                                end
                         end
                 end
 
