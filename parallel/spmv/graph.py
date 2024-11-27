@@ -13,12 +13,12 @@ NTHREADS = [i + 1 for i in range(12)]
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
-    "intrinsics_atomic_add",
-    "atomix_atomic_add",
+    "atomic_element",
     "split_cols",
     "split_cols_grain_50",
     "split_nonzeros",
     "split_nonzeros_grain_500",
+    "split_rows",
 ]
 
 DATASETS = [

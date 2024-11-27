@@ -48,23 +48,21 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-include("intrinsics_atomic_add.jl")
-include("atomix_atomic_add.jl")
 include("atomic_element.jl")
 include("split_cols.jl")
 include("split_nonzeros.jl")
 include("split_cols_grain.jl")
 include("split_nonzeros_grain.jl")
+include("split_rows.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
-    "intrinsics_atomic_add" => intrinsics_atomic_add_mul,
-    "atomix_atomic_add" => atomix_atomic_add_mul,
     "atomic_element" => atomic_element_mul,
-    # "split_cols" => split_cols_mul,
-    # "split_nonzeros" => split_nonzeros_mul,
-    # "split_cols_grain_50" => split_cols_grain_mul(50),
-    # "split_nonzeros_grain_500" => split_nonzeros_grain_mul(500),
+    "split_cols" => split_cols_mul,
+    "split_nonzeros" => split_nonzeros_mul,
+    "split_cols_grain_50" => split_cols_grain_mul(50),
+    "split_nonzeros_grain_500" => split_nonzeros_grain_mul(500),
+    "split_rows" => split_rows_mul,
 )
 
 if !isnothing(parsed_args["method"])
