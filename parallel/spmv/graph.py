@@ -16,13 +16,9 @@ METHODS = [
     "intrinsics_atomic_add",
     "atomix_atomic_add",
     "split_cols",
-    "split_cols_grain",
-    # "split_nonzeros",
-    # "split_nonzeros_grain_10",
-    # "split_nonzeros_grain_50",
-    # "split_nonzeros_grain_100",
-    # "split_nonzeros_grain_300",
-    # "split_nonzeros_grain_500",
+    "split_cols_grain_50",
+    "split_nonzeros",
+    "split_nonzeros_grain_500",
 ]
 
 DATASETS = [

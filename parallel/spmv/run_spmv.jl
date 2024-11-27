@@ -58,16 +58,12 @@ include("split_nonzeros_grain.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
-    # "intrinsics_atomic_add" => intrinsics_atomic_add_mul,
-    # "atomix_atomic_add" => atomix_atomic_add_mul,
-    # "atomic_element" => atomic_element_mul,
+    "intrinsics_atomic_add" => intrinsics_atomic_add_mul,
+    "atomix_atomic_add" => atomix_atomic_add_mul,
+    "atomic_element" => atomic_element_mul,
     # "split_cols" => split_cols_mul,
     # "split_nonzeros" => split_nonzeros_mul,
-    "split_cols_grain_1" => split_cols_grain_mul(1),
-    "split_cols_grain_10" => split_cols_grain_mul(10),
-    "split_cols_grain_50" => split_cols_grain_mul(50),
-    "split_cols_grain_100" => split_cols_grain_mul(100),
-    "split_cols_grain_300" => split_cols_grain_mul(300),
+    # "split_cols_grain_50" => split_cols_grain_mul(50),
     # "split_nonzeros_grain_500" => split_nonzeros_grain_mul(500),
 )
 
