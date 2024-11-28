@@ -2,8 +2,8 @@ using Finch
 using BenchmarkTools
 
 
-function atomic_element_mul(y, A, x)
-        _y = Tensor(Dense(AtomicElement(0.0)), y)
+function mutex_level_mul(y, A, x)
+        _y = Tensor(Dense(Mutex(Element(0.0))), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin

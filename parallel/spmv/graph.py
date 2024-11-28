@@ -13,7 +13,8 @@ NTHREADS = [i + 1 for i in range(12)]
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
-    "atomic_element",
+    "atomic_element_level",
+    "mutex_level",
     "split_cols",
     "split_cols_grain_50",
     "split_nonzeros",
@@ -26,7 +27,7 @@ DATASETS = [
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
 ]
 
-COLORS = ["gray", "cadetblue", "saddlebrown", "navy", "black", "orange", "green"]
+COLORS = ["gray", "cadetblue", "saddlebrown", "navy", "black", "orange", "green", "red"]
 
 
 def load_json():
