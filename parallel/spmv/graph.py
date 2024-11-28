@@ -20,6 +20,7 @@ METHODS = [
     "split_nonzeros",
     "split_nonzeros_grain_500",
     "split_rows",
+    "split_rows_grain_50",
 ]
 
 DATASETS = [
@@ -27,7 +28,17 @@ DATASETS = [
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
 ]
 
-COLORS = ["gray", "cadetblue", "saddlebrown", "navy", "black", "orange", "green", "red"]
+COLORS = [
+    "gray",
+    "cadetblue",
+    "saddlebrown",
+    "navy",
+    "black",
+    "orange",
+    "green",
+    "red",
+    "purple",
+]
 
 
 def load_json():
