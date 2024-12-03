@@ -33,12 +33,14 @@ $(SPARSE_BENCH): $(SPARSE_BENCH_CLONE)
 
 
 TACO_DIR = deps/taco
-EIGEN_DIR = deps/eigen-3.4.0
 TACO_CLONE = $(TACO_DIR)/.git
 TACO = deps/taco/build/lib/libtaco.*
 TACO_CXXFLAGS = $(CXXFLAGS) -I$(TACO_DIR)/include -I$(TACO_DIR)/src
-EIGEN_CXXFLAGS = $(CXXFLAGS) -I$(EIGEN_DIR)
 TACO_LDLIBS = $(LDLIBS) -L$(TACO_DIR)/build/lib -ltaco -ldl
+
+EIGEN_DIR = deps/eigen
+EIGEN_CLONE = $(EIGEN_DIR)/.git
+EIGEN_CXXFLAGS = $(CXXFLAGS) -I$(EIGEN_DIR)
 
 MKLROOT = deps/intel/mkl/2024.2
 MKL_CXXFLAGS = $(CXXFLAGS) -I$(MKLROOT)/include
@@ -54,6 +56,9 @@ $(TACO): $(TACO_CLONE)
 	cmake -DPYTHON=false -DCMAKE_BUILD_TYPE=Release .. ;\
 	make taco -j$(NPROC_VAL)
 
+$(EIGEN_CLONE): 
+	git submodule update --init $(EIGEN_DIR)
+
 clean:
 	rm -f $(SPMV) $(SPGEMM) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(SPMV_MKL) $(SPGEMM_MKL)
 	rm -rf *.o *.dSYM *.trace
@@ -61,8 +66,8 @@ clean:
 spgemm/spgemm_taco: $(SPARSE_BENCH) $(TACO) spgemm/spgemm_taco.cpp
 	$(CXX) $(TACO_CXXFLAGS) -o $@ spgemm/spgemm_taco.cpp $(TACO_LDLIBS)
 
-spgemm/spgemm_eigen: $(SPARSE_BENCH) spgemm/spgemm_eigen.cpp
-	$(CXX) $(EIGEN_CXXFLAGS) -o $@ spgemm/spgemm_eigen.cpp 
+spgemm/spgemm_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spgemm/spgemm_eigen.cpp
+	$(CXX) $(EIGEN_CXXFLAGS) -o $@ spgemm/spgemm_eigen.cpp
 
 spmv/spmv_taco: $(SPARSE_BENCH) $(TACO) spmv/spmv_taco.cpp
 	$(CXX) $(TACO_CXXFLAGS) -o $@ spmv/spmv_taco.cpp $(TACO_LDLIBS)
@@ -70,11 +75,13 @@ spmv/spmv_taco: $(SPARSE_BENCH) $(TACO) spmv/spmv_taco.cpp
 spmv/spmv_taco_row_maj: $(SPARSE_BENCH) $(TACO) spmv/spmv_taco_row_maj.cpp
 	$(CXX) $(TACO_CXXFLAGS) -o $@ spmv/spmv_taco_row_maj.cpp $(TACO_LDLIBS)
 
-spmv/spmv_eigen: $(SPARSE_BENCH) spmv/spmv_eigen.cpp
+spmv/spmv_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spmv/spmv_eigen.cpp
 	$(CXX) $(EIGEN_CXXFLAGS) -o $@ spmv/spmv_eigen.cpp
 
 spmv/spmv_mkl: $(SPARSE_BENCH) spmv/spmv_mkl.cpp
+	-. deps/intel/setvars.sh
 	$(CXX) $(MKL_CXXFLAGS) -o $@ spmv/spmv_mkl.cpp $(MKL_LDLIBS)
 
 spgemm/spgemm_mkl: $(SPARSE_BENCH) spgemm/spgemm_mkl.cpp
+	-. deps/intel/setvars.sh
 	$(CXX) $(MKL_CXXFLAGS) -o $@ spgemm/spgemm_mkl.cpp $(MKL_LDLIBS)
