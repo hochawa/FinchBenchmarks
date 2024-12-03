@@ -161,10 +161,10 @@ int main(int argc, char **argv) {
   descr.type = SPARSE_MATRIX_TYPE_GENERAL; 
 
 
+
   // Assemble output indices and numerically compute the result
   auto time = benchmark(
     [&x, &y, &descr]() {
-	mkl_sparse_d_mv(SPARSE_OPERATION_NON_TRANSPOSE, 1.0, A, descr, x, 0.0, y);
     },
     [&x, &y, &descr]() {
 	mkl_sparse_d_mv(SPARSE_OPERATION_NON_TRANSPOSE, 1.0, A, descr, x, 0.0, y);

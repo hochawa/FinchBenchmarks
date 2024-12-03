@@ -40,7 +40,7 @@ TACO_CXXFLAGS = $(CXXFLAGS) -I$(TACO_DIR)/include -I$(TACO_DIR)/src
 EIGEN_CXXFLAGS = $(CXXFLAGS) -I$(EIGEN_DIR)
 TACO_LDLIBS = $(LDLIBS) -L$(TACO_DIR)/build/lib -ltaco -ldl
 
-MKLROOT = /data/scratch/changwan/mkl/2024.2
+MKLROOT = deps/intel/mkl/2024.2
 MKL_CXXFLAGS = $(CXXFLAGS) -I$(MKLROOT)/include
 MKL_LDLIBS = $(LDLIBS) -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -liomp5
 
