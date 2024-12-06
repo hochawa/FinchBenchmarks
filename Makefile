@@ -79,9 +79,7 @@ spmv/spmv_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spmv/spmv_eigen.cpp
 	$(CXX) $(EIGEN_CXXFLAGS) -o $@ spmv/spmv_eigen.cpp
 
 spmv/spmv_mkl: $(SPARSE_BENCH) spmv/spmv_mkl.cpp
-	-. deps/intel/setvars.sh
-	$(CXX) $(MKL_CXXFLAGS) -o $@ spmv/spmv_mkl.cpp $(MKL_LDLIBS)
+	bash -c 'source deps/intel/setvars.sh; $(CXX) $(MKL_CXXFLAGS) -o $@ spmv/spmv_mkl.cpp $(MKL_LDLIBS)'
 
 spgemm/spgemm_mkl: $(SPARSE_BENCH) spgemm/spgemm_mkl.cpp
-	-. deps/intel/setvars.sh
-	$(CXX) $(MKL_CXXFLAGS) -o $@ spgemm/spgemm_mkl.cpp $(MKL_LDLIBS)
+	bash -c 'source deps/intel/setvars.sh; $(CXX) $(MKL_CXXFLAGS) -o $@ spgemm/spgemm_mkl.cpp $(MKL_LDLIBS)'

@@ -22,7 +22,7 @@ int n_rows_C, n_cols_C;
 int nA0 = 1, nB0 = 1;
 int nA1 = 2, nB1 = 2;
 
-#define SIZE (128)
+#define SIZE (1)
 sparse_matrix_t A[SIZE], B[SIZE], C[SIZE];
 sparse_matrix_t A0, B0;
 sparse_matrix_t A1, B1;
