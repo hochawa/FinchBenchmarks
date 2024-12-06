@@ -11,8 +11,8 @@ function spmv_mkl(y, A, x)
 	mklvars_path = joinpath(@__DIR__, "../deps/intel/setvars.sh")
 	spmv_path = joinpath(@__DIR__, "spmv_mkl")
 	withenv() do
-		cmd = "source $mklvars_path; $spmv_path -i $tmpdir -o $tmpdir"
-	  	run(`bash -c $cmd`)
+            cmd = "source $mklvars_path; $spmv_path -i $tmpdir -o $tmpdir"
+            run(`bash -c $cmd`)
 	end 
         y = fread(y_path)
         time = JSON.parsefile(joinpath(tmpdir, "measurements.json"))["time"]
