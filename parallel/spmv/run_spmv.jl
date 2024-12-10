@@ -55,6 +55,8 @@ include("split_nonzeros.jl")
 include("split_cols_grain.jl")
 include("split_nonzeros_grain.jl")
 include("split_rows.jl")
+include("split_rows_kernel.jl")
+include("split_rows_no_init.jl")
 include("split_rows_grain.jl")
 
 methods = OrderedDict(
@@ -66,7 +68,9 @@ methods = OrderedDict(
     "split_cols_grain_50" => split_cols_grain_mul(50),
     "split_nonzeros_grain_500" => split_nonzeros_grain_mul(500),
     "split_rows" => split_rows_mul,
-    "split_rows_grain_50" => split_rows_grain_mul(50)
+    "split_rows_grain_50" => split_rows_grain_mul(50),
+    "split_rows_kernel" => split_rows_mul_kernel,
+    "split_rows_no_init" => split_rows_mul_no_init,
 )
 
 if !isnothing(parsed_args["method"])
