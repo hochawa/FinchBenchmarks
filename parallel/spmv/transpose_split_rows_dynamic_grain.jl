@@ -36,18 +36,22 @@ function transpose_split_rows_dynamic_grain(grain_size::Int64, y::Tensor{DenseLe
         cap_size = div(tns_lvl.shape, grain_size) * grain_size
 
         Threads.@threads for group = 1:grain_size:cap_size
-            for i = group:group+grain_size-1
-                for q in tns_lvl_ptr[i]:tns_lvl_ptr[i+1]-1
-                    j = tns_lvl_idx[q]
-                    y_lvl_val[i] += tns_lvl_2_val[q] * x_lvl_val[j]
+            Finch.@barrier group grain_size tns_lvl_ptr tns_lvl_idx y_lvl_val tns_lvl_2_val x_lvl_val begin
+                for i = group:group+grain_size-1
+                    for q in tns_lvl_ptr[i]:tns_lvl_ptr[i+1]-1
+                        j = tns_lvl_idx[q]
+                        y_lvl_val[i] += tns_lvl_2_val[q] * x_lvl_val[j]
+                    end
                 end
             end
         end
 
         Threads.@threads for i = cap_size+1:tns_lvl.shape
-            for q in tns_lvl_ptr[i]:tns_lvl_ptr[i+1]-1
-                j = tns_lvl_idx[q]
-                y_lvl_val[i] += tns_lvl_2_val[q] * x_lvl_val[j]
+            Finch.@barrier tns_lvl_ptr tns_lvl_idx y_lvl_val tns_lvl_2_val x_lvl_val i begin
+                for q in tns_lvl_ptr[i]:tns_lvl_ptr[i+1]-1
+                    j = tns_lvl_idx[q]
+                    y_lvl_val[i] += tns_lvl_2_val[q] * x_lvl_val[j]
+                end
             end
         end
     end)
