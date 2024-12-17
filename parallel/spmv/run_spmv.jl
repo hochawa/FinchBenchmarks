@@ -34,7 +34,7 @@ s = ArgParseSettings("Run Parallel SpMV Experiments.")
     action = :store_true
     help = "check method accuracy"
 end
-    parsed_args = parse_args(ARGS, s)
+parsed_args = parse_args(ARGS, s)
 
 # Mapping from dataset types to datasets
 datasets = Dict(
@@ -59,17 +59,19 @@ include("split_cols_dynamic_grain_scratchspace.jl")
 include("split_nonzeros_dynamic_grain_scratchspace.jl")
 include("permute_split_rows_finch_parallel.jl")
 include("permute_split_rows_dynamic_grain.jl")
+include("spmv_taco.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
-    "split_rows_finch_parallel_atomics" =>split_rows_finch_parallel_atomics_mul,
-    "split_rows_finch_parallel_mutex" =>split_rows_finch_parallel_mutex_mul,
-    "split_cols_static_scratchspace" =>split_cols_static_scratchspace_mul,
-    "split_cols_dynamic_grain_50_scratchspace" =>split_cols_dynamic_grain_scratchspace_mul(50),
-    "split_nonzeros_static_scratchspace" =>split_nonzeros_static_scratchspace_mul,
-    "split_nonzeros_dynamic_grain_500_scratchspace" =>split_nonzeros_dynamic_grain_scratchspace_mul(500),
-    "permute_split_rows_finch_parallel" =>permute_split_rows_finch_parallel_mul,
-    "permute_split_rows_dynamic_grain_50" =>permute_split_rows_dynamic_grain_mul(50),
+    "split_rows_finch_parallel_atomics" => split_rows_finch_parallel_atomics_mul,
+    "split_rows_finch_parallel_mutex" => split_rows_finch_parallel_mutex_mul,
+    "split_cols_static_scratchspace" => split_cols_static_scratchspace_mul,
+    "split_cols_dynamic_grain_50_scratchspace" => split_cols_dynamic_grain_scratchspace_mul(50),
+    "split_nonzeros_static_scratchspace" => split_nonzeros_static_scratchspace_mul,
+    "split_nonzeros_dynamic_grain_500_scratchspace" => split_nonzeros_dynamic_grain_scratchspace_mul(500),
+    "permute_split_rows_finch_parallel" => permute_split_rows_finch_parallel_mul,
+    "permute_split_rows_dynamic_grain_50" => permute_split_rows_dynamic_grain_mul(50),
+    "spmv_taco" => spmv_taco,
 )
 
 if !isnothing(parsed_args["method"])
