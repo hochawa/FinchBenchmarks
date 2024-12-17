@@ -2,22 +2,18 @@ using Finch
 using BenchmarkTools
 using Base.Threads
 
-
-function split_cols_grain_mul(grain_size)
-        return (y, A, x) -> split_cols_grain_helper(grain_size, y, A, x)
-end
-function split_cols_grain_helper(grain_size, y, A, x)
+function split_nonzeros_static_scratchspace_mul(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
-                (grain_size, _y, _A, _x) = $(grain_size, _y, _A, _x)
-                split_cols_grain(grain_size, _y, _A, _x)
+                (_y, _A, _x) = $(_y, _A, _x)
+                split_nonzeros_static_scratchspace(_y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function split_cols_grain(grain_size::Int64, y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function split_nonzeros_static_scratchspace(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 y_lvl = y.lvl # DenseLevel
                 # y_lvl_2 = y_lvl.lvl # ElementLevel
@@ -41,25 +37,34 @@ function split_cols_grain(grain_size::Int64, y::Tensor{DenseLevel{Int64,ElementL
                 num_threads = Threads.nthreads()
                 y_temps = [zeros(Float64, y_lvl.shape) for _ in 1:num_threads]
 
-                cap_size = div(A_lvl.shape, grain_size) * grain_size
+                # Load Balancing
+                num_nz = A_lvl_ptr[A_lvl.shape+1] - 1
+                start_indices = [1 + div(k * num_nz, num_threads) for k in 0:num_threads]
+                start_cols = zeros(Int64, num_threads + 1)
 
-                Threads.@threads for group = 1:grain_size:cap_size
-                        y_temp = y_temps[Threads.threadid()]
-                        for j in group:group+grain_size-1
-                                for q in A_lvl_ptr[j]:A_lvl_ptr[j+1]-1
-                                        i = A_lvl_idx[q]
-                                        temp_val = A_lvl_2_val[q] * x_lvl_val[j]
-                                        y_temp[i] += temp_val
-                                end
+                col = 2
+                target_pos = 1
+                target_index = start_indices[target_pos]
+                while (col <= A_lvl.shape + 1 && target_pos <= num_threads)
+                        if (A_lvl_ptr[col] > target_index)
+                                start_cols[target_pos] = col - 1
+                                target_pos += 1
+                                target_index = start_indices[target_pos]
+                        else
+                                col += 1
                         end
                 end
+                start_cols[num_threads+1] = A_lvl.shape
 
-                Threads.@threads for j = cap_size+1:A_lvl.shape
-                        y_temp = y_temps[Threads.threadid()]
-                        for q in A_lvl_ptr[j]:A_lvl_ptr[j+1]-1
-                                i = A_lvl_idx[q]
-                                temp_val = A_lvl_2_val[q] * x_lvl_val[j]
-                                y_temp[i] += temp_val
+                Threads.@threads for k = 1:num_threads
+                        start_index = start_indices[k]
+                        end_index = start_indices[k+1] - 1
+                        for j = start_cols[k]:start_cols[k+1]
+                                for q in max(A_lvl_ptr[j], start_index):min(A_lvl_ptr[j+1] - 1, end_index)
+                                        i = A_lvl_idx[q]
+                                        temp_val = A_lvl_2_val[q] * x_lvl_val[j]
+                                        y_temps[k][i] += temp_val
+                                end
                         end
                 end
 

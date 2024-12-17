@@ -2,7 +2,7 @@ using Finch
 using BenchmarkTools
 
 
-function mutex_level_mul(y, A, x)
+function split_rows_finch_parallel_mutex_mul(y, A, x)
         _y = Tensor(Dense(Mutex(Element(0.0))), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)

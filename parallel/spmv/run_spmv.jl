@@ -15,6 +15,9 @@ using DataStructures
 using JSON
 using LinearAlgebra
 
+using ThreadPinning
+pinthreads(:cores)
+
 # Parsing Arguments
 s = ArgParseSettings("Run Parallel SpMV Experiments.")
 @add_arg_table! s begin
@@ -31,7 +34,7 @@ s = ArgParseSettings("Run Parallel SpMV Experiments.")
     action = :store_true
     help = "check method accuracy"
 end
-parsed_args = parse_args(ARGS, s)
+    parsed_args = parse_args(ARGS, s)
 
 # Mapping from dataset types to datasets
 datasets = Dict(
@@ -48,29 +51,25 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-include("atomic_element_level.jl")
-include("mutex_level.jl")
-include("split_cols.jl")
-include("split_nonzeros.jl")
-include("split_cols_grain.jl")
-include("split_nonzeros_grain.jl")
-include("split_rows.jl")
-include("split_rows_kernel.jl")
-include("split_rows_no_init.jl")
-include("split_rows_grain.jl")
+include("split_rows_finch_parallel_atomics.jl")
+include("split_rows_finch_parallel_mutex.jl")
+include("split_cols_static_scratchspace.jl")
+include("split_nonzeros_static_scratchspace.jl")
+include("split_cols_dynamic_grain_scratchspace.jl")
+include("split_nonzeros_dynamic_grain_scratchspace.jl")
+include("permute_split_rows_finch_parallel.jl")
+include("permute_split_rows_dynamic_grain.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
-    "atomic_element_level" => atomic_element_level_mul,
-    "mutex_level" => mutex_level_mul,
-    "split_cols" => split_cols_mul,
-    "split_nonzeros" => split_nonzeros_mul,
-    "split_cols_grain_50" => split_cols_grain_mul(50),
-    "split_nonzeros_grain_500" => split_nonzeros_grain_mul(500),
-    "split_rows" => split_rows_mul,
-    "split_rows_grain_50" => split_rows_grain_mul(50),
-    "split_rows_kernel" => split_rows_mul_kernel,
-    "split_rows_no_init" => split_rows_mul_no_init,
+    "split_rows_finch_parallel_atomics" =>split_rows_finch_parallel_atomics_mul,
+    "split_rows_finch_parallel_mutex" =>split_rows_finch_parallel_mutex_mul,
+    "split_cols_static_scratchspace" =>split_cols_static_scratchspace_mul,
+    "split_cols_dynamic_grain_50_scratchspace" =>split_cols_dynamic_grain_scratchspace_mul(50),
+    "split_nonzeros_static_scratchspace" =>split_nonzeros_static_scratchspace_mul,
+    "split_nonzeros_dynamic_grain_500_scratchspace" =>split_nonzeros_dynamic_grain_scratchspace_mul(500),
+    "permute_split_rows_finch_parallel" =>permute_split_rows_finch_parallel_mul,
+    "permute_split_rows_dynamic_grain_50" =>permute_split_rows_dynamic_grain_mul(50),
 )
 
 if !isnothing(parsed_args["method"])

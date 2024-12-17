@@ -3,18 +3,18 @@ using BenchmarkTools
 using Base.Threads
 
 
-function split_cols_mul(y, A, x)
+function split_cols_static_scratchspace_mul(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
                 (_y, _A, _x) = $(_y, _A, _x)
-                split_cols(_y, _A, _x)
+                split_cols_static_scratchspace(_y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function split_cols(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function split_cols_static_scratchspace(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 y_lvl = y.lvl # DenseLevel
                 # y_lvl_2 = y_lvl.lvl # ElementLevel
