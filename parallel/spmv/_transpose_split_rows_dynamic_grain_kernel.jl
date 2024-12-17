@@ -2,18 +2,18 @@ using Finch
 using BenchmarkTools
 
 
-function permute_split_rows_dynamic_grain_kernel_mul(y, A, x)
+function transpose_split_rows_dynamic_grain_kernel_mul(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = swizzle(Tensor(Dense(SparseList(Element(0.0))), permutedims(A)), 2, 1)
         _x = Tensor(Dense(Element(0.0)), x)
         time = @belapsed begin
                 (_y, _A, _x) = $(_y, _A, _x)
-                permute_split_rows_dynamic_grain_kernel(_y, _A, _x)
+                transpose_split_rows_dynamic_grain_kernel(_y, _A, _x)
         end
         return (; time=time, y=_y)
 end
 
-function permute_split_rows_dynamic_grain_kernel(_y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, _A::Finch.SwizzleArray{(2, 1),Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}, _x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function transpose_split_rows_dynamic_grain_kernel(_y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, _A::Finch.SwizzleArray{(2, 1),Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}, _x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
         @inbounds @fastmath(begin
                 _y_lvl = _y.lvl
                 _y_lvl_val = _y_lvl.lvl.val

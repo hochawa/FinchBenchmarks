@@ -16,7 +16,7 @@ using JSON
 using LinearAlgebra
 
 using ThreadPinning
-pinthreads(:cores)
+pinthreads(numa(1))
 
 # Parsing Arguments
 s = ArgParseSettings("Run Parallel SpMV Experiments.")
@@ -57,8 +57,8 @@ include("split_cols_static_scratchspace.jl")
 include("split_nonzeros_static_scratchspace.jl")
 include("split_cols_dynamic_grain_scratchspace.jl")
 include("split_nonzeros_dynamic_grain_scratchspace.jl")
-include("permute_split_rows_finch_parallel.jl")
-include("permute_split_rows_dynamic_grain.jl")
+include("transpose_split_rows_finch_parallel.jl")
+include("transpose_split_rows_dynamic_grain.jl")
 include("spmv_taco.jl")
 
 methods = OrderedDict(
@@ -69,8 +69,8 @@ methods = OrderedDict(
     "split_cols_dynamic_grain_50_scratchspace" => split_cols_dynamic_grain_scratchspace_mul(50),
     "split_nonzeros_static_scratchspace" => split_nonzeros_static_scratchspace_mul,
     "split_nonzeros_dynamic_grain_500_scratchspace" => split_nonzeros_dynamic_grain_scratchspace_mul(500),
-    "permute_split_rows_finch_parallel" => permute_split_rows_finch_parallel_mul,
-    "permute_split_rows_dynamic_grain_50" => permute_split_rows_dynamic_grain_mul(50),
+    "transpose_split_rows_finch_parallel" => transpose_split_rows_finch_parallel_mul,
+    "transpose_split_rows_dynamic_grain_50" => transpose_split_rows_dynamic_grain_mul(50),
     "spmv_taco" => spmv_taco,
 )
 
