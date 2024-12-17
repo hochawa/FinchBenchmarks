@@ -51,8 +51,8 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-include("split_rows_finch_parallel_atomics.jl")
-include("split_rows_finch_parallel_mutex.jl")
+include("split_cols_finch_parallel_atomics.jl")
+include("split_cols_finch_parallel_mutex.jl")
 include("split_cols_static_scratchspace.jl")
 include("split_nonzeros_static_scratchspace.jl")
 include("split_cols_dynamic_grain_scratchspace.jl")
@@ -63,8 +63,8 @@ include("spmv_taco.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
-    "split_rows_finch_parallel_atomics" => split_rows_finch_parallel_atomics_mul,
-    "split_rows_finch_parallel_mutex" => split_rows_finch_parallel_mutex_mul,
+    "split_cols_finch_parallel_atomics" => split_cols_finch_parallel_atomics_mul,
+    "split_cols_finch_parallel_mutex" => split_cols_finch_parallel_mutex_mul,
     "split_cols_static_scratchspace" => split_cols_static_scratchspace_mul,
     "split_cols_dynamic_grain_50_scratchspace" => split_cols_dynamic_grain_scratchspace_mul(50),
     "split_nonzeros_static_scratchspace" => split_nonzeros_static_scratchspace_mul,

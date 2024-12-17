@@ -2,7 +2,7 @@ using Finch
 using BenchmarkTools
 
 
-function split_rows_finch_parallel_atomics_mul(y, A, x)
+function split_cols_finch_parallel_atomics_mul(y, A, x)
         _y = Tensor(Dense(AtomicElement(0.0)), y)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         _x = Tensor(Dense(Element(0.0)), x)

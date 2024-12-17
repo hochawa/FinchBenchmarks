@@ -19,8 +19,8 @@ METHODS = [
     "split_cols_static_scratchspace",
     "split_nonzeros_dynamic_grain_500_scratchspace",
     "split_nonzeros_static_scratchspace",
-    "split_rows_finch_parallel_atomics",
-    "split_rows_finch_parallel_mutex",
+    "split_cols_finch_parallel_atomics",
+    "split_cols_finch_parallel_mutex",
 ]
 
 DATASETS = [
