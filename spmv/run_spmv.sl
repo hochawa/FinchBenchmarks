@@ -5,6 +5,7 @@
 #SBATCH --partition=lanka-v3
 #SBATCH --qos=commit-main
 #SBATCH --mem 102400
+#SBATCH --array=0-8%9
 
 cd /data/scratch/willow/FinchBenchmarks/spmv
 source /afs/csail.mit.edu/u/w/willow/everyone/.bashrc
@@ -16,5 +17,17 @@ echo $PATH
 echo $(pwd)
 export TMPDIR=/tmp
 
-# Use SLURM_ARRAY_TASK_ID for batch number (-b) and set the total number of batches (-B) to 20
-julia run_spmv.jl -o spmv_results_5.json
+datasets=(
+    "willow_symmetric"
+    "willow_unsymmetric"
+    "permutation"
+    "graph_symmetric"
+    "graph_unsymmetric"
+    "banded"
+    "triangle"
+    "taco_symmetric"
+    "taco_unsymmetric"
+)
+
+dataset=${datasets[$SLURM_ARRAY_TASK_ID]}
+julia run_spmv.jl -d $dataset -o spmv_results_${dataset}.json

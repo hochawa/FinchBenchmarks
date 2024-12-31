@@ -84,28 +84,10 @@ datasets = OrderedDict(
 
 include("synthetic.jl")
 include("spmv_finch.jl")
-include("spmv_finch_int8.jl")
-include("spmv_finch_pattern.jl")
-include("spmv_finch_pattern_unsym.jl")
-include("spmv_finch_pattern_unsym_row_maj.jl")
-include("spmv_finch_unsym.jl")
-include("spmv_finch_unsym_row_maj.jl")
-include("spmv_finch_vbl.jl")
-include("spmv_finch_vbl_int8.jl")
-include("spmv_finch_vbl_unsym.jl")
-include("spmv_finch_vbl_unsym_row_maj.jl")
-include("spmv_finch_band.jl")
-include("spmv_finch_band_unsym.jl")
-include("spmv_finch_band_unsym_row_maj.jl")
-include("spmv_finch_point.jl")
-include("spmv_finch_point_row_maj.jl")
-include("spmv_finch_point_pattern.jl")
-include("spmv_finch_point_pattern_row_maj.jl")
-include("spmv_julia.jl")
 include("spmv_taco.jl")
+include("spmv_julia.jl")
 include("spmv_eigen.jl")
 include("spmv_mkl.jl")
-include("spmv_taco_row_maj.jl")
 
 dataset_tags = OrderedDict(
     "vuduc_symmetric" => "symmetric",
@@ -131,10 +113,10 @@ methods = OrderedDict(
         "finch_vbl" => spmv_finch_vbl,
         "finch_vbl_unsym" => spmv_finch_vbl_unsym,
         "finch_vbl_unsym_row_maj" => spmv_finch_vbl_unsym_row_maj,
-        "taco" => spmv_taco,
+        "taco" => spmv_taco_col_maj,
         "taco_row_maj" => spmv_taco_row_maj,
         "eigen" => spmv_eigen,
-        "mkl" => spmv_mkl,
+        #"mkl" => spmv_mkl,
     ],
     "unsymmetric" => [
         "julia_stdlib" => spmv_julia,

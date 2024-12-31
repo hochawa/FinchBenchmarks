@@ -32,7 +32,3 @@ function upper_triangle_matrix(n)
     end
     return tri
 end
-
-function blocked_matrix(n, b)
-    return kron(sprand(n, n, 0.01), ones(b, b))
-end

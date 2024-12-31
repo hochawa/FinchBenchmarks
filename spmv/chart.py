@@ -44,42 +44,36 @@ vuduc_mtxs = [
 RESULTS_FILE_PATH = "spmv_results_lanka.json"
 CHARTS_DIRECTORY = "charts/"
 FORMAT_ORDER = {
-    "finch_sym": -1,
-    "finch_unsym": -2,
-    "finch_unsym_row_maj": -3,
-    "finch_vbl": -4,
-    "finch_vbl_unsym": -5,
-    "finch_vbl_unsym_row_maj": -6,
-    "finch_band": -7,
-    "finch_band_unsym": -8,
-    "finch_band_unsym_row_maj": -9,
-    "finch_pattern": -10,
-    "finch_pattern_unsym": -11,
-    "finch_pattern_unsym_row_maj": -12,
-    "finch_point": -13,
-    "finch_point_row_maj": -14,
-    "finch_point_pattern": -15,
-    "finch_point_pattern_row_maj": -16,
-    "finch_blocked": -17,
+    "finch_sym_sparselist": -1,
+    "finch_col_maj_sparselist": -2,
+    "finch_row_maj_sparselist": -3,
+    "finch_sparseblocklist_sym": -4,
+    "finch_sparseblocklist_col_maj_sparselist": -5,
+    "finch_sparseblocklist_row_maj_sparselist": -6,
+    "finch_sparseband_sym": -7,
+    "finch_sparseband_col_maj_sparselist": -8,
+    "finch_sparseband_row_maj_sparselist": -9,
+    "finch_sparselist_pattern_sym": -10,
+    "finch_sparselist_pattern_col_maj_sparselist": -11,
+    "finch_sparselist_pattern_row_maj_sparselist": -12,
+    "finch_sparsepoint_pattern_col_maj_sparselist": -13,
+    "finch_sparsepoint_pattern_row_maj_sparselist": -14,
 }
 FORMAT_LABELS = {
-    "finch_sym": "Symmetric SparseList",
-    "finch_unsym": "SparseList",
-    "finch_unsym_row_maj": "SparseList (Row-Major)",
-    "finch_vbl": "Symmetric SparseVBL",
-    "finch_vbl_unsym": "SparseVBL",
-    "finch_vbl_unsym_row_maj": "SparseVBL (Row-Major)",
-    "finch_band": "Symmetric SparseBand",
-    "finch_band_unsym": "SparseBand",
-    "finch_band_unsym_row_maj": "SparseBand (Row-Major)",
-    "finch_pattern": "Symmetric Pattern",
-    "finch_pattern_unsym": "Pattern",
-    "finch_pattern_unsym_row_maj": "Pattern (Row-Major)",
-    "finch_point": "SparsePoint",
-    "finch_point_row_maj": "SparsePoint (Row-Major)",
-    "finch_point_pattern": "SparsePoint Pattern",
-    "finch_point_pattern_row_maj": "SparsePoint Pattern (Row-Major)",
-    "finch_blocked": "4D-Blocked"
+    "finch_sym_sparselist": "Symmetric SparseList",
+    "finch_col_maj_sparselist": "SparseList",
+    "finch_row_maj_sparselist": "SparseList (Row-Major)",
+    "finch_sparseblocklist_sym": "Symmetric SparseVBL",
+    "finch_sparseblocklist_col_maj_sparselist": "SparseVBL",
+    "finch_sparseblocklist_row_maj_sparselist": "SparseVBL (Row-Major)",
+    "finch_sparseband_sym": "Symmetric SparseBand",
+    "finch_sparseband_col_maj_sparselist": "SparseBand",
+    "finch_sparseband_row_maj_sparselist": "SparseBand (Row-Major)",
+    "finch_sparselist_pattern_sym": "Symmetric Pattern",
+    "finch_sparselist_pattern_col_maj_sparselist": "Pattern",
+    "finch_sparselist_pattern_row_maj_sparselist": "Pattern (Row-Major)",
+    "finch_sparsepoint_pattern_col_maj_sparselist": "SparsePoint Pattern",
+    "finch_sparsepoint_pattern_row_maj_sparselist": "SparsePoint Pattern (Row-Major)",
 }
 
 def all_formats_chart(ordered_by_format=False):
@@ -92,7 +86,7 @@ def all_formats_chart(ordered_by_format=False):
         method = result["method"]
         time = result["time"]
 
-        if (method == "finch_unsym") or (method == "finch_unsym_row_maj"):
+        if (method == "finch_col_maj_sparselist") or (method == "finch_row_maj_sparselist"):
             # finch_baseline_time = data[mtx]["finch_baseline"]
             # data[mtx]["finch_baseline"] = time if finch_baseline_time == 0 else min(time, finch_baseline_time)
             #infinity in python is float('inf')
@@ -136,9 +130,9 @@ def all_formats_chart(ordered_by_format=False):
     labels = [FORMAT_LABELS[finch_formats[mtx]] for mtx, _ in ordered_data]
     short_mtxs = [mtx.rsplit('/',1)[-1] for mtx in ordered_mtxs]
     new_mtxs = {
-        "toeplitz_large_band": "large_band",
-        "toeplitz_medium_band": "medium_band",
-        "toeplitz_small_band": "small_band",
+        "toeplitz_large_sparseband_sym": "large_sparseband_sym",
+        "toeplitz_medium_sparseband_sym": "medium_sparseband_sym",
+        "toeplitz_small_sparseband_sym": "small_sparseband_sym",
         #"TSOPF_RS_b678_c1": "*RS_b678_c1",
     }
     short_mtxs = [new_mtxs.get(mtx, mtx) for mtx in short_mtxs]
@@ -272,18 +266,18 @@ def make_grouped_bar_chart(labels, x_axis, data, colors = None, labeled_groups =
 all_formats_chart()
 all_formats_chart(ordered_by_format=True)
 # method_to_ref_comparison_chart("finch", "taco", title="Finch SparseList Symmetric SpMV Performance")
-# method_to_ref_comparison_chart("finch_unsym", "taco", title="Finch SparseList SpMV Performance")
-# method_to_ref_comparison_chart("finch_unsym_row_maj", "taco", title="Finch SparseList Row Major SpMV Performance")
-# method_to_ref_comparison_chart("finch_vbl", "taco", title="Finch SparseVBL Symmetric SpMV Performance")
-# method_to_ref_comparison_chart("finch_vbl_unsym", "taco", title="Finch SparseVBL SpMV Performance")
-# method_to_ref_comparison_chart("finch_vbl_unsym_row_maj", "taco", title="Finch SparseVBL Row Major SpMV Performance")
-# method_to_ref_comparison_chart("finch_band", "taco", title="Finch SparseBand Symmetric SpMV Performance")
-# method_to_ref_comparison_chart("finch_band_unsym", "taco", title="Finch SparseBand SpMV Performance")
-# method_to_ref_comparison_chart("finch_band_unsym_row_maj", "taco", title="Finch SparseBand Row Major SpMV Performance")
-# method_to_ref_comparison_chart("finch_pattern", "taco", title="Finch SparseList Pattern Symmetric SpMV Performance")
-# method_to_ref_comparison_chart("finch_pattern_unsym", "taco", title="Finch SparseList Pattern SpMV Performance")
-# method_to_ref_comparison_chart("finch_pattern_unsym_row_maj", "taco", title="Finch SparseList Pattern Row Major SpMV Performance")
+# method_to_ref_comparison_chart("finch_col_maj_sparselist", "taco", title="Finch SparseList SpMV Performance")
+# method_to_ref_comparison_chart("finch_row_maj_sparselist", "taco", title="Finch SparseList Row Major SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparseblocklist_sym", "taco", title="Finch SparseVBL Symmetric SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparseblocklist_col_maj_sparselist", "taco", title="Finch SparseVBL SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparseblocklist_row_maj_sparselist", "taco", title="Finch SparseVBL Row Major SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparseband_sym", "taco", title="Finch SparseBand Symmetric SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparseband_col_maj_sparselist", "taco", title="Finch SparseBand SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparseband_row_maj_sparselist", "taco", title="Finch SparseBand Row Major SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparselist_pattern_sym", "taco", title="Finch SparseList Pattern Symmetric SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparselist_pattern_col_maj_sparselist", "taco", title="Finch SparseList Pattern SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparselist_pattern_row_maj_sparselist", "taco", title="Finch SparseList Pattern Row Major SpMV Performance")
 # method_to_ref_comparison_chart("finch_point", "taco", title="Finch SparsePoint SpMV Performance")
-# method_to_ref_comparison_chart("finch_point_row_maj", "taco", title="Finch SparsePoint Row Major SpMV Performance")
-# method_to_ref_comparison_chart("finch_point_pattern", "taco", title="Finch SparsePoint Pattern SpMV Performance")
-# method_to_ref_comparison_chart("finch_point_pattern_row_maj", "taco", title="Finch SparsePoint Pattern Row Major SpMV Performance")
+# method_to_ref_comparison_chart("finch_point_row_maj_sparselist", "taco", title="Finch SparsePoint Row Major SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparsepoint_pattern_col_maj_sparselist", "taco", title="Finch SparsePoint Pattern SpMV Performance")
+# method_to_ref_comparison_chart("finch_sparsepoint_pattern_row_maj_sparselist", "taco", title="Finch SparsePoint Pattern Row Major SpMV Performance")
