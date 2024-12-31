@@ -1,3 +1,6 @@
+using Finch
+using BenchmarkTools
+
 y = Tensor(Dense(Element(0.0)))
 x = Tensor(Dense(Element(0.0)))
 y_j = Scalar(0.0)
@@ -79,8 +82,8 @@ function spmv_finch(y, A, x)
 end
 
 
-using Finch
-using BenchmarkTools
+
+
 
 function ssymv_finch_kernel(y, A, x, d)
     y_j = Scalar(0.0)
@@ -112,8 +115,8 @@ function spmv_finch(y, A, x)
     time = @belapsed $y[] = ssymv_finch_kernel($_y, $_A, $_x, $_d)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function ssymv_finch_band_kernel(y, A, x, d)
     y_j = Scalar(0.0)
@@ -145,8 +148,8 @@ function spmv_finch_band(y, A, x)
     time = @belapsed $y[] = ssymv_finch_band_kernel($_y, $_A, $_x, $_d)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_band_kernel(y, A, x)
     spmv_finch_band_kernel_helper(y, A, x)
@@ -162,8 +165,8 @@ function spmv_finch_band_unsym(y, A, x)
     return (;time = time, y = y[])
 end
 
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_band_kernel_row_maj(y, A, x)
     spmv_finch_band_kernel_helper_row_maj(y, A, x)
@@ -220,8 +223,8 @@ function spmv_finch_pattern(y, A, x)
     time = @belapsed $y[] = ssymv_finch_pattern_kernel($_y, $A_pattern, $_x, $d_pattern)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_pattern_kernel(y, A, x)
     spmv_finch_pattern_kernel_helper(y, A, x)
@@ -240,8 +243,8 @@ function spmv_finch_pattern_unsym(y, A, x)
     time = @belapsed $y[] = spmv_finch_pattern_kernel($_y, $A, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_pattern_kernel_row_maj(y, A, x)
     spmv_finch_pattern_kernel_helper_row_maj(y, A, x)
@@ -266,8 +269,8 @@ function spmv_finch_pattern_unsym_row_maj(y, A, x)
     time = @belapsed $y[] = spmv_finch_pattern_kernel_row_maj($_y, $A_pattern, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_point_kernel(y, A, x)
     spmv_finch_point_kernel_helper(y, A, x)
@@ -282,8 +285,8 @@ function spmv_finch_point(y, A, x)
     time = @belapsed $y[] = spmv_finch_point_kernel($_y, $_A, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_point_pattern_kernel(y, A, x)
     spmv_finch_point_pattern_kernel_helper(y, A, x)
@@ -299,8 +302,8 @@ function spmv_finch_point_pattern(y, A, x)
     time = @belapsed $y[] = spmv_finch_point_pattern_kernel($_y, $A_pattern, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_point_pattern_kernel_row_maj(y, A, x)
     spmv_finch_point_pattern_kernel_helper_row_maj(y, A, x)
@@ -323,8 +326,8 @@ function spmv_finch_point_pattern_row_maj(y, A, x)
     time = @belapsed $y[] = spmv_finch_point_pattern_kernel_row_maj($_y, $A_pattern, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_point_kernel_row_maj(y, A, x)
     spmv_finch_point_kernel_helper_row_maj(y, A, x)
@@ -346,8 +349,8 @@ function spmv_finch_point_row_maj(y, A, x)
     time = @belapsed $y[] = spmv_finch_point_kernel_row_maj($_y, $_A, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_kernel(y, A, x)
     spmv_finch_kernel_helper(y, A, x)
@@ -362,8 +365,8 @@ function spmv_finch_unsym(y, A, x)
     time = @belapsed $y[] = spmv_finch_kernel($_y, $_A, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_kernel_row_maj(y, A, x)
     spmv_finch_kernel_helper_row_maj(y, A, x)
@@ -385,8 +388,8 @@ function spmv_finch_unsym_row_maj(y, A, x)
     time = @belapsed $y[] = spmv_finch_kernel_row_maj($_y, $_A, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function ssymv_finch_vbl_kernel(y, A, x, d)
     y_j = Scalar(0.0)
@@ -418,8 +421,8 @@ function spmv_finch_vbl(y, A, x)
     time = @belapsed $y[] = ssymv_finch_vbl_kernel($_y, $_A, $_x, $_d)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function ssymv_finch_vbl_int8_kernel(y, A, x, d)
     y_j = Scalar(0.0)
@@ -451,8 +454,8 @@ function spmv_finch_vbl_int8(y, A, x)
     time = @belapsed $y[] = ssymv_finch_vbl_kernel($_y, $_A, $_x, $_d)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 
 function ssymv_finch_vbl_pattern_kernel(y, A, x, d)
@@ -487,8 +490,8 @@ function spmv_finch_vbl_pattern(y, A, x)
     time = @belapsed $y[] = ssymv_finch_vbl_pattern_kernel($_y, $A_pattern, $_x, $d_pattern)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_vbl_kernel(y, A, x)
     spmv_finch_vbl_kernel_helper(y, A, x)
@@ -503,8 +506,8 @@ function spmv_finch_vbl_unsym(y, A, x)
     time = @belapsed $y[] = spmv_finch_vbl_kernel($_y, $_A, $_x)
     return (;time = time, y = y[])
 end
-using Finch
-using BenchmarkTools
+
+
 
 function spmv_finch_vbl_kernel_row_maj(y, A, x)
     spmv_finch_vbl_kernel_helper_row_maj(y, A, x)
