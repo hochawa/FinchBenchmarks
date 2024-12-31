@@ -1,7 +1,7 @@
 CC = gcc
 CXX = g++
 LD = ld
-CXXFLAGS += -std=c++17
+CXXFLAGS += -std=c++17 -O3 -march=native
 LDLIBS +=
 
 ifeq ("$(shell uname)","Darwin")
@@ -44,7 +44,7 @@ EIGEN_CXXFLAGS = $(CXXFLAGS) -I$(EIGEN_DIR)
 
 MKLROOT = deps/intel/mkl/2024.2
 MKL_CXXFLAGS = $(CXXFLAGS) -I$(MKLROOT)/include
-MKL_LDLIBS = $(LDLIBS) -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lpthread -lm -liomp5
+MKL_LDLIBS = $(LDLIBS) -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential#-lmkl_intel_thread -lpthread -lm -liomp5
 
 $(TACO_CLONE): 
 	git submodule update --init $(TACO_DIR)

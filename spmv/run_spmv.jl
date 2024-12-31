@@ -32,7 +32,6 @@ end
 parsed_args = parse_args(ARGS, s)
 
 datasets = OrderedDict(
-    #=
     "vuduc_symmetric" => [
         "Boeing/ct20stif",
         "Simon/olafu",
@@ -71,8 +70,6 @@ datasets = OrderedDict(
         "Shyy/shyy161",
         "Wang/wang3",
     ],
-    =#
-
     "willow_symmetric" => [
         "GHS_indef/exdata_1",
         #"Janna/Emilia_923",#iffy
@@ -87,9 +84,9 @@ datasets = OrderedDict(
         "Rajat/rajat26", 
         "TSOPF/TSOPF_RS_b678_c1" 
     ],
-    #"permutation" => [
-    #    "permutation_synthetic"
-    #], 
+    "permutation" => [
+        "permutation_synthetic"
+    ], 
     "graph_symmetric" => [
         "SNAP/com-DBLP",
         "SNAP/email-Enron",
@@ -98,24 +95,6 @@ datasets = OrderedDict(
     "graph_unsymmetric" => [
         "SNAP/soc-Epinions1",
     ],
-    #"old_graph_symmetric" => [
-        #"SNAP/email-Enron", 
-        #"SNAP/as-735",
-        #"SNAP/Oregon-1",
-        #"Newman/as-22july06",
-        #"SNAP/loc-Brightkite",
-        #"SNAP/as-Skitter"
-    #],
-    #"old_graph_unsymmetric" => [
-        #"SNAP/soc-Epinions1",
-        #"SNAP/wiki-Vote",
-        #"SNAP/email-EuAll",
-        #"SNAP/cit-HepPh",
-        #"SNAP/web-NotreDame",
-        #"SNAP/amazon0302",
-        #"SNAP/p2p-Gnutella08",
-        #"SNAP/email-Eu-core",
-    #],
     "banded" => [
         "toeplitz_small_band",
         "toeplitz_medium_band",
@@ -137,11 +116,8 @@ datasets = OrderedDict(
         "Bova/rma10",
         "Williams/mac_econ_fwd500",
         "Williams/webbase-1M",#iffy
-        #"Hamm/scircuit",#dupe
+        #"Hamm/scircuit",#duplicate
     ],
-#     "blocked" => [
-#         "blocked_10x10"
-#     ]
 )
 
 include("synthetic.jl")
@@ -164,13 +140,11 @@ include("spmv_finch_point.jl")
 include("spmv_finch_point_row_maj.jl")
 include("spmv_finch_point_pattern.jl")
 include("spmv_finch_point_pattern_row_maj.jl")
-include("spmv_finch_blocked.jl")
 include("spmv_julia.jl")
 include("spmv_taco.jl")
 include("spmv_eigen.jl")
 include("spmv_mkl.jl")
 include("spmv_taco_row_maj.jl")
-include("spmv_suite_sparse.jl")
 
 dataset_tags = OrderedDict(
     "vuduc_symmetric" => "symmetric",
@@ -185,7 +159,6 @@ dataset_tags = OrderedDict(
     "graph_unsymmetric" => "unsymmetric_pattern",
     "taco_symmetric" => "symmetric",
     "taco_unsymmetric" => "unsymmetric",
-    "blocked" => "blocked",
 )
 
 methods = OrderedDict(
@@ -201,7 +174,6 @@ methods = OrderedDict(
         "taco_row_maj" => spmv_taco_row_maj,
         "eigen" => spmv_eigen,
         "mkl" => spmv_mkl,
-        #"suite_sparse" => spmv_suite_sparse,
     ],
     "unsymmetric" => [
         "julia_stdlib" => spmv_julia,
@@ -213,7 +185,6 @@ methods = OrderedDict(
         "taco_row_maj" => spmv_taco_row_maj,
         "eigen" => spmv_eigen,
         "mkl" => spmv_mkl,
-        #"suite_sparse" => spmv_suite_sparse,  
     ],
     "symmetric_pattern" => [
         "julia_stdlib" => spmv_julia,
@@ -230,7 +201,6 @@ methods = OrderedDict(
         "taco_row_maj" => spmv_taco_row_maj,
         "eigen" => spmv_eigen,
         "mkl" => spmv_mkl,
-        # "suite_sparse" => spmv_suite_sparse,
     ],
     "unsymmetric_pattern" => [
         "julia_stdlib" => spmv_julia,
@@ -244,20 +214,19 @@ methods = OrderedDict(
         "taco_row_maj" => spmv_taco_row_maj,
         "eigen" => spmv_eigen,
         "mkl" => spmv_mkl,
-        #"suite_sparse" => spmv_suite_sparse,
     ],
     "permutation" => [
-        #"julia_stdlib" => spmv_julia,
-        #"finch_unsym" => spmv_finch_unsym,
-        #"finch_point" => spmv_finch_point,
-        #"finch_point_row_maj" => spmv_finch_point_row_maj,
-        #"finch_point_pattern" => spmv_finch_point_pattern,
-        #"finch_point_pattern_row_maj" => spmv_finch_point_pattern_row_maj,
-        #"taco" => spmv_taco,
-        #"taco_row_maj" => spmv_taco_row_maj,
-        #"eigen" => spmv_eigen,
-        #"mkl" => spmv_mkl,
-        #"suite_sparse" => spmv_suite_sparse,
+        "julia_stdlib" => spmv_julia,
+        "finch_unsym" => spmv_finch_unsym,
+        "finch_unsym_row_maj" => spmv_finch_unsym_row_maj,
+        "finch_pattern_unsym" => spmv_finch_unsym,
+        "finch_pattern_unsym_row_maj" => spmv_finch_unsym_row_maj,
+	"finch_point_pattern" => spmv_finch_point_pattern,
+	"finch_point_pattern_row_maj" => spmv_finch_point_pattern_row_maj,
+        "taco" => spmv_taco,
+        "taco_row_maj" => spmv_taco_row_maj,
+        "eigen" => spmv_eigen,
+        "mkl" => spmv_mkl,
     ],
     "banded" => [
         "julia_stdlib" => spmv_julia,
@@ -269,18 +238,6 @@ methods = OrderedDict(
         "taco_row_maj" => spmv_taco_row_maj,
         "eigen" => spmv_eigen,
         "mkl" => spmv_mkl,
-        #"suite_sparse" => spmv_suite_sparse,
-    ],
-    "blocked" => [
-        # "julia_stdlib" => spmv_julia,
-        # "finch_unsym" => spmv_finch_unsym,
-        # "finch_vbl_unsym" => spmv_finch_vbl_unsym,
-        # "finch_blocked" => spmv_finch_blocked,  
-        # "taco" => spmv_taco,
-        # "taco_row_maj" => spmv_taco_row_maj,
-        # "suite_sparse" => spmv_suite_sparse, 
-        # "eigen" => spmv_eigen,
-        # "mkl" => spmv_mkl,
     ],
 )
 
@@ -305,8 +262,6 @@ for (dataset, mtxs) in datasets
             elseif mtx == "toeplitz_large_band"
                 A = SparseMatrixCSC(banded_matrix(10000, 100))
             end
-        elseif dataset == "blocked"
-            A = SparseMatrixCSC(blocked_matrix(10000, 10))
         elseif dataset == "triangle"
             if mtx == "upper_triangle"
                 A = SparseMatrixCSC(upper_triangle_matrix(1024))
