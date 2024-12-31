@@ -18,6 +18,7 @@ function bellmanford_finch_kernel(edges, source=1)
     active_prev[source] = true
     active = Tensor(SparseByteMap(Pattern()), n)
     parents = Tensor(Dense(Element(0)), n)
+    any_active = Scalar(false)
 
     for iter = 1:n  
         @finch for j=_; if active_prev[j] dists[j] <<min>>= dists_prev[j] end end
@@ -36,7 +37,16 @@ function bellmanford_finch_kernel(edges, source=1)
             end
         end
 
-        if countstored(active) == 0
+        iter_max = iter
+
+
+        @finch begin
+            any_active .= false
+            for i = _
+                any_active[] |= active[i]
+            end
+        end
+        if !any_active[]
             break
         end
         dists_prev, dists = dists, dists_prev
