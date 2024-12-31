@@ -10,7 +10,6 @@ for (A, diag) in [
     (Tensor(Dense(SparseList(Pattern()))), Tensor(Dense(Element(false)))),
     (Tensor(Dense(SparseVBLLevel(Element(0.0)))), Tensor(Dense(Element(0.0)))),
     (Tensor(Dense(SparseBand(Element(0.0)))), Tensor(Dense(Element(0.0)))),
-    (Tensor(Dense(SparsePoint(Element(0.0)))), Tensor(Dense(Element(0.0)))),
     (Tensor(Dense(SparsePoint(Pattern()))), Tensor(Dense(Element(false))))
 ]
     eval(@finch_kernel mode=:fast function spmv_finch_sym_kernel(y, A, x, diag, y_j)
@@ -48,7 +47,7 @@ for (A, diag) in [
 end
 
 
-function spmv_finch_sym_sparselist(y, A, x) 
+function spmv_finch_sym_SparseList(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparseList(Element(0.0))), A)
     _d = Tensor(Dense(Element(0.0)))
@@ -72,7 +71,7 @@ function spmv_finch_sym_sparselist(y, A, x)
     return (;time = time, y = y[])
 end
 
-function spmv_finch_col_maj_sparselist(y, A, x) 
+function spmv_finch_col_maj_SparseList(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparseList(Element(0.0))), A)
     _x = Tensor(Dense(Element(0.0)), x)
@@ -81,7 +80,7 @@ function spmv_finch_col_maj_sparselist(y, A, x)
     return (;time = time, y = y[])
 end
 
-function spmv_finch_row_maj_sparselist(y, A, x) 
+function spmv_finch_row_maj_SparseList(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparseList(Element(0.0))), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
@@ -90,12 +89,13 @@ function spmv_finch_row_maj_sparselist(y, A, x)
     return (;time = time, y = y[])
 end
 
-
-#=
-function spmv_finch_band(y, A, x) 
+function spmv_finch_sym_SparseBand(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparseBand(Element(0.0))), A)
     _d = Tensor(Dense(Element(0.0)))
+    _y_j = Scalar(0.0)
+    _x = Tensor(Dense(Element(0.0)), x)
+
     @finch mode=:fast begin
         _A .= 0
         _d .= 0
@@ -108,66 +108,37 @@ function spmv_finch_band(y, A, x)
             end
         end
     end
-    # @info "pruning" nnz(A) nnz(_A)
-    @info "memory footprint" Base.summarysize(_A)
-    
-    _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_sym_band_kernel($_y, $_A, $_x, $_d)
+    time = @belapsed $y[] = spmv_finch_sym_kernel($_y, $_A, $_x, $_d, $y_j).y
     return (;time = time, y = y[])
 end
 
-
-
-function spmv_finch_band_kernel(y, A, x)
-    spmv_finch_band_kernel_helper(y, A, x)
-    y
-end
-
-function spmv_finch_band_unsym(y, A, x) 
+function spmv_finch_col_maj_SparseBand(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparseBand(Element(0.0))), A)
     _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_band_kernel($_y, $_A, $_x)
+    time = @belapsed $y[] = spmv_finch_col_maj_kernel($_y, $_A, $_x).y
     return (;time = time, y = y[])
 end
 
-
-
-
-function spmv_finch_band_kernel_row_maj(y, A, x)
-    spmv_finch_band_kernel_helper_row_maj(y, A, x)
-    y
-end
-
-function spmv_finch_band_unsym_row_maj(y, A, x) 
+function spmv_finch_row_maj_SparseBand(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseBand(Element(0.0))))
-    @finch mode=:fast begin
-        _A .= 0
-        for j=_, i=_
-            _A[i, j] = A[j, i]
-        end
-    end
-
+    _A = Tensor(Dense(SparseBand(Element(0.0))), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_band_kernel_row_maj($_y, $_A, $_x)
+    time = @belapsed $y[] = spmv_finch_row_maj_kernel($_y, $_A, $_x).y
     return (;time = time, y = y[])
 end
 
-
-function spmv_finch_sym_pattern_kernel(y, A, x, d)
-    y_j = Scalar(0.0)
-    spmv_finch_sym_pattern_kernel_helper(y, A, x, d, y_j)
-    y
-end
-
-function spmv_finch_pattern(y, A, x) 
+function spmv_finch_sym_SparseListPattern(y, A, x) 
+    A = pattern!(A)
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseList(Element(0.0))))
-    _d = Tensor(Dense(Element(0.0)))
+    _A = Tensor(Dense(SparseList(Pattern())), A)
+    _d = Tensor(Dense(Element(false)))
+    _y_j = Scalar(0.0)
+    _x = Tensor(Dense(Element(0.0)), x)
+
     @finch mode=:fast begin
         _A .= 0
         _d .= 0
@@ -180,153 +151,58 @@ function spmv_finch_pattern(y, A, x)
             end
         end
     end
-
-    A_pattern = pattern!(_A)
-    d_pattern = pattern!(_d)
-    # @info "pruning" nnz(A) nnz(_A)
-    @info "memory footprint" Base.summarysize(A_pattern)
-    
-    _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_sym_pattern_kernel($_y, $A_pattern, $_x, $d_pattern)
+    time = @belapsed $y[] = spmv_finch_sym_kernel($_y, $_A, $_x, $_d, $y_j).y
     return (;time = time, y = y[])
 end
 
-
-
-function spmv_finch_pattern_kernel(y, A, x)
-    spmv_finch_pattern_kernel_helper(y, A, x)
-    y
-end
-
-function spmv_finch_pattern_unsym(y, A, x) 
+function spmv_finch_col_maj_SparseListPattern(y, A, x) 
+    A = pattern!(A)
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseList(Element(0.0))), A)
-    A = pattern!(_A)
-    # @info "pruning" nnz(A) nnz(_A)
-    @info "memory footprint" Base.summarysize(A)
-    
+    _A = Tensor(Dense(SparseList(Pattern())), A)
     _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_pattern_kernel($_y, $A, $_x)
+    time = @belapsed $y[] = spmv_finch_col_maj_kernel($_y, $_A, $_x).y
     return (;time = time, y = y[])
 end
 
-
-
-function spmv_finch_pattern_kernel_row_maj(y, A, x)
-    spmv_finch_pattern_kernel_helper_row_maj(y, A, x)
-    y
-end
-
-function spmv_finch_pattern_unsym_row_maj(y, A, x) 
+function spmv_finch_row_maj_SparseListPattern(y, A, x) 
+    A = pattern!(A)
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseList(Element(0.0))))
-    @finch mode=:fast begin
-        _A .= 0
-        for j=_, i=_
-            _A[i, j] = A[j, i]
-        end
-    end
-    A_pattern = pattern!(_A)
-    # @info "pruning" nnz(A) nnz(_A)
-    @info "memory footprint" Base.summarysize(A)
-    
+    _A = Tensor(Dense(SparseList(Pattern())), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_pattern_kernel_row_maj($_y, $A_pattern, $_x)
+    time = @belapsed $y[] = spmv_finch_row_maj_kernel($_y, $_A, $_x).y
     return (;time = time, y = y[])
 end
 
-
-
-function spmv_finch_point_kernel(y, A, x)
-    spmv_finch_point_kernel_helper(y, A, x)
-    y
-end
-
-function spmv_finch_point(y, A, x) 
+function spmv_finch_col_maj_SparsePointPattern(y, A, x) 
+    A = pattern!(A)
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparsePoint(Element(0.0))), A)
+    _A = Tensor(Dense(SparsePoint(Pattern())), A)
     _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_point_kernel($_y, $_A, $_x)
+    time = @belapsed $y[] = spmv_finch_col_maj_kernel($_y, $_A, $_x).y
     return (;time = time, y = y[])
 end
 
-
-
-function spmv_finch_point_pattern_kernel(y, A, x)
-    spmv_finch_point_pattern_kernel_helper(y, A, x)
-    y
-end
-
-function spmv_finch_point_pattern(y, A, x) 
+function spmv_finch_row_maj_SparsePointPattern(y, A, x) 
+    A = pattern!(A)
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparsePoint(Element(0.0))), A)
-    A_pattern = pattern!(_A)
+    _A = Tensor(Dense(SparsePoint(Pattern())), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_point_pattern_kernel($_y, $A_pattern, $_x)
+    time = @belapsed $y[] = spmv_finch_row_maj_kernel($_y, $_A, $_x).y
     return (;time = time, y = y[])
 end
 
-
-
-function spmv_finch_point_pattern_kernel_row_maj(y, A, x)
-    spmv_finch_point_pattern_kernel_helper_row_maj(y, A, x)
-    y
-end
-
-function spmv_finch_point_pattern_row_maj(y, A, x) 
+function spmv_finch_sym_SparseBlockList(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparsePoint(Element(0.0))), A)
-    @finch mode=:fast begin
-        _A .= 0
-        for j=_, i=_
-            _A[i, j] = A[j, i]
-        end
-    end
-    
-    A_pattern = pattern!(_A)
-    _x = Tensor(Dense(Element(0.0)), x)
-    y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_point_pattern_kernel_row_maj($_y, $A_pattern, $_x)
-    return (;time = time, y = y[])
-end
-
-
-
-function spmv_finch_point_kernel_row_maj(y, A, x)
-    spmv_finch_point_kernel_helper_row_maj(y, A, x)
-    y
-end
-
-function spmv_finch_point_row_maj(y, A, x) 
-    _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparsePoint(Element(0.0))))
-    @finch mode=:fast begin
-        _A .= 0
-        for j=_, i=_
-            _A[i, j] = A[j, i]
-        end
-    end
-    
-    _x = Tensor(Dense(Element(0.0)), x)
-    y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_point_kernel_row_maj($_y, $_A, $_x)
-    return (;time = time, y = y[])
-end
-
-
-
-
-
-
-function spmv_finch_vbl(y, A, x) 
-    _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseVBLLevel(Element(0.0))), A)
+    _A = Tensor(Dense(SparseBlockList(Element(0.0))), A)
     _d = Tensor(Dense(Element(0.0)))
+    _y_j = Scalar(0.0)
+    _x = Tensor(Dense(Element(0.0)), x)
+
     @finch mode=:fast begin
         _A .= 0
         _d .= 0
@@ -339,93 +215,25 @@ function spmv_finch_vbl(y, A, x)
             end
         end
     end
-    # @info "pruning" nnz(A) nnz(_A)
-    @info "memory footprint" Base.summarysize(_A)
-    
-    _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_sym_vbl_kernel($_y, $_A, $_x, $_d)
+    time = @belapsed $y[] = spmv_finch_sym_kernel($_y, $_A, $_x, $_d, $y_j).y
     return (;time = time, y = y[])
 end
 
-
-function spmv_finch_vbl_int8(y, A, x) 
+function spmv_finch_col_maj_SparseBlockList(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseVBLLevel(Element(Int8(0)))), A)
-    _d = Tensor(Dense(Element(Int8(0))))
-    @finch mode=:fast begin
-        _A .= Int8(0)
-        _d .= Int8(0)
-        for j = _, i = _
-            if i < j
-                _A[i, j] = A[i, j]
-            end
-            if i == j
-                _d[i] = A[i, j]
-            end
-        end
-    end
-    # @info "pruning" nnz(A) nnz(_A)
-    @info "memory footprint" Base.summarysize(_A)
-    
+    _A = Tensor(Dense(SparseBlockList(Element(0.0))), A)
     _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_sym_vbl_kernel($_y, $_A, $_x, $_d)
+    time = @belapsed $y[] = spmv_finch_col_maj_kernel($_y, $_A, $_x).y
     return (;time = time, y = y[])
 end
 
-
-
-function spmv_finch_vbl_pattern(y, A, x) 
+function spmv_finch_row_maj_SparseBlockList(y, A, x) 
     _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseVBLLevel(Element(0.0))), A)
-    _d = Tensor(Dense(Element(0.0)))
-    @finch mode=:fast begin
-        _A .= 0
-        _d .= 0
-        for j = _, i = _
-            if i < j
-                _A[i, j] = A[i, j]
-            end
-            if i == j
-                _d[i] = A[i, j]
-            end
-        end
-    end
-    # @info "pruning" nnz(A) nnz(_A)
-    @info "memory footprint" Base.summarysize(_A)
-    
-    A_pattern = pattern!(_A)
-    d_pattern = pattern!(_d)
+    _A = Tensor(Dense(SparseBlockList(Element(0.0))), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
     y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_sym_vbl_pattern_kernel($_y, $A_pattern, $_x, $d_pattern)
+    time = @belapsed $y[] = spmv_finch_row_maj_kernel($_y, $_A, $_x).y
     return (;time = time, y = y[])
 end
-
-
-function spmv_finch_vbl_unsym(y, A, x) 
-    _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseVBLLevel(Element(0.0))), A)
-    _x = Tensor(Dense(Element(0.0)), x)
-    y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_vbl_kernel($_y, $_A, $_x)
-    return (;time = time, y = y[])
-end
-
-function spmv_finch_vbl_unsym_row_maj(y, A, x) 
-    _y = Tensor(Dense(Element(0.0)), y)
-    _A = Tensor(Dense(SparseVBLLevel(Element(0.0))))
-    @finch mode=:fast begin
-        _A .= 0
-        for j=_, i=_
-            _A[i, j] = A[j, i]
-        end
-    end
-    
-    _x = Tensor(Dense(Element(0.0)), x)
-    y = Ref{Any}()
-    time = @belapsed $y[] = spmv_finch_vbl_kernel_row_maj($_y, $_A, $_x)
-    return (;time = time, y = y[])
-end
-=#
