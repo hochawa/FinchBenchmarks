@@ -2,8 +2,7 @@ using Finch
 using TensorMarket
 using JSON
 function spmv_eigen(y, A, x)
-    #mktempdir(prefix="input_") do tmpdir
-    let tmpdir="."
+    mktempdir(prefix="experiment_") do tmpdir
         A_path = joinpath(tmpdir, "A.ttx")
         x_path = joinpath(tmpdir, "x.ttx")
         y_path = joinpath(tmpdir, "y.ttx")

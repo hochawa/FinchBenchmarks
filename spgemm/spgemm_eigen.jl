@@ -2,7 +2,7 @@ using Finch
 using TensorMarket
 using JSON
 function spgemm_eigen(A, B)
-    tmpdir = mktempdir(@__DIR__, prefix="tmp_")
+    tmpdir = mktempdir(@__DIR__, prefix="experiment_")
     A_path = joinpath(tmpdir, "A.ttx")
     B_path = joinpath(tmpdir, "B.ttx")
     C_path = joinpath(tmpdir, "C.ttx")
