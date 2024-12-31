@@ -4,153 +4,59 @@
 #include <cstdint>
 #include <mkl.h>
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
+#include <Eigen/Sparse>
+#include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 
-struct EdgeList {
-    MKL_INT src, dst;
-    double val;
-};
+int main(int argc, char **argv) {
+    mkl_set_num_threads(1);
 
-int n_rows_A;
-sparse_matrix_t A;
+    auto params = parse(argc, argv);
 
-double *loadXd(FILE *fp) {
-    char buf[1024];
-    int n;
+    FILE *fpA = fopen((params.input + "/A.ttx").c_str(), "r");
+    FILE *fpX = fopen((params.input + "/x.ttx").c_str(), "r");
 
-    while (fgets(buf, sizeof(buf), fp)) {
-        if (buf[0] != '%') {
-            break;
-        }
-    }
-    sscanf(buf, "%d", &n);
-    double *x = (double *)malloc(sizeof(double) * n);
+    Eigen::SparseMatrix<double> eigen_A;
+    Eigen::VectorXd eigen_x;
+    Eigen::VectorXd eigen_y;
 
-    for (int i = 0; i < n; i++) {
-        int idx;
-        double val;
-        fscanf(fp, "%d %lf", &idx, &val);
-        x[idx - 1] = val;
-    }
-    return x;
-}
+    Eigen::loadMarket(eigen_A, fpA);
+    Eigen::loadMarket(eigen_x, fpX);
+    fclose(fpA);
+    fclose(fpX);
 
-void loadTTX(FILE *fp) {
-    char buf[1024];
-    int nflag, sflag;
-    int pre_count = 0;
-    long i;
-    int32_t nr, nc, ne;
+    // Convert Eigen matrix A to MKL format using Eigen's internal data
+    const int* outerIndexPtr = eigen_A.outerIndexPtr();
+    const int* innerIndexPtr = eigen_A.innerIndexPtr();
+    const double* valuePtr = eigen_A.valuePtr();
 
-    fgets(buf, 1024, fp);
-    if (strstr(buf, "symmetric") != NULL || strstr(buf, "Hermitian") != NULL) sflag = 1;
-    else sflag = 0;
-    if (strstr(buf, "pattern") != NULL) nflag = 0;
-    else if (strstr(buf, "complex") != NULL) nflag = -1;
-    else nflag = 1;
+    MKL_INT *csr_row_pointer = (MKL_INT *)mkl_malloc((eigen_A.rows() + 1) * sizeof(MKL_INT), 64);
+    MKL_INT *csr_columns = (MKL_INT *)mkl_malloc(eigen_A.nonZeros() * sizeof(MKL_INT), 64);
+    double *csr_values = (double *)mkl_malloc(eigen_A.nonZeros() * sizeof(double), 64);
 
-    while (1) {
-        pre_count++;
-        fgets(buf, 1024, fp);
-        if (strstr(buf, "%") == NULL) break;
+    for (int i = 0; i <= eigen_A.rows(); ++i) {
+        csr_row_pointer[i] = outerIndexPtr[i];
     }
 
-    sscanf(buf, "%d %d %d", &nr, &nc, &ne);
-    n_rows_A = nr;
-    ne *= (sflag + 1);
-
-    EdgeList *inputEdge = (EdgeList *)malloc(sizeof(EdgeList) * (ne + 1));
-
-    for (i = 0; i < ne; i++) {
-        fscanf(fp, "%d %d", &inputEdge[i].src, &inputEdge[i].dst);
-        inputEdge[i].src--;
-        inputEdge[i].dst--;
-
-        if (inputEdge[i].src < 0 || inputEdge[i].src >= nr || inputEdge[i].dst < 0 || inputEdge[i].dst >= nc) {
-            fprintf(stdout, "A vertex id is out of range %d %d\n", inputEdge[i].src, inputEdge[i].dst);
-            exit(0);
-        }
-
-        if (nflag == 1) {
-            double ftemp;
-            fscanf(fp, " %lf ", &ftemp);
-            inputEdge[i].val = ftemp;
-        } else if (nflag == -1) {
-            double ftemp1, ftemp2;
-            fscanf(fp, " %lf %lf ", &ftemp1, &ftemp2);
-            inputEdge[i].val = ftemp1;
-        }
-
-        if (sflag == 1) {
-            i++;
-            inputEdge[i].src = inputEdge[i - 1].dst;
-            inputEdge[i].dst = inputEdge[i - 1].src;
-            inputEdge[i].val = inputEdge[i - 1].val;
-        }
+    for (int i = 0; i < eigen_A.nonZeros(); ++i) {
+        csr_columns[i] = innerIndexPtr[i];
+        csr_values[i] = valuePtr[i];
     }
 
-    std::sort(inputEdge, inputEdge + ne, [](EdgeList x, EdgeList y) {
-        if (x.src < y.src) return true;
-        else if (x.src > y.src) return false;
-        else return (x.dst < y.dst);
-    });
-
-    EdgeList *unique_end = std::unique(inputEdge, inputEdge + ne, [](EdgeList x, EdgeList y) {
-        return x.src == y.src && x.dst == y.dst;
-    });
-    ne = unique_end - inputEdge;
-
-    double *csr_values = (double *)mkl_malloc(sizeof(double) * ne, 64);
-    MKL_INT *csr_columns = (MKL_INT *)mkl_malloc(sizeof(MKL_INT) * ne, 64);
-    MKL_INT *csr_row_pointer = (MKL_INT *)mkl_malloc(sizeof(MKL_INT) * (nr + 1), 64);
-
-    for (uint32_t i = 0; i <= nr; i++) {
-        csr_row_pointer[i] = 0;
-    }
-
-    for (uint32_t i = 0; i < ne; i++) {
-        csr_row_pointer[inputEdge[i].src + 1]++;
-    }
-
-    for (uint32_t i = 1; i <= nr; i++) {
-        csr_row_pointer[i] += csr_row_pointer[i - 1];
-    }
-
-    for (uint32_t i = 0; i < ne; i++) {
-        uint32_t src = inputEdge[i].src;
-        uint32_t idx = csr_row_pointer[src]++;
-        csr_columns[idx] = inputEdge[i].dst;
-        csr_values[idx] = inputEdge[i].val;
-    }
-
-    for (uint32_t i = nr; i > 0; i--) {
-        csr_row_pointer[i] = csr_row_pointer[i - 1];
-    }
-    csr_row_pointer[0] = 0;
-
-    free(inputEdge);
-
-    sparse_status_t status = mkl_sparse_d_create_csr(&A, SPARSE_INDEX_BASE_ZERO, nr, nc,
+    sparse_matrix_t A;
+    sparse_status_t status = mkl_sparse_d_create_csr(&A, SPARSE_INDEX_BASE_ZERO, eigen_A.rows(), eigen_A.cols(),
                                                      csr_row_pointer, csr_row_pointer + 1,
                                                      csr_columns, csr_values);
     if (status != SPARSE_STATUS_SUCCESS) {
         std::cerr << "Failed to create CSR matrix with MKL. Error code: " << status << "\n";
-        return;
+        return -1;
     }
-}
 
-int main(int argc, char **argv) {
-    auto params = parse(argc, argv);
-
-    FILE *fpA = fopen((params.input + "/A.ttx").c_str(), "r");
-    FILE *fpB = fopen((params.input + "/x.ttx").c_str(), "r");
-
-    mkl_set_num_threads(1);
-
-    loadTTX(fpA);
-    double *x = loadXd(fpB);
-    double *y = (double *)mkl_malloc(sizeof(double) * n_rows_A, 64);
-    fclose(fpA);
-    fclose(fpB);
+    // Convert Eigen vector eigen_x to raw pointer
+    double *x = (double *)mkl_malloc(eigen_x.size() * sizeof(double), 64);
+    for (int i = 0; i < eigen_x.size(); ++i) {
+        x[i] = eigen_x[i];
+    }
+    double *y = (double *)mkl_malloc(sizeof(double) * eigen_A.rows(), 64);
 
     struct matrix_descr descr;
     descr.type = SPARSE_MATRIX_TYPE_GENERAL;
@@ -160,22 +66,21 @@ int main(int argc, char **argv) {
     mkl_sparse_optimize(A);
 
     auto time = benchmark(
-        [&x, &y, &descr]() {},
-        [&x, &y, &descr]() {
+        [&eigen_x, &y, &descr]() {},
+        [&eigen_x, &y, &descr]() {
             mkl_sparse_d_mv(SPARSE_OPERATION_NON_TRANSPOSE, 1.0, A, descr, x, 0.0, y);
         }
     );
-
-    FILE *fpC = fopen((params.input + "/y.ttx").c_str(), "w");
-
-    fprintf(fpC, "%%%%MatrixMarket tensor array real general\n");
-    fprintf(fpC, "%d\n", n_rows_A);
-
-    for (int k = 0; k < n_rows_A; ++k) {
-        fprintf(fpC, "%lf\n", y[k]);
+    // Convert the result vector y to Eigen format
+    Eigen::VectorXd y_eigen(eigen_A.rows());
+    for (int i = 0; i < eigen_A.rows(); ++i) {
+        y_eigen[i] = y[i];
     }
 
-    fclose(fpC);
+    // Write the Eigen vector to a file
+    std::ofstream fpy(params.input + "/y.ttx");
+    fpy << Eigen::MatrixMarketIO<Eigen::VectorXd>::write(y_eigen);
+    fpy.close();
 
     json measurements;
     measurements["time"] = time;
