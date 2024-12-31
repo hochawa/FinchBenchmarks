@@ -12,7 +12,7 @@ TensorMarket = "8b7d4fe7-0b45-4d0d-9dd8-5cc9b23b4b77"
 
 [compat]
 BenchmarkTools = "1.5"
-Finch = "0.6.18"
+Finch = "1.0.1"
 Graphs = "1.9"
 SimpleWeightedGraphs = "1.4"
 julia = "~1.9"

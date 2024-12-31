@@ -10,7 +10,7 @@ function spmv_mkl(y, A, x)
         fwrite(x_path, Tensor(Dense(Element(0.0)), x))
 	mklvars_path = joinpath(@__DIR__, "../deps/intel/setvars.sh")
 	spmv_path = joinpath(@__DIR__, "spmv_mkl")
-	withenv() do
+	withenv("MKL_DEBUG_CPU_TYPE"=>"5") do
             cmd = "source $mklvars_path; $spmv_path -i $tmpdir -o $tmpdir"
             run(`bash -c $cmd`)
 	end 
