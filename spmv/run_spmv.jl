@@ -32,48 +32,10 @@ end
 parsed_args = parse_args(ARGS, s)
 
 datasets = OrderedDict(
-    "vuduc_symmetric" => [
-        "Boeing/ct20stif",
-        "Simon/olafu",
-        "Boeing/bcsstk35",
-        "Boeing/crystk02",
-        "Boeing/crystk03",
-        "Nasa/nasasrb",
-        "Simon/raefsky4",
-        "Mulvey/finan512",
-        "Cote/vibrobox",
-        "HB/saylr4",
-    ],
-    "vuduc_symmetric_pattern" => [
-        "Rothberg/3dtube",
-        "Pothen/pwt",
-        "Gupta/gupta1"
-    ],
-    "vuduc_unsymmetric" => [
-        "Simon/raefsky3",
-        "Simon/venkat01",
-        "FIDAP/ex11",
-        "Zitney/rdist1",
-        "HB/orani678",
-        "Goodwin/rim",
-        "Hamm/memplus",
-        "HB/gemat11",
-        "Mallya/lhr10",
-        "Grund/bayer02",
-        "Grund/bayer10",
-        "Brethour/coater2",
-        "ATandT/onetone2",
-        "Wang/wang4",
-        "HB/lnsp3937",
-        "HB/sherman5",
-        "HB/sherman3",
-        "Shyy/shyy161",
-        "Wang/wang3",
-    ],
     "willow_symmetric" => [
         "GHS_indef/exdata_1",
-        #"Janna/Emilia_923",#iffy
-        #"Janna/Geo_1438",#iffy
+        #"Janna/Emilia_923",#too big
+        #"Janna/Geo_1438",#too big
         "TAMU_SmartGridCenter/ACTIVSg70K"
     ],
     "willow_unsymmetric" => [

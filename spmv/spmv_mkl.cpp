@@ -188,8 +188,7 @@ void loadTTX(FILE *fp)
 
 		free(inputEdge);
 
-		debug_csr_matrix(nr, nc, ne, csr_row_pointer, csr_columns, csr_values);
-
+		//debug_csr_matrix(nr, nc, ne, csr_row_pointer, csr_columns, csr_values);
 
 		sparse_status_t status = mkl_sparse_d_create_csr(&A, SPARSE_INDEX_BASE_ZERO, nr, nc,
 				csr_row_pointer, csr_row_pointer + 1,
@@ -279,32 +278,13 @@ int main(int argc, char **argv) {
   fclose(fpA);
   fclose(fpB);
 
-
   struct matrix_descr descr;
   descr.type = SPARSE_MATRIX_TYPE_GENERAL; 
   descr.diag = SPARSE_DIAG_NON_UNIT;
 
-
-
   mkl_sparse_set_mv_hint(A, SPARSE_OPERATION_NON_TRANSPOSE, descr, 1000);
   mkl_sparse_optimize(A);
-  print_mkl_matrix_stats(A);
-
-
-// Naive Implementation
-auto start = std::chrono::high_resolution_clock::now();
-naive_spmv_from_mkl(A, x, y, n_rows_A);
-auto end = std::chrono::high_resolution_clock::now();
-std::cout << "Naive SpMV Time: "
-          << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " us\n";
-
-// MKL Implementation
-start = std::chrono::high_resolution_clock::now();
-mkl_sparse_d_mv(SPARSE_OPERATION_NON_TRANSPOSE, 1.0, A, descr, x, 0.0, y);
-end = std::chrono::high_resolution_clock::now();
-std::cout << "MKL SpMV Time: "
-          << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " us\n";
-
+  //print_mkl_matrix_stats(A);
 
   // Assemble output indices and numerically compute the result
   auto time = benchmark(
