@@ -53,7 +53,15 @@ int main(int argc, char **argv){
   Tensor<double> x = read(fs::path(params.input)/"x.ttx", Format({Dense}), true);
   int m = A.getDimension(0);
   int n = A.getDimension(1);
-  Tensor<double> y("y", {m}, Format({Dense}));
+  Tensor<double> y;
+  if (schedule == "row-major")
+    y = Tensor<double>("y", {m}, Format({Dense}));
+  else if (schedule == "column-major")
+    y = Tensor<double>("y", {n}, Format({Dense}));
+  else {
+    std::cerr << "Invalid schedule" << std::endl;
+    exit(1);
+  }
 
   IndexVar i, j;
 
