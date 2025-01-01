@@ -106,17 +106,17 @@ dataset_tags = OrderedDict(
 
 methods = OrderedDict(
     "symmetric" => [
-        #"julia_stdlib" => spmv_julia,
-        #"finch_sym_sparselist" => spmv_finch_sym_sparselist,
-        #"finch_col_maj_sparselist" => spmv_finch_col_maj_sparselist,
-        #"finch_row_maj_sparselist" => spmv_finch_row_maj_sparselist,
-        #"finch_sym_sparseblocklist" => spmv_finch_sym_sparseblocklist,
-        #"finch_col_maj_sparseblocklist" => spmv_finch_col_maj_sparseblocklist,
-        #"finch_row_maj_sparseblocklist" => spmv_finch_row_maj_sparseblocklist,
-        #"taco_col_maj" => spmv_taco_col_maj,
-        #"taco_row_maj" => spmv_taco_row_maj,
-        "eigen" => spmv_eigen,
-        "mkl" => spmv_mkl,
+        "julia_stdlib" => spmv_julia,
+        "finch_sym_sparselist" => spmv_finch_sym_sparselist,
+        "finch_col_maj_sparselist" => spmv_finch_col_maj_sparselist,
+        "finch_row_maj_sparselist" => spmv_finch_row_maj_sparselist,
+        "finch_sym_sparseblocklist" => spmv_finch_sym_sparseblocklist,
+        "finch_col_maj_sparseblocklist" => spmv_finch_col_maj_sparseblocklist,
+        "finch_row_maj_sparseblocklist" => spmv_finch_row_maj_sparseblocklist,
+        (has_taco() ? ["taco_col_maj" => spmv_taco_col_maj] : [])...,
+        (has_taco() ? ["taco_row_maj" => spmv_taco_row_maj] : [])...,
+        (has_eigen() ? ["eigen" => spmv_eigen] : [])...,
+        (has_mkl() ? ["mkl" => spmv_mkl] : [])...,
     ],
     "unsymmetric" => [
         "julia_stdlib" => spmv_julia,
@@ -124,10 +124,10 @@ methods = OrderedDict(
         "finch_row_maj_sparselist" => spmv_finch_row_maj_sparselist,
         "finch_col_maj_sparseblocklist" => spmv_finch_col_maj_sparseblocklist,
         "finch_row_maj_sparseblocklist" => spmv_finch_row_maj_sparseblocklist,
-        "taco_col_maj" => spmv_taco_col_maj,
-        "taco_row_maj" => spmv_taco_row_maj,
-        "eigen" => spmv_eigen,
-        "mkl" => spmv_mkl,
+        (has_taco() ? ["taco_col_maj" => spmv_taco_col_maj] : [])...,
+        (has_taco() ? ["taco_row_maj" => spmv_taco_row_maj] : [])...,
+        (has_eigen() ? ["eigen" => spmv_eigen] : [])...,
+        (has_mkl() ? ["mkl" => spmv_mkl] : [])...,
     ],
     "symmetric_pattern" => [
         "julia_stdlib" => spmv_julia,
@@ -140,10 +140,10 @@ methods = OrderedDict(
         "finch_sym_sparseblocklist" => spmv_finch_sym_sparseblocklist,
         "finch_col_maj_sparseblocklist" => spmv_finch_col_maj_sparseblocklist,
         "finch_row_maj_sparseblocklist" => spmv_finch_row_maj_sparseblocklist,
-        "taco_col_maj" => spmv_taco_col_maj,
-        "taco_row_maj" => spmv_taco_row_maj,
-        "eigen" => spmv_eigen,
-        "mkl" => spmv_mkl,
+        (has_taco() ? ["taco_col_maj" => spmv_taco_col_maj] : [])...,
+        (has_taco() ? ["taco_row_maj" => spmv_taco_row_maj] : [])...,
+        (has_eigen() ? ["eigen" => spmv_eigen] : [])...,
+        (has_mkl() ? ["mkl" => spmv_mkl] : [])...,
     ],
     "unsymmetric_pattern" => [
         "julia_stdlib" => spmv_julia,
@@ -153,10 +153,10 @@ methods = OrderedDict(
         "finch_row_maj_sparselist_pattern" => spmv_finch_row_maj_sparselist_pattern,
         "finch_col_maj_sparseblocklist" => spmv_finch_col_maj_sparseblocklist,
         "finch_row_maj_sparseblocklist" => spmv_finch_row_maj_sparseblocklist,
-        "taco_col_maj" => spmv_taco_col_maj,
-        "taco_row_maj" => spmv_taco_row_maj,
-        "eigen" => spmv_eigen,
-        "mkl" => spmv_mkl,
+        (has_taco() ? ["taco_col_maj" => spmv_taco_col_maj] : [])...,
+        (has_taco() ? ["taco_row_maj" => spmv_taco_row_maj] : [])...,
+        (has_eigen() ? ["eigen" => spmv_eigen] : [])...,
+        (has_mkl() ? ["mkl" => spmv_mkl] : [])...,
     ],
     "permutation" => [
         "julia_stdlib" => spmv_julia,
@@ -166,10 +166,10 @@ methods = OrderedDict(
         "finch_row_maj_sparselist_pattern" => spmv_finch_row_maj_sparselist,
         "finch_col_maj_sparsepoint_pattern" => spmv_finch_col_maj_sparsepoint_pattern,
         "finch_row_maj_sparsepoint_pattern" => spmv_finch_row_maj_sparsepoint_pattern,
-        "taco_col_maj" => spmv_taco_col_maj,
-        "taco_row_maj" => spmv_taco_row_maj,
-        "eigen" => spmv_eigen,
-        "mkl" => spmv_mkl,
+        (has_taco() ? ["taco_col_maj" => spmv_taco_col_maj] : [])...,
+        (has_taco() ? ["taco_row_maj" => spmv_taco_row_maj] : [])...,
+        (has_eigen() ? ["eigen" => spmv_eigen] : [])...,
+        (has_mkl() ? ["mkl" => spmv_mkl] : [])...,
     ],
     "banded" => [
         "julia_stdlib" => spmv_julia,
@@ -177,10 +177,10 @@ methods = OrderedDict(
         "finch_row_maj_sparselist" => spmv_finch_row_maj_sparselist,
         "finch_col_maj_sparseband" => spmv_finch_col_maj_sparseband,
         "finch_row_maj_sparseband" => spmv_finch_row_maj_sparseband,
-        "taco_col_maj" => spmv_taco_col_maj,
-        "taco_row_maj" => spmv_taco_row_maj,
-        "eigen" => spmv_eigen,
-        "mkl" => spmv_mkl,
+        (has_taco() ? ["taco_col_maj" => spmv_taco_col_maj] : [])...,
+        (has_taco() ? ["taco_row_maj" => spmv_taco_row_maj] : [])...,
+        (has_eigen() ? ["eigen" => spmv_eigen] : [])...,
+        (has_mkl() ? ["mkl" => spmv_mkl] : [])...,
     ],
 )
 
@@ -196,7 +196,7 @@ for (dataset, mtxs) in datasets
     tag = dataset_tags[dataset]
     for mtx in mtxs
         if dataset == "permutation"
-            A = SparseMatrixCSC(reverse_permutation_matrix(200000))
+            A = SparseMatrixCSC(reverse_permutation_matrix(1_000_000))
         elseif dataset == "banded"
             if mtx == "toeplitz_small_band"
                 A = SparseMatrixCSC(banded_matrix(10000, 5))
@@ -213,29 +213,18 @@ for (dataset, mtxs) in datasets
             A = SparseMatrixCSC(matrixdepot(mtx))
         end
 
-        # A = map((val) -> int(val), A)
         (m, n) = size(A)
         x = rand(n)
-        # x = sprand(n, 0.1)
         y = zeros(m)
         y_ref = nothing
         for (key, method) in methods[tag]
             @info "testing" key mtx
             res = method(y, A, x)
-            #=
-                rm(key * "_results.txt", force=true)
-                open(key * "_results.txt","a") do io
-                    for i = 1:n
-                        @printf(io,"%f\n", res.y[i])
-                    end
-                end
-            =#
             time = res.time
             y_ref = something(y_ref, res.y)
 
             norm(res.y - y_ref)/norm(y_ref) < 0.1 || @warn("incorrect result via norm")
 
-            # res.y == y_ref || @warn("incorrect result")
             @info "results" time
             push!(results, OrderedDict(
                 "time" => time,

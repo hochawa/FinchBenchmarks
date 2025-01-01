@@ -19,3 +19,5 @@ function spmv_mkl(y, A, x)
         return (;time=time*10^-9, y=y)
     end
 end
+
+has_mkl() = isfile(joinpath(@__DIR__, "spmv_mkl"))

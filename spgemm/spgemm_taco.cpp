@@ -1,16 +1,13 @@
 #include "taco.h"
-// #include "taco/format.h"
-// #include "taco/lower/lower.h"
-// #include "taco/ir/ir.h"
 #include <chrono>
 #include <sys/stat.h>
 #include <iostream>
 #include <cstdint>
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 
-using namespace taco;
-extern int optind;
+namespace fs = std::filesystem;
 
+using namespace taco;
 extern int optind;
 
 int main(int argc, char **argv) {
@@ -66,22 +63,22 @@ int main(int argc, char **argv) {
 
   Tensor<double> A;
   if (format_a == "csr") {
-    A = read(params.input+"/A.ttx", Format({Dense, Sparse}), true);
+    A = read(fs::path(params.input)/"A.ttx", Format({Dense, Sparse}), true);
   } else if (format_a == "dcsr") {
-    A = read(params.input+"/A.ttx", Format({Sparse, Sparse}), true);
+    A = read(fs::path(params.input)/"A.ttx", Format({Sparse, Sparse}), true);
   } else if (format_a == "dense") {
-    A = read(params.input+"/A.ttx", Format({Dense, Dense}), true);
+    A = read(fs::path(params.input)/"A.ttx", Format({Dense, Dense}), true);
   } else {
     std::cerr << "Invalid format for A" << std::endl;
     exit(1);
   }
   Tensor<double> B;
   if (format_b == "csr") {
-    B = read(params.input+"/B.ttx", Format({Dense, Sparse}), true);
+    B = read(fs::path(params.input)/"B.ttx", Format({Dense, Sparse}), true);
   } else if (format_b == "dcsr") {
-    B = read(params.input+"/B.ttx", Format({Sparse, Sparse}), true);
+    B = read(fs::path(params.input)/"B.ttx", Format({Sparse, Sparse}), true);
   } else if (format_b == "dense") {
-    B = read(params.input+"/B.ttx", Format({Dense, Dense}), true);
+    B = read(fs::path(params.input)/"B.ttx", Format({Dense, Dense}), true);
   } else {
     std::cerr << "Invalid format for B" << std::endl;
     exit(1);
@@ -133,7 +130,7 @@ int main(int argc, char **argv) {
     }
   );
 
-  write(params.output+"/C.ttx", C);
+  write(fs::path(params.output)/"C.ttx", C);
 
   if (params.verbose) {
     C.printAssembleIR(std::cout, true, true);
@@ -143,7 +140,7 @@ int main(int argc, char **argv) {
   json measurements;
   measurements["time"] = time;
   measurements["memory"] = 0;
-  std::ofstream measurements_file(params.output+"/measurements.json");
+  std::ofstream measurements_file(fs::path(params.output)/"measurements.json");
   measurements_file << measurements;
   measurements_file.close();
   return 0;

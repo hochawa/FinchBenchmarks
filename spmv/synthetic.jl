@@ -3,14 +3,12 @@ using LinearAlgebra
 
 function random_permutation_matrix(n)
     perm = randperm(n) 
-    P = I(n) 
-    return P[perm, :]
+    return sparse(collect(1:n), perm, ones(n))
 end
 
 function reverse_permutation_matrix(n)
-    perm = reverse([i for i in 1:n])
-    P = I(n) 
-    return P[perm, :]
+    perm = reverse(collect(1:n))
+    return sparse(collect(1:n), perm, ones(n))
 end
 
 function banded_matrix(n, b)

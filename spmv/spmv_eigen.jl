@@ -16,9 +16,11 @@ function spmv_eigen(y, A, x)
             run(`$spmv_path -i $tmpdir -o $tmpdir`)
         end 
         
-        y = reshape(SparseMatrixCSC(fread(y_path)), :)
+        y = Vector(reshape(SparseMatrixCSC(fread(y_path)), :))
         time = JSON.parsefile(joinpath(tmpdir, "measurements.json"))["time"]
         
         return (;time=time*10^-9, y=y)
     end
 end
+
+has_eigen() = isfile(joinpath(@__DIR__, "spmv_eigen"))

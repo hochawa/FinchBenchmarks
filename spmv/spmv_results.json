@@ -1,9 +1,37 @@
 [
     {
-        "time": 0.002223,
-        "method": "eigen",
+        "time": 0.00084725,
+        "method": "julia_stdlib",
         "kernel": "spmv",
-        "matrix": "GHS_indef/exdata_1",
-        "dataset": "willow_symmetric"
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.001038083,
+        "method": "finch_col_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.000914875,
+        "method": "finch_row_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.001035125,
+        "method": "finch_col_maj_sparselist_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.000912208,
+        "method": "finch_row_maj_sparselist_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
     }
 ]
