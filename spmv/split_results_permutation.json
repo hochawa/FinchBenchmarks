@@ -1,0 +1,79 @@
+[
+    {
+        "time": 0.003573284,
+        "method": "julia_stdlib",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.004321935,
+        "method": "finch_col_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.004155961,
+        "method": "finch_row_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.003966185,
+        "method": "finch_col_maj_sparselist_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.003851189,
+        "method": "finch_row_maj_sparselist_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.002274907,
+        "method": "finch_col_maj_sparsepoint_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.002179805,
+        "method": "finch_row_maj_sparsepoint_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.0034890940000000003,
+        "method": "taco_col_maj",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.002884409,
+        "method": "taco_row_maj",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.0041734170000000004,
+        "method": "eigen",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.0016881480000000002,
+        "method": "mkl",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    }
+]
