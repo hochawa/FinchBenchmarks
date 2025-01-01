@@ -115,6 +115,6 @@ method_order = [
 ]
 
 # Example usage, specifying method and matrix order when calling the function
-generate_chart_for_operation("scale_results.json", "spgemm", "scaling_spgemm.png", 
+generate_chart_for_operation("results_scale.json", "spgemm", "scaling_spgemm.png", 
                              method_order, matrix_order,
                              baseline_method="spgemm_taco_gustavson", log_scale=True)

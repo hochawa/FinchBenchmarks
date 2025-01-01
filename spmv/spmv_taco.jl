@@ -19,7 +19,7 @@ function spmv_taco_helper(args, A, x)
     end
 end
 
-spmv_taco_row_maj(y, A, x) = spmv_taco_helper(`--schedule row-major`, permutedims(A), x)
-spmv_taco_col_maj(y, A, x) = spmv_taco_helper(`--schedule column-major`, A, x)
+spmv_taco_row_maj(y, A, x) = spmv_taco_helper(`--schedule row-major`, A, x)
+spmv_taco_col_maj(y, A, x) = spmv_taco_helper(`--schedule column-major`, permutedims(A), x)
 
 has_taco() = isfile(joinpath(@__DIR__, "spmv_taco"))

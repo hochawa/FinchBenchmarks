@@ -28,7 +28,7 @@ s = ArgParseSettings("Run spgemm experiments.")
     "--dataset", "-d"
         arg_type = String
         help = "dataset keyword"
-        default = "small"
+        default = "zhang_small"
     "--batch", "-b"
         arg_type = Int
         help = "batch number"
@@ -54,20 +54,18 @@ num_iters = parsed_args["num_iters"]
 datasets = Dict(
     "short" => [
         "HB/arc130",
-        #"HB/gre_216b",
-        #"HB/bcspwr07",
     ],
     "scale" => [
         "file:./rand_128.mtx",
         "file:./rand_256.mtx",
-	"file:./rand_512.mtx",
-	"file:./rand_1024.mtx",
-	"file:./rand_2048.mtx",
-	"file:./rand_4096.mtx",
-	"file:./rand_8192.mtx",
-	"file:./rand_16384.mtx",
+        "file:./rand_512.mtx",
+        "file:./rand_1024.mtx",
+        "file:./rand_2048.mtx",
+        "file:./rand_4096.mtx",
+        "file:./rand_8192.mtx",
+        "file:./rand_16384.mtx",
     ],
-    "small" => [
+    "zhang_small" => [
         "SNAP/email-Eu-core",
         "SNAP/CollegeMsg",
         "SNAP/soc-sign-bitcoin-alpha",
@@ -81,7 +79,7 @@ datasets = Dict(
         "SNAP/p2p-Gnutella05",
         "SNAP/ca-HepTh"
     ],
-    "joel" => [
+    "zhang_large" => [
         "FEMLAB/poisson3Da",
         "SNAP/wiki-Vote",
         "SNAP/email-Enron",
@@ -129,12 +127,6 @@ methods = Dict(
         "spgemm_eigen_gustavson" => spgemm_eigen,
         "spgemm_mkl_gustavson" => spgemm_mkl,
     ],
-    "new" => [
-        #"spgemm_taco_gustavson" => spgemm_taco_gustavson,
-        #"spgemm_finch_gustavson" => spgemm_finch_gustavson,
-        #"spgemm_eigen_gustavson" => spgemm_eigen,
-        "spgemm_mkl_gustavson" => spgemm_mkl,
-    ]
 )
 
 results = []
