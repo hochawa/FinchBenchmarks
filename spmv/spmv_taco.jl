@@ -10,7 +10,7 @@ function spmv_taco_col_maj_helper(args, A, x)
         fwrite(x_path, Tensor(Dense(Element(0.0)), x))
         taco_path = joinpath(@__DIR__, "../deps/taco/build/lib")
         withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$taco_path", "LD_LIBRARY_PATH" => "$taco_path", "TACO_CFLAGS" => "-O3 -ffast-math -std=c99 -march=native -ggdb") do
-            spmv_path = joinpath(@__DIR__, "spmv_taco")
+            spmv_path = joinpath(@__DIR__, "spmv_taco_col_maj")
             run(`$spmv_path -i $tmpdir -o $tmpdir $args`)
         end
         y = fread(y_path)

@@ -9,14 +9,14 @@ function spmv_eigen(y, A, x)
         y_path = joinpath(tmpdir, "y.ttx")
         
         fwrite(A_path, Tensor(Dense(SparseList(Element(0.0))), A))
-        fwrite(x_path, Tensor(Dense(Element(0.0)), x))
+        fwrite(x_path, Tensor(Dense(SparseList(Element(0.0))), reshape(Vector(x), :, 1)))
         
         spmv_path = joinpath(@__DIR__, "spmv_eigen")
         withenv() do
             run(`$spmv_path -i $tmpdir -o $tmpdir`)
         end 
         
-        y = fread(y_path)
+        y = reshape(SparseMatrixCSC(fread(y_path)), :)
         time = JSON.parsefile(joinpath(tmpdir, "measurements.json"))["time"]
         
         return (;time=time*10^-9, y=y)

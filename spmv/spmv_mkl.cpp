@@ -5,6 +5,7 @@
 #include <mkl.h>
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 #include <Eigen/Sparse>
+#include <unsupported/Eigen/SparseExtra>
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 
 int main(int argc, char **argv) {
@@ -12,17 +13,15 @@ int main(int argc, char **argv) {
 
     auto params = parse(argc, argv);
 
-    FILE *fpA = fopen((params.input + "/A.ttx").c_str(), "r");
-    FILE *fpX = fopen((params.input + "/x.ttx").c_str(), "r");
-
     Eigen::SparseMatrix<double> eigen_A;
     Eigen::VectorXd eigen_x;
     Eigen::VectorXd eigen_y;
 
-    Eigen::loadMarket(eigen_A, fpA);
-    Eigen::loadMarket(eigen_x, fpX);
-    fclose(fpA);
-    fclose(fpX);
+    Eigen::loadMarket(eigen_A, (params.input + "/A.ttx").c_str());
+	Eigen::SparseMatrix<double> sparseX;
+	Eigen::loadMarket(sparseX, (params.input + "/x.ttx").c_str());
+	Eigen::MatrixXd denseX = sparseX;
+	eigen_x = denseX;
 
     // Convert Eigen matrix A to MKL format using Eigen's internal data
     const int* outerIndexPtr = eigen_A.outerIndexPtr();
@@ -78,9 +77,9 @@ int main(int argc, char **argv) {
     }
 
     // Write the Eigen vector to a file
-    std::ofstream fpy(params.input + "/y.ttx");
-    fpy << Eigen::MatrixMarketIO<Eigen::VectorXd>::write(y_eigen);
-    fpy.close();
+    Eigen::MatrixXd denseY = y;
+	Eigen::SparseMatrix<double> sparseY = denseY.sparseView();
+	Eigen::saveMarket(sparseY, (params.input + "/y.ttx").c_str());
 
     json measurements;
     measurements["time"] = time;

@@ -10,15 +10,15 @@ else
 export NPROC_VAL := $(shell lscpu -p | egrep -v '^\#' | wc -l)
 endif
 
-SPMV = spmv/spmv_taco spmv/spmv_taco_row_maj
+SPMV_TACO = spmv/spmv_taco_col_maj spmv/spmv_taco_row_maj
 SPMV_EIGEN = spmv/spmv_eigen
 SPMV_MKL = spmv/spmv_mkl
 
-SPGEMM = spgemm/spgemm_taco
+SPGEMM_TACO = spgemm/spgemm_taco
 SPGEMM_EIGEN = spgemm/spgemm_eigen
 SPGEMM_MKL = spgemm/spgemm_mkl
 
-all: $(SPMV) $(SPGEMM) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(SPMV_MKL) $(SPGEMM_MKL)
+all: $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN) #$(SPMV_MKL) $(SPGEMM_MKL)
 
 SPARSE_BENCH_DIR = deps/SparseRooflineBenchmark
 SPARSE_BENCH_CLONE = $(SPARSE_BENCH_DIR)/.git
@@ -69,8 +69,8 @@ spgemm/spgemm_taco: $(SPARSE_BENCH) $(TACO) spgemm/spgemm_taco.cpp
 spgemm/spgemm_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spgemm/spgemm_eigen.cpp
 	$(CXX) $(EIGEN_CXXFLAGS) -o $@ spgemm/spgemm_eigen.cpp
 
-spmv/spmv_taco: $(SPARSE_BENCH) $(TACO) spmv/spmv_taco.cpp
-	$(CXX) $(TACO_CXXFLAGS) -o $@ spmv/spmv_taco.cpp $(TACO_LDLIBS)
+spmv/spmv_taco_col_maj: $(SPARSE_BENCH) $(TACO) spmv/spmv_taco_col_maj.cpp
+	$(CXX) $(TACO_CXXFLAGS) -o $@ spmv/spmv_taco_col_maj.cpp $(TACO_LDLIBS)
 
 spmv/spmv_taco_row_maj: $(SPARSE_BENCH) $(TACO) spmv/spmv_taco_row_maj.cpp
 	$(CXX) $(TACO_CXXFLAGS) -o $@ spmv/spmv_taco_row_maj.cpp $(TACO_LDLIBS)

@@ -1,9 +1,13 @@
 *.o
 *.DS_Store
 cache/*
-spmv/spmv
-spmv/spmv_taco
+spmv/spmv_eigen
+spmv/spmv_mkl
+spmv/spmv_taco_col_maj
 spmv/spmv_taco_row_maj
+spgemm/spgemm_eigen
+spgemm/spgemm_mkl
+spgemm/spgemm_taco
 deps/SparseRooflineBenchmark/build
 .vscode/settings.json
 cache/*

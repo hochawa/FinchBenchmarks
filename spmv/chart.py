@@ -99,7 +99,7 @@ def all_formats_chart(ordered_by_format=False):
         data[mtx][method] = time
 
     for mtx, times in data.items():
-        ref_time = times["taco"]
+        ref_time = times["taco_col_maj"]
         for method, time in times.items():
             times[method] = ref_time / time
 

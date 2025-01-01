@@ -29,13 +29,13 @@ for (A, diag) in [
         return y
     end)
 
-    eval(@finch_kernel mode=:fast function spmv_finch_col_maj_kernel(y, A, x
+    eval(@finch_kernel mode=:fast function spmv_finch_col_maj_kernel(y, A, x)
         y .= 0
         for j = _, i = _
             y[i] += A[i, j] * x[j]
         end
         return y
-    end))
+    end)
 
     eval(@finch_kernel mode=:fast function spmv_finch_row_maj_kernel(y, A, x)
         y .= 0

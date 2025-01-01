@@ -7,12 +7,12 @@ function spmv_mkl(y, A, x)
         x_path = joinpath(tmpdir, "x.ttx")
         y_path = joinpath(tmpdir, "y.ttx")
         fwrite(A_path, Tensor(Dense(SparseList(Element(0.0))), A))
-        fwrite(x_path, Tensor(Dense(Element(0.0)), x))
+        fwrite(x_path, Tensor(Dense(SparseList(Element(0.0))), reshape(Vector(x), :, 1)))
         mklvars_path = joinpath(@__DIR__, "../deps/intel/setvars.sh")
         spmv_path = joinpath(@__DIR__, "spmv_mkl")
-        withenv("MKL_DEBUG_CPU_TYPE"=>"5") do
-                cmd = "source $mklvars_path; $spmv_path -i $tmpdir -o $tmpdir"
-                run(`bash -c $cmd`)
+        withenv() do
+            cmd = "source $mklvars_path; $spmv_path -i $tmpdir -o $tmpdir"
+            run(`bash -c $cmd`)
         end 
         y = fread(y_path)
         time = JSON.parsefile(joinpath(tmpdir, "measurements.json"))["time"]

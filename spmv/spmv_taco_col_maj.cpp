@@ -1,7 +1,4 @@
 #include "taco.h"
-//#include "taco/format.h"
-//#include "taco/lower/lower.h"
-//#include "taco/ir/ir.h"
 #include <chrono>
 #include <sys/stat.h>
 #include <iostream>
