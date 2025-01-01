@@ -30,4 +30,4 @@ datasets=(
 )
 
 dataset=${datasets[$SLURM_ARRAY_TASK_ID]}
-julia run_spmv.jl -d $dataset -o split_spmv_results_${dataset}.json
+julia run_spmv.jl -d $dataset -o split_results_${dataset}.json

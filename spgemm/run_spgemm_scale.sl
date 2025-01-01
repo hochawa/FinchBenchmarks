@@ -18,4 +18,4 @@ echo $PATH
 echo $(pwd)
 export TMPDIR=/tmp
 
-julia run_spgemm.jl -d "scale" --kernels "all" -b $SLURM_ARRAY_TASK_ID -B 12 -o results_split_scale_$SLURM_ARRAY_TASK_ID.json
+julia run_spgemm.jl -d "scale" --kernels "all" -b $SLURM_ARRAY_TASK_ID -B 12 -o split_results_scale_$SLURM_ARRAY_TASK_ID.json
