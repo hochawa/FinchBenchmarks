@@ -1,0 +1,254 @@
+[
+    {
+        "time": 0.00348214,
+        "method": "julia_stdlib",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.004352136,
+        "method": "finch_col_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.004991697,
+        "method": "finch_row_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.004790695,
+        "method": "finch_col_maj_sparseblocklist",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.005180099,
+        "method": "finch_row_maj_sparseblocklist",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002974001,
+        "method": "taco_col_maj",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.00278223,
+        "method": "taco_row_maj",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002635227,
+        "method": "eigen",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.006565949000000001,
+        "method": "mkl",
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.001941927,
+        "method": "julia_stdlib",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002059984,
+        "method": "finch_col_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002196638,
+        "method": "finch_row_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.005904061,
+        "method": "finch_col_maj_sparseblocklist",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.006106927,
+        "method": "finch_row_maj_sparseblocklist",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002099446,
+        "method": "taco_col_maj",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.00218743,
+        "method": "taco_row_maj",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.0018047820000000002,
+        "method": "eigen",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.017047657,
+        "method": "mkl",
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.011449372,
+        "method": "julia_stdlib",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.012393334,
+        "method": "finch_col_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.011724216,
+        "method": "finch_row_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.016473764,
+        "method": "finch_col_maj_sparseblocklist",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.022306453,
+        "method": "finch_row_maj_sparseblocklist",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.009215173,
+        "method": "taco_col_maj",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.009921907,
+        "method": "taco_row_maj",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.010105754,
+        "method": "eigen",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.071732011,
+        "method": "mkl",
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002486133,
+        "method": "julia_stdlib",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002553544,
+        "method": "finch_col_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002651417,
+        "method": "finch_row_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.005684957,
+        "method": "finch_col_maj_sparseblocklist",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.005698094,
+        "method": "finch_row_maj_sparseblocklist",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.0027256840000000004,
+        "method": "taco_col_maj",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.00203088,
+        "method": "taco_row_maj",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.002055472,
+        "method": "eigen",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "time": 0.013875348000000001,
+        "method": "mkl",
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    }
+]

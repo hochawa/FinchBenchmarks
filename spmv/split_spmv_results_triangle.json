@@ -1,0 +1,65 @@
+[
+    {
+        "time": 0.000502746,
+        "method": "julia_stdlib",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "time": 0.000655112,
+        "method": "finch_col_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "time": 0.001034077,
+        "method": "finch_row_maj_sparselist",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "time": 0.000173234,
+        "method": "finch_col_maj_sparseband",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "time": 0.000186276,
+        "method": "finch_row_maj_sparseband",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "time": 0.000566069,
+        "method": "taco_col_maj",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "time": 0.000519576,
+        "method": "taco_row_maj",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "time": 0.000470494,
+        "method": "eigen",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "time": 0.00032740000000000004,
+        "method": "mkl",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    }
+]
