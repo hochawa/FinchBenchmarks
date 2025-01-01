@@ -66,7 +66,7 @@ $(EIGEN_CLONE):
 	git submodule update --init $(EIGEN_DIR)
 
 clean:
-	rm -f $(SPMV) $(SPGEMM) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(SPMV_MKL) $(SPGEMM_MKL)
+	rm -f $(ALL_TARGETS)
 	rm -rf *.o *.dSYM *.trace
 
 spgemm/spgemm_taco: $(SPARSE_BENCH) $(TACO) spgemm/spgemm_taco.cpp

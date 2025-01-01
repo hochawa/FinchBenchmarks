@@ -14,12 +14,16 @@ int main(int argc, char **argv) {
 
 	// Define eigen_A and eigen_B matrices
 	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_A, eigen_B;
-	// Load or initialize eigen_A and eigen_B as needed
 
+	// Load or initialize eigen_A and eigen_B as needed
 	Eigen::loadMarket(eigen_A, (params.input + "/A.ttx").c_str());
 	Eigen::loadMarket(eigen_B, (params.input + "/B.ttx").c_str());
+	MKL_INT m = eigen_A.rows();
+	MKL_INT n = eigen_A.rows();
 
 	// Convert Eigen matrix A to MKL format using Eigen's internal data
+	eigen_A = eigen_A.transpose();
+	eigen_B = eigen_B.transpose();
 	const int* outerIndexPtr_A = eigen_A.outerIndexPtr();
 	const int* innerIndexPtr_A = eigen_A.innerIndexPtr();
 	const double* valuePtr_A = eigen_A.valuePtr();
@@ -75,9 +79,6 @@ int main(int argc, char **argv) {
 
 	matrix_descr descrA, descrB, descrC;
 
-	MKL_INT m = eigen_A.rows();
-	MKL_INT n = eigen_A.rows();
-
 	descrA.type = SPARSE_MATRIX_TYPE_GENERAL;
 	descrA.diag = SPARSE_DIAG_NON_UNIT;
 	descrB.type = SPARSE_MATRIX_TYPE_GENERAL;
@@ -104,7 +105,7 @@ int main(int argc, char **argv) {
 	mkl_sparse_d_export_csr(C, &indexing, &m, &n, &rows_start_C, &rows_end_C, &columns_C, &values_C);
 
 	// Convert MKL matrix C to Eigen format
-	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(m, n);
+	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(n, m);
 	eigen_C.resizeNonZeros(rows_start_C[m]);
 
 	for (int i = 0; i < m; ++i) {
@@ -118,6 +119,7 @@ int main(int argc, char **argv) {
 	}
 
 	// Save the Eigen matrix to MatrixMarket format
+	eigen_C = eigen_C.transpose();
 	Eigen::saveMarket(eigen_C, (params.output + "/C.mtx").c_str());
 
 	json measurements;
