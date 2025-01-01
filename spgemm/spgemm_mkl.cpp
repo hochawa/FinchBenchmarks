@@ -73,7 +73,6 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 
-	sparse_index_base_t indexing = SPARSE_INDEX_BASE_ZERO;
 	matrix_descr descrA, descrB, descrC;
 
 	descrA.type = SPARSE_MATRIX_TYPE_GENERAL;
@@ -93,7 +92,7 @@ int main(int argc, char **argv) {
 		}
 	);
 
-	mkl_sparse_d_export_csr(C, &indexing, &n_rows_A, &n_cols_B, &rows_start_C[r], &rows_end_C[r], &columns_C[r], &values_C[r]);
+	mkl_sparse_d_export_csr(C, &SPARSE_INDEX_BASE_ZERO, &n_rows_A, &n_cols_B, &rows_start_C[r], &rows_end_C[r], &columns_C[r], &values_C[r]);
 
 	// Convert MKL matrix C to Eigen format
 	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(n_rows_A, n_cols_B);
