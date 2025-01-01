@@ -3,10 +3,16 @@
 #include <iostream>
 #include <cstdint>
 #include <mkl.h>
+#include <Eigen/Sparse>
+#include <unsupported/Eigen/SparseExtra>
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 #include <sys/time.h>
 
-int main(int argc, char **argv) {
+	auto params = parse(argc, argv);
+
+	// Define eigen_A and eigen_B matrices
+	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_A, eigen_B;
+	// Load or initialize eigen_A and eigen_B as needed
 	mkl_set_num_threads(1);
 	auto params = parse(argc, argv);
 
@@ -74,7 +80,13 @@ int main(int argc, char **argv) {
 	auto time = benchmark(
 		[]() {mkl_free_buffers();},
 		[&A, &descrA, &B, &descrB, &C, &descrC]() {
-			mkl_sparse_sp2m(SPARSE_OPERATION_NON_TRANSPOSE, descrA, A, SPARSE_OPERATION_NON_TRANSPOSE, descrB, B, SPARSE_STAGE_FULL_MULT, &C);
+	int n_rows_A = eigen_A.rows();
+	int n_cols_B = eigen_B.cols();
+	std::vector<int> rows_start(n_rows_A + 1);
+	std::vector<int> columns;
+	std::vector<double> values;
+
+	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(n_rows_A, n_cols_B);
 			mkl_sparse_order(C);
 		}
 	);
