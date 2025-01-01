@@ -56,14 +56,14 @@ datasets = Dict(
         "HB/arc130",
     ],
     "scale" => [
-        "file:./data/rand_128.mtx",
-        "file:./data/rand_256.mtx",
-        "file:./data/rand_512.mtx",
-        "file:./data/rand_1024.mtx",
-        "file:./data/rand_2048.mtx",
-        "file:./data/rand_4096.mtx",
-        "file:./data/rand_8192.mtx",
-        "file:./data/rand_16384.mtx",
+        "file:./data/rand_128.ttx",
+        "file:./data/rand_256.ttx",
+        "file:./data/rand_512.ttx",
+        "file:./data/rand_1024.ttx",
+        "file:./data/rand_2048.ttx",
+        "file:./data/rand_4096.ttx",
+        "file:./data/rand_8192.ttx",
+        "file:./data/rand_16384.ttx",
     ],
     "zhang_small" => [
         "SNAP/email-Eu-core",
@@ -103,7 +103,6 @@ datasets = Dict(
 )
 
 include("spgemm_finch.jl")
-include("spgemm_finch_par.jl")
 include("spgemm_taco.jl")
 include("spgemm_eigen.jl")
 include("spgemm_mkl.jl")
