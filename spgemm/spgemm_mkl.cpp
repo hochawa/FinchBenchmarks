@@ -16,8 +16,8 @@ int main(int argc, char **argv) {
 	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_A, eigen_B;
 	// Load or initialize eigen_A and eigen_B as needed
 
-	Eigen::loadMarket(eigen_A, (params.input + "/B.ttx").c_str());
-	Eigen::loadMarket(eigen_A, (params.input + "/C.ttx").c_str());
+	Eigen::loadMarket(eigen_A, (params.input + "/A.ttx").c_str());
+	Eigen::loadMarket(eigen_B, (params.input + "/B.ttx").c_str());
 
 	// Convert Eigen matrix A to MKL format using Eigen's internal data
 	const int* outerIndexPtr_A = eigen_A.outerIndexPtr();
