@@ -22,6 +22,7 @@ int main(int argc, char **argv) {
     eigen_x = denseX;
 
     // Convert Eigen matrix A to MKL format using Eigen's internal data
+    eigen_A = eigen_A.transpose();
     const int* outerIndexPtr = eigen_A.outerIndexPtr();
     const int* innerIndexPtr = eigen_A.innerIndexPtr();
     const double* valuePtr = eigen_A.valuePtr();
