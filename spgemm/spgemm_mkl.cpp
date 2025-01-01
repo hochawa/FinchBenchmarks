@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
 	}
 
 	// Save the Eigen matrix to MatrixMarket format
-	Eigen::saveMarket(eigen_C, (params.output + "/C.mtx").c_str());
+	Eigen::saveMarket(eigen_C, (params.output + "/C.ttx").c_str());
 
 	json measurements;
 	measurements["time"] = time;
