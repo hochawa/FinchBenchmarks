@@ -75,6 +75,9 @@ int main(int argc, char **argv) {
 
 	matrix_descr descrA, descrB, descrC;
 
+	MKL_INT m = eigen_A.rows();
+	MKL_INT n = eigen_A.rows();
+
 	descrA.type = SPARSE_MATRIX_TYPE_GENERAL;
 	descrA.diag = SPARSE_DIAG_NON_UNIT;
 	descrB.type = SPARSE_MATRIX_TYPE_GENERAL;
@@ -97,18 +100,18 @@ int main(int argc, char **argv) {
 	std::vector<MKL_INT> columns_C;
 	std::vector<double> values_C;
 
-	mkl_sparse_d_export_csr(C, &SPARSE_INDEX_BASE_ZERO, &n_rows_A, &n_cols_B, &rows_start_C[r], &rows_end_C[r], &columns_C[r], &values_C[r]);
+	mkl_sparse_d_export_csr(C, &SPARSE_INDEX_BASE_ZERO, &m, &n, &rows_start_C[r], &rows_end_C[r], &columns_C[r], &values_C[r]);
 
 	// Convert MKL matrix C to Eigen format
-	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(n_rows_A, n_cols_B);
-	eigen_C.resizeNonZeros(rows_start_C[n_rows_A]);
+	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(m, n);
+	eigen_C.resizeNonZeros(rows_start_C[m]);
 
-	for (int i = 0; i < n_rows_A; ++i) {
+	for (int i = 0; i < m; ++i) {
 		eigen_C.outerIndexPtr()[i] = rows_start_C[i];
 	}
-	eigen_C.outerIndexPtr()[n_rows_A] = rows_start_C[n_rows_A];
+	eigen_C.outerIndexPtr()[m] = rows_start_C[m];
 
-	for (int i = 0; i < rows_start[n_rows_A]; ++i) {
+	for (int i = 0; i < rows_start_C[m]; ++i) {
 		eigen_C.innerIndexPtr()[i] = columns_C[i];
 		eigen_C.valuePtr()[i] = values_C[i];
 	}
