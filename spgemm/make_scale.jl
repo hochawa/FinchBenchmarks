@@ -10,10 +10,12 @@ print_diagnostics()
 using Finch
 using TensorMarket
 
+mkpath("data")
+
 for N = 7:13
     m = n = 2^N
     nnz = 4*m
-    fwrite("rand_$(m).ttx", fsprand(m, n, nnz))
+    fwrite("data/rand_$(m).ttx", fsprand(m, n, nnz))
 end
 
 
