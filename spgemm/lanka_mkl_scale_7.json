@@ -1,8 +1,0 @@
-[
-    {
-        "time": 0.023755925,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "file:./rand_8192.mtx"
-    }
-]

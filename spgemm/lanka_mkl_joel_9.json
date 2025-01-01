@@ -1,8 +1,0 @@
-[
-    {
-        "time": 0.616411276,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "vanHeukelum/cage12"
-    }
-]

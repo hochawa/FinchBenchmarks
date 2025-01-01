@@ -1,8 +1,0 @@
-[
-    {
-        "time": 0.466420288,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "SNAP/roadNet-CA"
-    }
-]

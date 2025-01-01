@@ -1,8 +1,0 @@
-[
-    {
-        "time": 0.954039191,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "Williams/cop20k_A"
-    }
-]

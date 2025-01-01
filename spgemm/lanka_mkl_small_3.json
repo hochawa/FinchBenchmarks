@@ -1,8 +1,0 @@
-[
-    {
-        "time": 0.033367155,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "SNAP/soc-sign-bitcoin-alpha"
-    }
-]

@@ -1,8 +1,0 @@
-[
-    {
-        "time": 0.007896925,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "SNAP/ca-GrQc"
-    }
-]

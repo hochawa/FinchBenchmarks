@@ -1,8 +1,0 @@
-[
-    {
-        "time": 0.06911842,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "JGD_Homology/m133-b3"
-    }
-]

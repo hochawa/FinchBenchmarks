@@ -1,8 +1,0 @@
-[
-    {
-        "time": 0.47921566000000004,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "Um/2cubes_sphere"
-    }
-]

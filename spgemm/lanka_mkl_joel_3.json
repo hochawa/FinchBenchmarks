@@ -1,8 +1,0 @@
-[
-    {
-        "time": 1.160532656,
-        "method": "spgemm_mkl_gustavson",
-        "kernel": "spgemm",
-        "matrix": "SNAP/email-Enron"
-    }
-]
