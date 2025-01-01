@@ -86,17 +86,14 @@ int main(int argc, char **argv) {
 	sparse_matrix_t C;
 	auto time = benchmark(
 		[]() {mkl_free_buffers();},
-		[&A, &descrA, &B, &descrB, &C, &descrC]() {
-	int n_rows_A = eigen_A.rows();
-	int n_cols_B = eigen_B.cols();
-	std::vector<int> rows_start_C(n_rows_A + 1);
-	std::vector<int> columns_C;
-	std::vector<double> values_C;
-
-	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(n_rows_A, n_cols_B);
+		[&A, &descrA, &B, &descrB, &m, &n, &C, &descrC]() {
+			C = NULL;
+			mkl_sparse_sp2m(SPARSE_OPERATION_NON_TRANSPOSE, descrA, A, SPARSE_OPERATION_NON_TRANSPOSE, descrB, B, SPARSE_STAGE_FULL_MULT, &C);
 			mkl_sparse_order(C);
 		}
 	);
+
+	mkl_sparse_d_export_csr(C, &indexing, &n_rows_A, &n_cols_B, &rows_start_C[r], &rows_end_C[r], &columns_C[r], &values_C[r]);
 
 	// Convert MKL matrix C to Eigen format
 	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(n_rows_A, n_cols_B);
