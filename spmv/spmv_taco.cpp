@@ -58,9 +58,9 @@ int main(int argc, char **argv){
   IndexVar i, j;
 
   if (schedule == "row-major")
-    y(j) += A(i, j) * x(i);
-  else if (schedule == "column-major")
     y(i) += A(i, j) * x(j);
+  else if (schedule == "column-major")
+    y(j) += A(i, j) * x(i);
   else {
     std::cerr << "Invalid schedule" << std::endl;
     exit(1);

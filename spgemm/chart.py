@@ -136,10 +136,10 @@ method_order = [
 ]
 
 # Example usage, specifying method and matrix order when calling the function
-generate_chart_for_operation("lanka_joel.json", "spgemm", "spgemm_joel_speedup_log_scale.png", 
+generate_chart_for_operation("lanka_zhang_large.json", "spgemm", "spgemm_zhang_large_speedup_log_scale.png", 
                              method_order, matrix_order,
                              baseline_method="spgemm_taco_gustavson", log_scale=True, title="SpGEMM Speedup Over Taco Gustavson on Large Matrices")
 
-generate_chart_for_operation("lanka_small.json", "spgemm", "spgemm_small_speedup_log_scale.png", 
+generate_chart_for_operation("lanka_zhang_small.json", "spgemm", "spgemm_zhang_small_speedup_log_scale.png", 
                              method_order, matrix_order,
                              baseline_method="spgemm_taco_gustavson", log_scale=True, title="SpGEMM Speedup Over Taco Gustavson on Small Matrices")
