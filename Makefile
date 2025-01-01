@@ -41,16 +41,16 @@ $(SPARSE_BENCH): $(SPARSE_BENCH_CLONE)
 TACO_DIR = deps/taco
 TACO_CLONE = $(TACO_DIR)/.git
 TACO = deps/taco/build/lib/libtaco.*
-TACO_CXXFLAGS = $(CXXFLAGS) -I$(TACO_DIR)/include -I$(TACO_DIR)/src
-TACO_LDLIBS = $(LDLIBS) -L$(TACO_DIR)/build/lib -ltaco -ldl
+TACO_CXXFLAGS = -I$(TACO_DIR)/include -I$(TACO_DIR)/src
+TACO_LDLIBS = -L$(TACO_DIR)/build/lib -ltaco -ldl
 
 EIGEN_DIR = deps/eigen
 EIGEN_CLONE = $(EIGEN_DIR)/.git
-EIGEN_CXXFLAGS = $(CXXFLAGS) -I$(EIGEN_DIR)
+EIGEN_CXXFLAGS = -I$(EIGEN_DIR)
 
 MKLROOT = deps/intel/mkl/2024.2
-MKL_CXXFLAGS = $(CXXFLAGS) -I$(MKLROOT)/include
-MKL_LDLIBS = $(LDLIBS) -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential
+MKL_CXXFLAGS = -I$(MKLROOT)/include
+MKL_LDLIBS = -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_sequential
 
 $(TACO_CLONE): 
 	git submodule update --init $(TACO_DIR)
@@ -70,19 +70,19 @@ clean:
 	rm -rf *.o *.dSYM *.trace
 
 spgemm/spgemm_taco: $(SPARSE_BENCH) $(TACO) spgemm/spgemm_taco.cpp
-	$(CXX) $(TACO_CXXFLAGS) -o $@ spgemm/spgemm_taco.cpp $(TACO_LDLIBS)
+	$(CXX) $(CXXFLAGS) $(TACO_CXXFLAGS) -o $@ spgemm/spgemm_taco.cpp $(LDLIBS) $(TACO_LDLIBS)
 
 spgemm/spgemm_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spgemm/spgemm_eigen.cpp
-	$(CXX) $(EIGEN_CXXFLAGS) -o $@ spgemm/spgemm_eigen.cpp
+	$(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) -o $@ spgemm/spgemm_eigen.cpp
 
 spmv/spmv_taco: $(SPARSE_BENCH) $(TACO) spmv/spmv_taco.cpp
-	$(CXX) $(TACO_CXXFLAGS) -o $@ spmv/spmv_taco.cpp $(TACO_LDLIBS)
+	$(CXX) $(CXXFLAGS) $(TACO_CXXFLAGS) -o $@ spmv/spmv_taco.cpp $(LDLIBS) $(TACO_LDLIBS)
 
 spmv/spmv_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spmv/spmv_eigen.cpp
-	$(CXX) $(EIGEN_CXXFLAGS) -o $@ spmv/spmv_eigen.cpp
+	$(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) -o $@ spmv/spmv_eigen.cpp
 
 spmv/spmv_mkl: $(SPARSE_BENCH) spmv/spmv_mkl.cpp
-	bash -c 'source deps/intel/setvars.sh; $(CXX) $(MKL_CXXFLAGS) -o $@ spmv/spmv_mkl.cpp $(MKL_LDLIBS)'
+	bash -c 'source deps/intel/setvars.sh; $(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) $(MKL_CXXFLAGS) -o $@ spmv/spmv_mkl.cpp $(LDLIBS) $(MKL_LDLIBS)'
 
 spgemm/spgemm_mkl: $(SPARSE_BENCH) spgemm/spgemm_mkl.cpp
-	bash -c 'source deps/intel/setvars.sh; $(CXX) $(MKL_CXXFLAGS) -o $@ spgemm/spgemm_mkl.cpp $(MKL_LDLIBS)'
+	bash -c 'source deps/intel/setvars.sh; $(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) $(MKL_CXXFLAGS) -o $@ spgemm/spgemm_mkl.cpp $(LDLIBS) $(MKL_LDLIBS)'
