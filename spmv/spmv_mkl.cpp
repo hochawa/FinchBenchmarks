@@ -13,9 +13,7 @@ int main(int argc, char **argv) {
 
     auto params = parse(argc, argv);
 
-    Eigen::SparseMatrix<double> eigen_A;
-    Eigen::VectorXd eigen_x;
-    Eigen::VectorXd eigen_y;
+    Eigen::SparseMatrix<double> eigen_A, eigen_x;
 
     Eigen::loadMarket(eigen_A, (params.input + "/A.ttx").c_str());
 	Eigen::SparseMatrix<double> sparseX;
