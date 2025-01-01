@@ -72,17 +72,10 @@ int main(int argc, char **argv) {
 
 	sparse_matrix_t C;
 	auto time = benchmark(
-		[]() {},
+		[]() {mkl_free_buffers();},
 		[&A, &descrA, &B, &descrB, &C, &descrC]() {
 			mkl_sparse_sp2m(SPARSE_OPERATION_NON_TRANSPOSE, descrA, A, SPARSE_OPERATION_NON_TRANSPOSE, descrB, B, SPARSE_STAGE_FULL_MULT, &C);
 			mkl_sparse_order(C);
-			MKL_INT n_rows_A, n_cols_B;
-			MKL_INT *rows_start, *rows_end, *columns;
-			double *values;
-			mkl_sparse_d_export_csr(C, &indexing, &n_rows_A, &n_cols_B, &rows_start, &rows_end, &columns, &values);
-			mkl_sparse_destroy(A);
-			mkl_sparse_destroy(B);
-			mkl_free_buffers();
 		}
 	);
 
