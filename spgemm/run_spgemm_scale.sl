@@ -6,7 +6,7 @@
 #SBATCH --partition=lanka-v3
 #SBATCH --qos=commit-main
 #SBATCH --mem 102400
-#SBATCH --array=1-12%6
+#SBATCH --array=1-8%8
 
 cd /data/scratch/willow/FinchBenchmarks/spgemm
 source /afs/csail.mit.edu/u/w/willow/everyone/.bashrc
