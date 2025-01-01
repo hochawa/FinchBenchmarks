@@ -85,12 +85,17 @@ int main(int argc, char **argv) {
 	sparse_matrix_t C;
 	auto time = benchmark(
 		[]() {mkl_free_buffers();},
-		[&A, &descrA, &B, &descrB, &m, &n, &C, &descrC]() {
+		[&A, &descrA, &B, &descrB, &C, &descrC]() {
 			C = NULL;
 			mkl_sparse_sp2m(SPARSE_OPERATION_NON_TRANSPOSE, descrA, A, SPARSE_OPERATION_NON_TRANSPOSE, descrB, B, SPARSE_STAGE_FULL_MULT, &C);
 			mkl_sparse_order(C);
 		}
 	);
+
+	std::vector<MKL_INT> rows_start_C(m + 1);
+	std::vector<MKL_INT> rows_end_C(m + 1);
+	std::vector<MKL_INT> columns_C;
+	std::vector<double> values_C;
 
 	mkl_sparse_d_export_csr(C, &SPARSE_INDEX_BASE_ZERO, &n_rows_A, &n_cols_B, &rows_start_C[r], &rows_end_C[r], &columns_C[r], &values_C[r]);
 
