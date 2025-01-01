@@ -112,19 +112,19 @@ methods = Dict(
         "spgemm_taco_inner" => spgemm_taco_inner,
         "spgemm_taco_gustavson" => spgemm_taco_gustavson,
         "spgemm_taco_outer" => spgemm_taco_outer,
-        "spgemm_eigen_gustavson" => spgemm_eigen,
-        "spgemm_mkl_gustavson" => spgemm_mkl,
+        "spgemm_eigen" => spgemm_eigen,
+        "spgemm_mkl" => spgemm_mkl,
         "spgemm_finch_inner" => spgemm_finch_inner,
         "spgemm_finch_gustavson" => spgemm_finch_gustavson,
         "spgemm_finch_outer" => spgemm_finch_outer,
         "spgemm_finch_outer_bytemap" => spgemm_finch_outer_bytemap,
         "spgemm_finch_outer_dense" => spgemm_finch_outer_dense,
     ],
-    "gustavson" => [
+    "fast" => [
         "spgemm_taco_gustavson" => spgemm_taco_gustavson,
         "spgemm_finch_gustavson" => spgemm_finch_gustavson,
-        "spgemm_eigen_gustavson" => spgemm_eigen,
-        "spgemm_mkl_gustavson" => spgemm_mkl,
+        "spgemm_eigen" => spgemm_eigen,
+        "spgemm_mkl" => spgemm_mkl,
     ],
 )
 

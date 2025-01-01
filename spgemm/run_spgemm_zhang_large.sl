@@ -19,4 +19,4 @@ echo $(pwd)
 export TMPDIR=/tmp
 
 # Use SLURM_ARRAY_TASK_ID for batch number (-b) and set the total number of batches (-B) to 20
-julia run_spgemm.jl -d "zhang_large" --kernels "gustavson" -b $SLURM_ARRAY_TASK_ID -B 20 -o split_results_zhang_large_$SLURM_ARRAY_TASK_ID.json
+julia run_spgemm.jl -d "zhang_large" --kernels "fast" -b $SLURM_ARRAY_TASK_ID -B 20 -o split_results_zhang_large_$SLURM_ARRAY_TASK_ID.json
