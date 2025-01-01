@@ -3,7 +3,6 @@
 #include <iostream>
 #include <cstdint>
 #include <mkl.h>
-#include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 #include <Eigen/Sparse>
 #include <unsupported/Eigen/SparseExtra>
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
@@ -15,13 +14,12 @@ int main(int argc, char **argv) {
 
     Eigen::SparseMatrix<double> eigen_A;
     Eigen::VectorXd eigen_x;
-    Eigen::VectorXd eigen_y;
 
     Eigen::loadMarket(eigen_A, (params.input + "/A.ttx").c_str());
-	Eigen::SparseMatrix<double> sparseX;
-	Eigen::loadMarket(sparseX, (params.input + "/x.ttx").c_str());
-	Eigen::MatrixXd denseX = sparseX;
-	eigen_x = denseX;
+    Eigen::SparseMatrix<double> sparseX;
+    Eigen::loadMarket(sparseX, (params.input + "/x.ttx").c_str());
+    Eigen::MatrixXd denseX = sparseX;
+    eigen_x = denseX;
 
     // Convert Eigen matrix A to MKL format using Eigen's internal data
     const int* outerIndexPtr = eigen_A.outerIndexPtr();
@@ -65,21 +63,21 @@ int main(int argc, char **argv) {
     mkl_sparse_optimize(A);
 
     auto time = benchmark(
-        [&eigen_x, &y, &descr]() {},
-        [&eigen_x, &y, &descr]() {
+        [&x, &y, &descr, &A]() {},
+        [&x, &y, &descr, &A]() {
             mkl_sparse_d_mv(SPARSE_OPERATION_NON_TRANSPOSE, 1.0, A, descr, x, 0.0, y);
         }
     );
     // Convert the result vector y to Eigen format
-    Eigen::VectorXd y_eigen(eigen_A.rows());
+    Eigen::VectorXd eigen_y(eigen_A.rows());
     for (int i = 0; i < eigen_A.rows(); ++i) {
-        y_eigen[i] = y[i];
+        eigen_y[i] = y[i];
     }
 
     // Write the Eigen vector to a file
-    Eigen::MatrixXd denseY = y;
-	Eigen::SparseMatrix<double> sparseY = denseY.sparseView();
-	Eigen::saveMarket(sparseY, (params.input + "/y.ttx").c_str());
+    Eigen::MatrixXd denseY = eigen_y;
+    Eigen::SparseMatrix<double> sparseY = denseY.sparseView();
+    Eigen::saveMarket(sparseY, (params.input + "/y.ttx").c_str());
 
     json measurements;
     measurements["time"] = time;

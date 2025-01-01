@@ -1,72 +1,23 @@
 [
     {
-        "time": 0.000864,
+        "time": 0.003281001,
         "method": "julia_stdlib",
         "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
     },
     {
-        "time": 0.000974667,
+        "time": 0.002281024,
+        "method": "finch_sym_sparselist",
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "time": 0.003862096,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
-    },
-    {
-        "time": 0.000895708,
-        "method": "finch_row_maj_sparselist",
-        "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
-    },
-    {
-        "time": 0.000986209,
-        "method": "finch_col_maj_sparselist_pattern",
-        "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
-    },
-    {
-        "time": 0.0009075,
-        "method": "finch_row_maj_sparselist_pattern",
-        "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
-    },
-    {
-        "time": 0.000566167,
-        "method": "finch_col_maj_sparsepoint_pattern",
-        "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
-    },
-    {
-        "time": 0.000578333,
-        "method": "finch_row_maj_sparsepoint_pattern",
-        "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
-    },
-    {
-        "time": 0.0009620000000000001,
-        "method": "taco_col_maj",
-        "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
-    },
-    {
-        "time": 0.000856208,
-        "method": "taco_row_maj",
-        "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
-    },
-    {
-        "time": 0.0009557500000000001,
-        "method": "eigen",
-        "kernel": "spmv",
-        "matrix": "permutation_synthetic",
-        "dataset": "permutation"
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
     }
 ]

@@ -38,7 +38,7 @@ datasets = OrderedDict(
         #"Janna/Geo_1438",#too big
         "TAMU_SmartGridCenter/ACTIVSg70K"
     ],
-    "willow_col_majmetric" => [
+    "willow_unsymmetric" => [
         "Goodwin/Goodwin_071", 
         #"Hamm/scircuit", #duplicate
         "LPnetlib/lpi_gran", #iffy
@@ -54,7 +54,7 @@ datasets = OrderedDict(
         "SNAP/email-Enron",
         "SNAP/ca-AstroPh",
     ],
-    "graph_col_majmetric" => [
+    "graph_unsymmetric" => [
         "SNAP/soc-Epinions1",
     ],
     "banded" => [
@@ -74,7 +74,7 @@ datasets = OrderedDict(
         "DNVS/shipsec1",
         "Boeing/pwtk",#iffy
     ],
-    "taco_col_majmetric" => [
+    "taco_unsymmetric" => [
         "Bova/rma10",
         "Williams/mac_econ_fwd500",
         "Williams/webbase-1M",#iffy
@@ -90,18 +90,15 @@ include("spmv_eigen.jl")
 include("spmv_mkl.jl")
 
 dataset_tags = OrderedDict(
-    "vuduc_symmetric" => "symmetric",
-    "vuduc_col_majmetric" => "unsymmetric",
-    "vuduc_symmetric_pattern" => "symmetric_pattern",
     "willow_symmetric" => "symmetric",
-    "willow_col_majmetric" => "unsymmetric",
+    "willow_unsymmetric" => "unsymmetric",
     "permutation" => "permutation",
     "banded" => "banded",
     "triangle" => "banded",
     "graph_symmetric" => "symmetric_pattern",
-    "graph_col_majmetric" => "unsymmetric_pattern",
+    "graph_unsymmetric" => "unsymmetric_pattern",
     "taco_symmetric" => "symmetric",
-    "taco_col_majmetric" => "unsymmetric",
+    "taco_unsymmetric" => "unsymmetric",
 )
 
 methods = OrderedDict(
