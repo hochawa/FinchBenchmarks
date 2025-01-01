@@ -95,10 +95,10 @@ int main(int argc, char **argv) {
 		}
 	);
 
-	MKL_INT rows_start_C;
-	MKL_INT rows_end_C;
-	MKL_INT columns_C;
-	double values_C;
+	MKL_INT *rows_start_C;
+	MKL_INT *rows_end_C;
+	MKL_INT *columns_C;
+	double *values_C;
 	sparse_index_base_t indexing = SPARSE_INDEX_BASE_ZERO;
 
 	mkl_sparse_d_export_csr(C, &indexing, &m, &n, &rows_start_C, &rows_end_C, &columns_C, &values_C);
