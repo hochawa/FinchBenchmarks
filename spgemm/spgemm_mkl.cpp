@@ -6,7 +6,6 @@
 #include <Eigen/Sparse>
 #include <unsupported/Eigen/SparseExtra>
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
-#include <sys/time.h>
 
 int main(int argc, char **argv) {
     mkl_set_num_threads(1);
