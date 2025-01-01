@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
 	std::vector<double> values_C;
 	sparse_index_base_t indexing = SPARSE_INDEX_BASE_ZERO;
 
-	mkl_sparse_d_export_csr(C, &indexing, &m, &n, &rows_start_C, &rows_end_C, &columns_C, &values_C);
+	mkl_sparse_d_export_csr(C, &indexing, &m, &n, &rows_start_C.data(), &rows_end_C.data(), &columns_C.data(), &values_C.data());
 
 	// Convert MKL matrix C to Eigen format
 	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(m, n);
