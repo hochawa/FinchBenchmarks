@@ -95,13 +95,13 @@ int main(int argc, char **argv) {
 		}
 	);
 
-	std::vector<MKL_INT> rows_start_C(m + 1);
-	std::vector<MKL_INT> rows_end_C(m + 1);
-	std::vector<MKL_INT> columns_C;
-	std::vector<double> values_C;
+	MKL_INT rows_start_C;
+	MKL_INT rows_end_C;
+	MKL_INT columns_C;
+	double values_C;
 	sparse_index_base_t indexing = SPARSE_INDEX_BASE_ZERO;
 
-	mkl_sparse_d_export_csr(C, &indexing, &m, &n, &rows_start_C.data(), &rows_end_C.data(), &columns_C.data(), &values_C.data());
+	mkl_sparse_d_export_csr(C, &indexing, &m, &n, &rows_start_C, &rows_end_C, &columns_C, &values_C);
 
 	// Convert MKL matrix C to Eigen format
 	Eigen::SparseMatrix<double, Eigen::RowMajor> eigen_C(m, n);
