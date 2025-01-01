@@ -5,75 +5,39 @@ import json
 import math
 from collections import defaultdict
 import re
-
-vuduc_mtxs = [
-    "Boeing/ct20stif",
-    "Simon/olafu",
-    "Boeing/bcsstk35",
-    "Boeing/crystk02",
-    "Boeing/crystk03",
-    "Nasa/nasasrb",
-    "Simon/raefsky4",
-    "Mulvey/finan512",
-    "Cote/vibrobox",
-    "HB/saylr4",
-    "Rothberg/3dtube",
-    "Pothen/pwt",
-    "Gupta/gupta1"
-    "Simon/raefsky3",
-    "Simon/venkat01",
-    "FIDAP/ex11",
-    "Zitney/rdist1",
-    "HB/orani678",
-    "Goodwin/rim",
-    "Hamm/memplus",
-    "HB/gemat11",
-    "Mallya/lhr10",
-    "Grund/bayer02",
-    "Grund/bayer10",
-    "Brethour/coater2",
-    "ATandT/onetone2",
-    "Wang/wang4",
-    "HB/lnsp3937",
-    "HB/sherman5",
-    "HB/sherman3",
-    "Shyy/shyy161",
-    "Wang/wang3",
-]
-
-RESULTS_FILE_PATH = "spmv_results_lanka.json"
+RESULTS_FILE_PATH = "spmv_results.json"
 CHARTS_DIRECTORY = "charts/"
 FORMAT_ORDER = {
     "finch_sym_sparselist": -1,
     "finch_col_maj_sparselist": -2,
     "finch_row_maj_sparselist": -3,
-    "finch_sparseblocklist_sym": -4,
-    "finch_sparseblocklist_col_maj_sparselist": -5,
-    "finch_sparseblocklist_row_maj_sparselist": -6,
-    "finch_sparseband_sym": -7,
-    "finch_sparseband_col_maj_sparselist": -8,
-    "finch_sparseband_row_maj_sparselist": -9,
-    "finch_sparselist_pattern_sym": -10,
-    "finch_sparselist_pattern_col_maj_sparselist": -11,
-    "finch_sparselist_pattern_row_maj_sparselist": -12,
-    "finch_sparsepoint_pattern_col_maj_sparselist": -13,
-    "finch_sparsepoint_pattern_row_maj_sparselist": -14,
+    "finch_sym_sparseblocklist": -4,
+    "finch_col_maj_sparseblocklist": -5,
+    "finch_row_maj_sparseblocklist": -6,
+    "finch_sym_sparseband": -7,
+    "finch_col_maj_sparseband": -8,
+    "finch_row_maj_sparseband": -9,
+    "finch_sym_sparselist_pattern": -10,
+    "finch_col_maj_sparselist_pattern": -11,
+    "finch_row_maj_sparselist_pattern": -12,
+    "finch_col_maj_sparsepoint_pattern": -13,
+    "finch_row_maj_sparsepoint_pattern": -14,
 }
 FORMAT_LABELS = {
     "finch_sym_sparselist": "Symmetric SparseList",
     "finch_col_maj_sparselist": "SparseList",
     "finch_row_maj_sparselist": "SparseList (Row-Major)",
-    "finch_sparseblocklist_sym": "Symmetric SparseVBL",
-    "finch_sparseblocklist_col_maj_sparselist": "SparseVBL",
-    "finch_sparseblocklist_row_maj_sparselist": "SparseVBL (Row-Major)",
-    "finch_sparseband_sym": "Symmetric SparseBand",
-    "finch_sparseband_col_maj_sparselist": "SparseBand",
-    "finch_sparseband_row_maj_sparselist": "SparseBand (Row-Major)",
-    "finch_sparselist_pattern_sym": "Symmetric Pattern",
-    "finch_sparselist_pattern_col_maj_sparselist": "Pattern",
-    "finch_sparselist_pattern_row_maj_sparselist": "Pattern (Row-Major)",
-    "finch_sparsepoint_pattern_col_maj_sparselist": "SparsePoint Pattern",
-    "finch_sparsepoint_pattern_row_maj_sparselist": "SparsePoint Pattern (Row-Major)",
+    "finch_sym_sparseblocklist": "Symmetric SparseVBL",
+    "finch_col_maj_sparseblocklist": "SparseVBL",
+    "finch_row_maj_sparseblocklist": "SparseVBL (Row-Major)",
+    "finch_sym_sparseband": "Symmetric SparseBand",
+    "finch_col_maj_sparseband": "SparseBand",
+    "finch_row_maj_sparseband": "SparseBand (Row-Major)",
+    "finch_sym_sparselist_pattern": "Symmetric Pattern",
+    "finch_col_maj_sparselist_pattern": "Pattern",
+    "finch_row_maj_sparselist_pattern": "Pattern (Row-Major)",
+    "finch_col_maj_sparsepoint_pattern": "SparsePoint Pattern",
+    "finch_row_maj_sparsepoint_pattern": "SparsePoint Pattern (Row-Major)",
 }
 
 def all_formats_chart(ordered_by_format=False):
@@ -99,7 +63,7 @@ def all_formats_chart(ordered_by_format=False):
         data[mtx][method] = time
 
     for mtx, times in data.items():
-        ref_time = times["taco_col_maj"]
+        ref_time = times["taco_row_maj"]
         for method, time in times.items():
             times[method] = ref_time / time
 
@@ -139,10 +103,6 @@ def all_formats_chart(ordered_by_format=False):
 
     make_grouped_bar_chart(methods, short_mtxs, all_data, colors=colors, labeled_groups=["finch"], bar_labels_dict={"finch": labels[:]}, title="SpMV Performance (Speedup Over Taco) labeled", legend_labels=legend_labels)
     make_grouped_bar_chart(methods, short_mtxs, all_data, colors=colors, title="SpMV Performance (Speedup Over Taco)", legend_labels=legend_labels)
-
-    # for mtx in mtxs:
-        # all_formats_for_matrix_chart(mtx)
-
 
 def get_best_finch_format():
     results = json.load(open(RESULTS_FILE_PATH, 'r'))
