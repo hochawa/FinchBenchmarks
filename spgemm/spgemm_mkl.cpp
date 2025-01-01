@@ -22,8 +22,6 @@ int main(int argc, char **argv) {
 	MKL_INT n = eigen_A.rows();
 
 	// Convert Eigen matrix A to MKL format using Eigen's internal data
-	eigen_A = eigen_A.transpose();
-	eigen_B = eigen_B.transpose();
 	const int* outerIndexPtr_A = eigen_A.outerIndexPtr();
 	const int* innerIndexPtr_A = eigen_A.innerIndexPtr();
 	const double* valuePtr_A = eigen_A.valuePtr();
@@ -119,7 +117,6 @@ int main(int argc, char **argv) {
 	}
 
 	// Save the Eigen matrix to MatrixMarket format
-	eigen_C = eigen_C.transpose();
 	Eigen::saveMarket(eigen_C, (params.output + "/C.mtx").c_str());
 
 	json measurements;
