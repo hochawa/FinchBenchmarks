@@ -1,35 +1,70 @@
 [
     {
-        "time": 0.00084725,
+        "time": 0.000864,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "permutation_synthetic",
         "dataset": "permutation"
     },
     {
-        "time": 0.001038083,
+        "time": 0.000974667,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "permutation_synthetic",
         "dataset": "permutation"
     },
     {
-        "time": 0.000914875,
+        "time": 0.000895708,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "permutation_synthetic",
         "dataset": "permutation"
     },
     {
-        "time": 0.001035125,
+        "time": 0.000986209,
         "method": "finch_col_maj_sparselist_pattern",
         "kernel": "spmv",
         "matrix": "permutation_synthetic",
         "dataset": "permutation"
     },
     {
-        "time": 0.000912208,
+        "time": 0.0009075,
         "method": "finch_row_maj_sparselist_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.000566167,
+        "method": "finch_col_maj_sparsepoint_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.000578333,
+        "method": "finch_row_maj_sparsepoint_pattern",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.0009620000000000001,
+        "method": "taco_col_maj",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.000856208,
+        "method": "taco_row_maj",
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "time": 0.0009557500000000001,
+        "method": "eigen",
         "kernel": "spmv",
         "matrix": "permutation_synthetic",
         "dataset": "permutation"

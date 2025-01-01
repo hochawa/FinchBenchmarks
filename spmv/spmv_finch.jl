@@ -132,7 +132,7 @@ function spmv_finch_row_maj_sparseband(y, A, x)
 end
 
 function spmv_finch_sym_sparselist_pattern(y, A, x) 
-    A = pattern!(A)
+    A = pattern!(Tensor(CSCFormat(), A))
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparseList(Pattern())), A)
     _d = Tensor(Dense(Element(false)))
@@ -157,7 +157,7 @@ function spmv_finch_sym_sparselist_pattern(y, A, x)
 end
 
 function spmv_finch_col_maj_sparselist_pattern(y, A, x) 
-    A = pattern!(A)
+    A = pattern!(Tensor(CSCFormat(), A))
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparseList(Pattern())), A)
     _x = Tensor(Dense(Element(0.0)), x)
@@ -167,7 +167,7 @@ function spmv_finch_col_maj_sparselist_pattern(y, A, x)
 end
 
 function spmv_finch_row_maj_sparselist_pattern(y, A, x) 
-    A = pattern!(A)
+    A = pattern!(Tensor(CSCFormat(), A))
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparseList(Pattern())), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
@@ -177,7 +177,7 @@ function spmv_finch_row_maj_sparselist_pattern(y, A, x)
 end
 
 function spmv_finch_col_maj_sparsepoint_pattern(y, A, x) 
-    A = pattern!(A)
+    A = pattern!(Tensor(CSCFormat(), A))
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparsePoint(Pattern())), A)
     _x = Tensor(Dense(Element(0.0)), x)
@@ -187,7 +187,7 @@ function spmv_finch_col_maj_sparsepoint_pattern(y, A, x)
 end
 
 function spmv_finch_row_maj_sparsepoint_pattern(y, A, x) 
-    A = pattern!(A)
+    A = pattern!(Tensor(CSCFormat(), A))
     _y = Tensor(Dense(Element(0.0)), y)
     _A = Tensor(Dense(SparsePoint(Pattern())), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
