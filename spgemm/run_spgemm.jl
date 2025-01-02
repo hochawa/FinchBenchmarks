@@ -151,8 +151,8 @@ for mtx in batch
     for (key, method) in methods[parsed_args["kernels"]]
         println("testing key: $key, mtx: $mtx")
         res = method(A, B)
-        C_ref = something(C_ref, res.C)
-        norm(C_ref - res.C)/norm(C_ref) < 0.01 || @warn("incorrect result via norm")
+	C_ref = something(C_ref, SparseMatrixCSC(res.C))
+	norm(C_ref - SparseMatrixCSC(res.C))/norm(C_ref) < 0.01 || @warn("incorrect result via norm")
         println("results time: $time")
         push!(results, OrderedDict(
             "time" => res.time,
