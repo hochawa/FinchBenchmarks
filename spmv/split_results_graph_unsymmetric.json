@@ -1,76 +1,76 @@
 [
     {
-        "time": 0.001532602,
+        "time": 0.001525878,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.001646374,
+        "time": 0.001613432,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.00159257,
+        "time": 0.001590774,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.001447523,
+        "time": 0.001440847,
         "method": "finch_col_maj_sparselist_pattern",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.001330612,
+        "time": 0.001323496,
         "method": "finch_row_maj_sparselist_pattern",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.003403486,
+        "time": 0.003359516,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.003349868,
+        "time": 0.003283522,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.001364404,
+        "time": 0.0013646350000000001,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.0014380740000000001,
+        "time": 0.001427496,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.001397164,
+        "time": 0.001405805,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",
         "dataset": "graph_unsymmetric"
     },
     {
-        "time": 0.0061895660000000005,
+        "time": 0.006166968,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "SNAP/soc-Epinions1",

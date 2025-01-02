@@ -1,538 +1,538 @@
 [
     {
-        "time": 0.000435942,
+        "time": 0.000446091,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.000397972,
+        "time": 0.000364554,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.000562516,
+        "time": 0.000565359,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.000703688,
+        "time": 0.000701526,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.000688973,
+        "time": 0.000687662,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.000822895,
+        "time": 0.000817486,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.000932159,
+        "time": 0.000935426,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.000507574,
+        "time": 0.000507734,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.0005277050000000001,
+        "time": 0.000526044,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.000475734,
+        "time": 0.00047471100000000006,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.001337389,
+        "time": 0.001334862,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "HB/bcsstk17",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.00774332,
+        "time": 0.007616704,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.004684186,
+        "time": 0.004686116,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.013810175,
+        "time": 0.013870397,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.0138524,
+        "time": 0.013469188,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.006130269,
+        "time": 0.006120273,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007616542,
+        "time": 0.007620169,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007891588,
+        "time": 0.008024318,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.006040887,
+        "time": 0.006000634,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.0065209050000000005,
+        "time": 0.0065136510000000005,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.005769179,
+        "time": 0.005667227,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.008822085,
+        "time": 0.008840705,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "Williams/pdb1HYS",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.006940296,
+        "time": 0.006873309,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.003966134,
+        "time": 0.003715032,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.008622185,
+        "time": 0.008608584,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.009081938,
+        "time": 0.009067407,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.005226716,
+        "time": 0.005213037,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007131352,
+        "time": 0.007153375,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.009208121,
+        "time": 0.009212235,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.005717234000000001,
+        "time": 0.005703953,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.0063771190000000005,
+        "time": 0.006097007000000001,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.005458282,
+        "time": 0.0054917180000000005,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.004939023000000001,
+        "time": 0.010020167,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "Williams/cant",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.010544928,
+        "time": 0.010520119,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.005959866,
+        "time": 0.006410337,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.014053007,
+        "time": 0.015056186,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.015004969,
+        "time": 0.01585166,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007718794,
+        "time": 0.007735715,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.010350718,
+        "time": 0.01040612,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.013364437,
+        "time": 0.013407849,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.008815891000000001,
+        "time": 0.008797738000000001,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.009134095,
+        "time": 0.00911433,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.008409612,
+        "time": 0.008400975,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007654632000000001,
+        "time": 0.014130099,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "Williams/consph",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007176595,
+        "time": 0.007266098,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.003623371,
+        "time": 0.003646779,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007443521,
+        "time": 0.007081714,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007230914,
+        "time": 0.007029528,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.009116977,
+        "time": 0.009103787,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.013940169,
+        "time": 0.013839188,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.013640681,
+        "time": 0.01358393,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.00611141,
+        "time": 0.0061784710000000005,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.006425722,
+        "time": 0.006393472000000001,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.0058897970000000004,
+        "time": 0.006192203,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.005311408,
+        "time": 0.013367588000000001,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "Williams/cop20k_A",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.014137382,
+        "time": 0.013812734,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.008321918,
+        "time": 0.007942776,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007482159,
+        "time": 0.007504732,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.007185458,
+        "time": 0.007501503,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.010669011,
+        "time": 0.010671082,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.017817507,
+        "time": 0.017741912,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.017297848,
+        "time": 0.017309406,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.005838525000000001,
+        "time": 0.005771614,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.006751854000000001,
+        "time": 0.006581296,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.005580244000000001,
+        "time": 0.005489638000000001,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.015780304000000002,
+        "time": 0.015797925,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "DNVS/shipsec1",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.021280431,
+        "time": 0.021252446,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.012916097,
+        "time": 0.012375894,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.025093479,
+        "time": 0.025326759,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.027131575,
+        "time": 0.027128499,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.013541801,
+        "time": 0.013528405,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.015013095,
+        "time": 0.015002229,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.017186685,
+        "time": 0.017228386,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.016957112,
+        "time": 0.016943252000000002,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.018545651,
+        "time": 0.018523404,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.016445766,
+        "time": 0.016461795,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",
         "dataset": "taco_symmetric"
     },
     {
-        "time": 0.013932448,
+        "time": 0.035791644000000004,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "Boeing/pwtk",

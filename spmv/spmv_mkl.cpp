@@ -59,8 +59,8 @@ int main(int argc, char **argv) {
     descr.type = SPARSE_MATRIX_TYPE_GENERAL;
     descr.diag = SPARSE_DIAG_NON_UNIT;
 
-    mkl_sparse_set_mv_hint(A, SPARSE_OPERATION_NON_TRANSPOSE, descr, 1000);
-    mkl_sparse_optimize(A);
+    //mkl_sparse_set_mv_hint(A, SPARSE_OPERATION_NON_TRANSPOSE, descr, 1000);
+    //mkl_sparse_optimize(A);
 
     auto time = benchmark(
         [&x, &y, &descr, &A]() {},

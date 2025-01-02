@@ -1,188 +1,188 @@
 [
     {
-        "time": 0.000132111,
+        "time": 0.000130971,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000126238,
+        "time": 0.000125401,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000133713,
+        "time": 0.000151879,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000144325,
+        "time": 0.000144306,
         "method": "finch_col_maj_sparseband",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 0.00014312,
+        "time": 0.0001433,
         "method": "finch_row_maj_sparseband",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 0.00013496300000000002,
+        "time": 0.000151661,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000152752,
+        "time": 0.00015291300000000002,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 0.00011295000000000001,
+        "time": 0.000128906,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 5.334e-5,
+        "time": 0.000821676,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "toeplitz_small_band",
         "dataset": "banded"
     },
     {
-        "time": 0.00058604,
+        "time": 0.000581441,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000708751,
+        "time": 0.000780141,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.001026899,
+        "time": 0.001026706,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000316842,
+        "time": 0.000326419,
         "method": "finch_col_maj_sparseband",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000334773,
+        "time": 0.000334736,
         "method": "finch_row_maj_sparseband",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.0006609420000000001,
+        "time": 0.0006609560000000001,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000692504,
+        "time": 0.0006924100000000001,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.0006224710000000001,
+        "time": 0.00062186,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000345573,
+        "time": 0.0013921130000000002,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "toeplitz_medium_band",
         "dataset": "banded"
     },
     {
-        "time": 0.002328823,
+        "time": 0.002448808,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",
         "dataset": "banded"
     },
     {
-        "time": 0.003764566,
+        "time": 0.00390718,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",
         "dataset": "banded"
     },
     {
-        "time": 0.004653902,
+        "time": 0.004577237,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000791225,
+        "time": 0.000793203,
         "method": "finch_col_maj_sparseband",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",
         "dataset": "banded"
     },
     {
-        "time": 0.000789892,
+        "time": 0.000789352,
         "method": "finch_row_maj_sparseband",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",
         "dataset": "banded"
     },
     {
-        "time": 0.001964215,
+        "time": 0.001975765,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",
         "dataset": "banded"
     },
     {
-        "time": 0.0020750110000000003,
+        "time": 0.002074156,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",
         "dataset": "banded"
     },
     {
-        "time": 0.0018454860000000001,
+        "time": 0.0018425700000000002,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",
         "dataset": "banded"
     },
     {
-        "time": 0.001213876,
+        "time": 0.003170467,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "toeplitz_large_band",

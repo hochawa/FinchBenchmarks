@@ -1,153 +1,153 @@
 [
     {
-        "time": 0.00322872,
+        "time": 0.003254985,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.002283578,
+        "time": 0.002275864,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.003959357,
+        "time": 0.003904675,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.005213606,
+        "time": 0.004961297,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.002347335,
+        "time": 0.002347639,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.000858622,
+        "time": 0.00087242,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.000870014,
+        "time": 0.000861006,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.002305632,
+        "time": 0.0023740560000000003,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.002445397,
+        "time": 0.002477603,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.002176094,
+        "time": 0.002242777,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.0014293670000000002,
+        "time": 0.003303442,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "GHS_indef/exdata_1",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.000865287,
+        "time": 0.000861303,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.000885141,
+        "time": 0.00089977,
         "method": "finch_sym_sparselist",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.001019716,
+        "time": 0.001024716,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.001031976,
+        "time": 0.001030106,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.001282383,
+        "time": 0.00128167,
         "method": "finch_sym_sparseblocklist",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.001848521,
+        "time": 0.001847908,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.001855626,
+        "time": 0.001856327,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.0007625770000000001,
+        "time": 0.0007622610000000001,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.0009658640000000001,
+        "time": 0.0009673730000000001,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.0008137140000000001,
+        "time": 0.0008151990000000001,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
         "dataset": "willow_symmetric"
     },
     {
-        "time": 0.005314455,
+        "time": 0.0053456630000000005,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",

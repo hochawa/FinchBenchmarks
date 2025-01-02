@@ -1,314 +1,314 @@
 [
     {
-        "time": 0.002223215,
+        "time": 0.002279514,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.002556014,
+        "time": 0.002678859,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.003202441,
+        "time": 0.003232228,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.004012393,
+        "time": 0.003912655,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.004277799,
+        "time": 0.004276455,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.002135465,
+        "time": 0.002140267,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.002257513,
+        "time": 0.002254734,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.002010628,
+        "time": 0.002008915,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.006348277,
+        "time": 0.006346876,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "Goodwin/Goodwin_071",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 2.6161e-5,
+        "time": 2.6247e-5,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 3.1578e-5,
+        "time": 3.1937e-5,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 3.497e-5,
+        "time": 3.5996e-5,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 5.3631e-5,
+        "time": 5.1071e-5,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 8.1239e-5,
+        "time": 8.0125e-5,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 5.1429000000000005e-5,
+        "time": 5.1383000000000006e-5,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 4.7319000000000006e-5,
+        "time": 4.7998000000000004e-5,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 2.8649000000000003e-5,
+        "time": 2.8867000000000003e-5,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000206287,
+        "time": 0.000206168,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "LPnetlib/lpi_gran",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000634884,
+        "time": 0.000635881,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000826932,
+        "time": 0.000831699,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.001317186,
+        "time": 0.001318357,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000572289,
+        "time": 0.000566286,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000773294,
+        "time": 0.000773633,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000683876,
+        "time": 0.0006828450000000001,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000732475,
+        "time": 0.0007315760000000001,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000626557,
+        "time": 0.000624643,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.0006184220000000001,
+        "time": 0.001017293,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "Norris/heart3",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000531753,
+        "time": 0.000533472,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000570433,
+        "time": 0.000589977,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000581297,
+        "time": 0.000592801,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.001282812,
+        "time": 0.001231541,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.001288233,
+        "time": 0.0012565,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.000521241,
+        "time": 0.000520983,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.0006269950000000001,
+        "time": 0.000627567,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.00048677100000000005,
+        "time": 0.000483539,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.003991494,
+        "time": 0.003982179000000001,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "Rajat/rajat26",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.008110328,
+        "time": 0.007663189,
         "method": "julia_stdlib",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.011795543,
+        "time": 0.011812248,
         "method": "finch_col_maj_sparselist",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.010441098,
+        "time": 0.010381698,
         "method": "finch_row_maj_sparselist",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.003343295,
+        "time": 0.003425,
         "method": "finch_col_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.003262904,
+        "time": 0.00328255,
         "method": "finch_row_maj_sparseblocklist",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.00596216,
+        "time": 0.005937714,
         "method": "taco_col_maj",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.006385291,
+        "time": 0.0063900350000000005,
         "method": "taco_row_maj",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.0056938940000000006,
+        "time": 0.00572042,
         "method": "eigen",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
         "dataset": "willow_unsymmetric"
     },
     {
-        "time": 0.0035431950000000003,
+        "time": 0.007468482,
         "method": "mkl",
         "kernel": "spmv",
         "matrix": "TSOPF/TSOPF_RS_b678_c1",
