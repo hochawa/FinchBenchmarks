@@ -118,8 +118,6 @@ int main(int argc, char **argv) {
 
   C.compile();
 
-  std::cout << "running taco" << std::endl;
-
   // Assemble output indices and numerically compute the result
   auto time = benchmark(
     [&C]() {
@@ -132,11 +130,7 @@ int main(int argc, char **argv) {
     }
   );
 
-  std::cout << "writing output" << std::endl;
-
   write(fs::path(params.output)/"C.ttx", C);
-
-  std::cout << "done" << std::endl;
 
   if (params.verbose) {
     C.printAssembleIR(std::cout, true, true);
