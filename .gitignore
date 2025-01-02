@@ -8,7 +8,6 @@ spgemm/spgemm_eigen
 spgemm/spgemm_mkl
 spgemm/spgemm_taco
 deps/SparseRooflineBenchmark/build
-deps/cora_compiler_and_benchmarks*
 .vscode/settings.json
 cache/*
 *.jls
