@@ -149,11 +149,11 @@ for mtx in batch
     B = A
     C_ref = nothing
     for (key, method) in methods[parsed_args["kernels"]]
-        println("testing key: $key, mtx: $mtx")
+        @info "testing" key mtx
         res = method(A, B)
         C_ref = something(C_ref, res.C)
         norm(C_ref - res.C)/norm(C_ref) < 0.01 || @warn("incorrect result via norm")
-        println("results time: $time")
+        @info "results" res.time
         push!(results, OrderedDict(
             "time" => res.time,
             "method" => key,
