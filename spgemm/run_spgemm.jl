@@ -109,22 +109,22 @@ include("spgemm_mkl.jl")
 
 methods = Dict(
     "all" => [
-        "spgemm_finch_inner" => spgemm_finch_inner,
-        "spgemm_finch_gustavson" => spgemm_finch_gustavson,
-        "spgemm_finch_outer" => spgemm_finch_outer,
-        "spgemm_finch_outer_bytemap" => spgemm_finch_outer_bytemap,
-        "spgemm_finch_outer_dense" => spgemm_finch_outer_dense,
         (has_taco() ? ["spgemm_taco_inner" => spgemm_taco_inner] : [])...,
         (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
         (has_taco() ? ["spgemm_taco_outer" => spgemm_taco_outer] : [])...,
         (has_eigen() ? ["eigen" => spgemm_eigen] : [])...,
         (has_mkl() ? ["mkl" => spgemm_mkl] : [])...,
+        "spgemm_finch_inner" => spgemm_finch_inner,
+        "spgemm_finch_gustavson" => spgemm_finch_gustavson,
+        "spgemm_finch_outer" => spgemm_finch_outer,
+        "spgemm_finch_outer_bytemap" => spgemm_finch_outer_bytemap,
+        "spgemm_finch_outer_dense" => spgemm_finch_outer_dense,
     ],
     "fast" => [
-        "spgemm_finch_gustavson" => spgemm_finch_gustavson,
         (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
         (has_eigen() ? ["eigen" => spgemm_eigen] : [])...,
         (has_mkl() ? ["mkl" => spgemm_mkl] : [])...,
+        "spgemm_finch_gustavson" => spgemm_finch_gustavson,
     ],
 )
 
