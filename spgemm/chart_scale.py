@@ -61,8 +61,8 @@ def make_line_plot(labels, x_axis, data, filename, title="", y_label="Runtime (s
         "spgemm_finch_inner": "Finch Inner",
         "spgemm_taco_gustavson": "TACO Gustavson",
         "spgemm_finch_gustavson": "Finch Gustavson",
-        "spgemm_eigen_gustavson": "Eigen",
-        "spgemm_mkl_gustavson": "MKL",
+        "spgemm_eigen": "Eigen",
+        "spgemm_mkl": "MKL",
         "spgemm_taco_outer": "TACO Outer",
         "spgemm_finch_outer_dense": "Finch Outer Dense",
         "spgemm_finch_outer": "Finch Outer",
@@ -91,14 +91,14 @@ if not os.path.exists(CHARTS_DIRECTORY):
     os.makedirs(CHARTS_DIRECTORY)
 
 matrix_order = [
-    "rand_128.mtx",
-    "rand_256.mtx",
-    "rand_512.mtx",
-    "rand_1024.mtx",
-    "rand_2048.mtx",
-    "rand_4096.mtx",
-    "rand_8192.mtx",
-    "rand_16384.mtx",
+    "file:./data/rand_128.ttx",
+    "file:./data/rand_256.ttx",
+    "file:./data/rand_512.ttx",
+    "file:./data/rand_1024.ttx",
+    "file:./data/rand_2048.ttx",
+    "file:./data/rand_4096.ttx",
+    "file:./data/rand_8192.ttx",
+    "file:./data/rand_16384.ttx",
 ]
 
 method_order = [
@@ -106,8 +106,8 @@ method_order = [
     "spgemm_finch_inner",
     "spgemm_taco_gustavson",
     "spgemm_finch_gustavson",
-    "spgemm_eigen_gustavson",
-    "spgemm_mkl_gustavson",
+    "spgemm_eigen",
+    "spgemm_mkl",
     "spgemm_taco_outer",
     "spgemm_finch_outer_dense",
     "spgemm_finch_outer",
