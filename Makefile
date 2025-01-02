@@ -21,7 +21,7 @@ SPGEMM_MKL = spgemm/spgemm_mkl
 ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN)
 
 ifeq ($(shell uname -m), x86_64)
-	ALL_TARGETS += $(SPMV_MKL) $(SPGEMM_MKL)
+	ALL_TARGETS += $(SPMV_MKL) $(SPGEMM_MKL) $(SPMV_CORA)
 endif
 
 all: $(ALL_TARGETS)
@@ -65,10 +65,38 @@ $(TACO): $(TACO_CLONE)
 $(EIGEN_CLONE): 
 	git submodule update --init $(EIGEN_DIR)
 
-CORA_CLONE = deps/cora/.git
+CORA_DIR = deps/cora
+CORA_Z3 = $(CORA_DIR)/z3/hello
+CORA_LLVM = $(CORA_DIR)/llvm/hello
+CORA_CLONE = $(CORA_DIR)/.git
+CORA = deps/cora/build/lib/libcora.*
 
-$(CORA_CLONE): 
-	git submodule update --init $(TACO_DIR)
+$(CORA_CLONE):
+	git submodule update --init $(CORA_DIR)
+
+$(CORA_LLVM):
+	cd $(CORA_DIR) ;\
+	curl -L https://releases.llvm.org/9.0.0/clang+llvm-9.0.0-x86_64-pc-linux-gnu.tar.xz -o llvm.tar.xz ;\
+	tar -xf llvm.tar.xz ;\
+	touch llvm/hello
+
+$(CORA_Z3):
+	cd $(CORA_DIR) ;\
+	curl -L https://github.com/Z3Prover/z3/releases/download/z3-4.8.8/z3-4.8.8-x64-ubuntu-16.04.zip -o z3.zip :\
+	unzip -q z3.zip ;\
+	touch z3/hello
+
+$(CORA): $(CORA_CLONE) $(CORA_LLVM) $(CORA_Z3)
+	LLVM_PATH=$(CORA_DIR)/llvm ;\
+	LD_LIBRARY_PATH=$(CORA_DIR)/z3/lib ;\
+	CPATH=$(CORA_DIR)/z3/include ;\
+	C_PLUS_INCLUDE_PATH=$(CORA_DIR)/z3/include ;\
+	cd $(CORA_DIR) ;\
+	mkdir build ;\
+	cp config.cmake.arm build/config.cmake ;\
+	cd build ;\
+	cmake .. ;\
+	make -j8 tvm
 
 clean:
 	rm -f $(ALL_TARGETS)
