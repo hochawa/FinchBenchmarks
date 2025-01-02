@@ -65,12 +65,10 @@ $(TACO): $(TACO_CLONE)
 $(EIGEN_CLONE): 
 	git submodule update --init $(EIGEN_DIR)
 
-CORA_DOWNLOAD = deps/cora_compiler_and_benchmarks/cora/README.md
+CORA_CLONE = deps/cora/.git
 
-#$(CORA_DOWNLOAD):
-download_cora:
-	wget -O deps/cora_compiler_and_benchmarks.tgz "https://zenodo.org/records/6326456/files/cora_compiler_and_benchmarks.tgz"
-	tar -xvzf deps/cora_compiler_and_benchmarks.tgz -C deps
+$(CORA_CLONE): 
+	git submodule update --init $(TACO_DIR)
 
 clean:
 	rm -f $(ALL_TARGETS)
