@@ -20,3 +20,4 @@ function spgemm_mkl(A, B)
     end
 end
 
+has_mkl() = isfile(joinpath(@__DIR__, "spgemm_mkl"))

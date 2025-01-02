@@ -109,22 +109,22 @@ include("spgemm_mkl.jl")
 
 methods = Dict(
     "all" => [
-        "spgemm_taco_inner" => spgemm_taco_inner,
-        "spgemm_taco_gustavson" => spgemm_taco_gustavson,
-        "spgemm_taco_outer" => spgemm_taco_outer,
-        "spgemm_eigen" => spgemm_eigen,
-        "spgemm_mkl" => spgemm_mkl,
         "spgemm_finch_inner" => spgemm_finch_inner,
         "spgemm_finch_gustavson" => spgemm_finch_gustavson,
         "spgemm_finch_outer" => spgemm_finch_outer,
         "spgemm_finch_outer_bytemap" => spgemm_finch_outer_bytemap,
         "spgemm_finch_outer_dense" => spgemm_finch_outer_dense,
+        (has_taco() ? ["spgemm_taco_inner" => spgemm_taco_inner] : [])...,
+        (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
+        (has_taco() ? ["spgemm_taco_outer" => spgemm_taco_outer] : [])...,
+        (has_eigen() ? ["eigen" => spgemm_eigen] : [])...,
+        (has_mkl() ? ["mkl" => spgemm_mkl] : [])...,
     ],
     "fast" => [
-        "spgemm_taco_gustavson" => spgemm_taco_gustavson,
         "spgemm_finch_gustavson" => spgemm_finch_gustavson,
-        "spgemm_eigen" => spgemm_eigen,
-        "spgemm_mkl" => spgemm_mkl,
+        (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
+        (has_eigen() ? ["eigen" => spgemm_eigen] : [])...,
+        (has_mkl() ? ["mkl" => spgemm_mkl] : [])...,
     ],
 )
 
@@ -149,11 +149,11 @@ for mtx in batch
     B = A
     C_ref = nothing
     for (key, method) in methods[parsed_args["kernels"]]
-        @info "testing" key mtx
+        println("testing key: $key, mtx: $mtx")
         res = method(A, B)
         C_ref = something(C_ref, res.C)
         norm(C_ref - res.C)/norm(C_ref) < 0.01 || @warn("incorrect result via norm")
-        @info "results" res.time
+        println("results time: $time")
         push!(results, OrderedDict(
             "time" => res.time,
             "method" => key,

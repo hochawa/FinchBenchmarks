@@ -18,3 +18,4 @@ function spgemm_eigen(A, B)
     end
 end
 
+has_eigen() = isfile(joinpath(@__DIR__, "spgemm_eigen"))
