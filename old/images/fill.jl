@@ -74,3 +74,14 @@ function fill_finch_scatter((img, x, y),)
     time = @belapsed fill_finch_scatter_kernel($frontier_2, $frontier, $mask, $image, $x, $y)
     return (;time=time, mem = summarysize(mask), nnz = countstored(mask), output=mask)
 end
+
+
+function prep_fill(img)
+    (m, n) = size(img)
+    pos = [(x, y) for x in 1:m for y in 1:n if img[x, y] != 0x00]
+    (x, y) = pos[rand(1:end)]
+    #if img[x, y] == 0
+    #    img = Array{UInt8}(img .== 0x00)
+    #end
+    (img, x, y)
+end

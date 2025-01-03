@@ -1,15 +1,83 @@
-for kernel in Serialization.deserialize(joinpath(@__DIR__, "erode_kernels.jls"))
-    eval(kernel)
+for (input, output, tmp) in [
+    [
+        Tensor(Dense(Dense(Element(UInt(0))))),
+        Tensor(Dense(Dense(Element(UInt(0))))),
+        Tensor(Dense(Element(UInt(0))))
+    ],
+]
+    eval(Finch.@finch_kernel function erode_finch_bits_kernel(output, input, tmp)
+        output .= 0
+        for y = _
+            tmp .= 0
+            for x = _
+                tmp[x] = coalesce(input[x, ~(y-1)], ~(UInt(0))) & input[x, y] & coalesce(input[x, ~(y+1)], ~(UInt(0)))
+            end
+            for x = _
+                let tl = coalesce(tmp[~(x-1)], ~(UInt(0))), t = tmp[x], tr = coalesce(tmp[~(x+1)], ~(UInt(0)))
+                    output[x, y] = ((tr << (8 * sizeof(UInt) - 1)) | (t >> 1)) & t & ((t << 1) | (tl >> (8 * sizeof(UInt) - 1)))
+                end
+            end
+        end
+        return output
+    end)
 end
 
-erode_opencv_kernel(data, filter, niters) = OpenCV.erode(data, filter, iterations=niters)
+for (input, output, tmp, mask) in [
+    [
+        Tensor(Dense(Dense(Element(UInt(0))))),
+        Tensor(Dense(Dense(Element(UInt(0))))),
+        Tensor(Dense(Element(UInt(0)))),
+        Tensor(Dense(SparseList(Pattern()))),
+    ],
+]
+    eval(Finch.@finch_kernel function erode_finch_bits_mask_kernel(output, input, tmp, mask)
+        output .= 0
+        for y = _
+            tmp .= 0
+            for x = _
+                if mask[x, y]
+                    tmp[x] = coalesce(input[x, ~(y-1)], ~(UInt(0))) & input[x, y] & coalesce(input[x, ~(y+1)], ~(UInt(0)))
+                end
+            end
+            for x = _
+                if mask[x, y]
+                    let tl = coalesce(tmp[~(x-1)], ~(UInt(0))), t = tmp[x], tr = coalesce(tmp[~(x+1)], ~(UInt(0)))
+                        let res = ((tr << (8 * sizeof(UInt) - 1)) | (t >> 1)) & t & ((t << 1) | (tl >> (8 * sizeof(UInt) - 1)))
+                            output[x, y] = res
+                        end
+                    end
+                end
+            end
+        end
+        return (output)
+    end)
+end
 
-function erode_opencv((img, niters),)
-    input = reshape(img, 1, size(img)...)
-    filter = ones(Int8, 1, 3, 3)
-    time = @belapsed erode_opencv_kernel($input, $filter, $niters) evals=1
-    output = dropdims(Array(erode_opencv_kernel(input, filter, niters)), dims=1)
-    return (; time = time, mem = summarysize(input), nnz = length(input), output = output)
+for (input, output, tmp) in [
+    [
+        Tensor(Dense(Dense(Element(false)))),
+        Tensor(Dense(Dense(Element(false)))),
+        Tensor(Dense(Element(false))),
+    ],
+    [
+        Tensor(Dense(SparseRLE(Pattern())))
+        Tensor(Dense(SparseRLE(Pattern())))
+        Tensor(SparseRLE(Pattern(), merge=false))
+    ],
+]
+    eval(Finch.@finch_kernel function erode_finch_kernel(output, input, tmp)
+        output .= false
+        for y = _
+            tmp .= false
+            for x = _
+                tmp[x] = coalesce(input[x, ~(y-1)], true) & input[x, y] & coalesce(input[x, ~(y+1)], true)
+            end
+            for x = _
+                output[x, y] = coalesce(tmp[~(x-1)], true) & tmp[x] & coalesce(tmp[~(x+1)], true)
+            end
+        end
+        return output
+    end)
 end
 
 erode_finch_kernel2(output, input, tmp, niters) = begin

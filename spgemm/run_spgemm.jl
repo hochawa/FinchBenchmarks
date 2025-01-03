@@ -1,11 +1,11 @@
 #!/usr/bin/env julia
 if abspath(PROGRAM_FILE) == @__FILE__
     using Pkg
-    Pkg.activate(@__DIR__)
+    Pkg.activate(joinpath(@__DIR__, ".."))
     Pkg.instantiate()
+    Pkg.status("Finch")
+    println("Julia Version: $(VERSION)")
 end
-include("../deps/diagnostics.jl")
-print_diagnostics()
 
 using MatrixDepot
 using BenchmarkTools

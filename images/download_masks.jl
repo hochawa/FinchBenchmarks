@@ -1,14 +1,15 @@
 #!/usr/bin/env julia
 if abspath(PROGRAM_FILE) == @__FILE__
     using Pkg
-    Pkg.activate(@__DIR__)
+    Pkg.activate(joinpath(@__DIR__, ".."))
     Pkg.instantiate()
+    Pkg.status("Finch")
+    println("Julia Version: $(VERSION)")
 end
 
 using Finch
 using Serialization
-#using TestImages
-using OpenCV#, TestImages, MosaicViews, Colors, Images, FileIO
+using OpenCV
 using BenchmarkTools
 using LinearAlgebra
 using JSON
