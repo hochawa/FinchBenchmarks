@@ -41,9 +41,10 @@ function unpack_bits(imgb, xs, ys)
     img
 end
 
-include("erode.jl")
-include("hist.jl")
-include("fill.jl")
+include("erode_finch.jl")
+include("erode_opencv.jl")
+include("hist_finch.jl")
+include("hist_opencv.jl")
 
 sobel(img) = abs.(imfilter(img, Kernel.sobel()[1])) + abs.(imfilter(img, Kernel.sobel()[2]))
 
@@ -58,15 +59,6 @@ function flip(img)
     end
 end
 
-function prep_fill(img)
-    (m, n) = size(img)
-    pos = [(x, y) for x in 1:m for y in 1:n if img[x, y] != 0x00]
-    (x, y) = pos[rand(1:end)]
-    #if img[x, y] == 0
-    #    img = Array{UInt8}(img .== 0x00)
-    #end
-    (img, x, y)
-end
 
 MAG_FACTOR = 8
 magnifying_lens = ones(UInt8, MAG_FACTOR, MAG_FACTOR)
@@ -141,11 +133,6 @@ for dataset in groups[parsed_args["dataset"]]
         input = f(getdata(i))
 
         for (op, prep, kernels) in [
-            #("fill", prep_fill, [
-            #    (method = "opencv", fn = fill_opencv),
-            #    (method = "finch", fn = fill_finch),
-            #    (method = "finch_scatter", fn = fill_finch_scatter),
-            #]),
             ("erode2", (img) -> (img, 2), [
                 (method = "opencv", fn = erode_opencv),
                 (method = "finch", fn = erode_finch),
@@ -165,18 +152,6 @@ for dataset in groups[parsed_args["dataset"]]
                 (method = "finch", fn = hist_finch),
                 (method = "finch_rle", fn = hist_finch_rle),
             ]),
-            #=
-            ("histblur", [
-                (method = "opencv", fn = histblur_opencv(rand_data)),
-                (method = "finch", fn = histblur_finch(rand_data)),
-                (method = "finch_rle", fn = histblur_finch_rle(rand_data)),
-            ]),
-            ("blur", [
-                (method = "opencv", fn = blur_opencv(rand_data)),
-                (method = "finch", fn = blur_finch(rand_data)),
-                (method = "finch_rle", fn = blur_finch_rle(rand_data)),
-            ]),
-            =#
         ]
             input2 = prep(input)
 

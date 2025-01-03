@@ -7,8 +7,7 @@ end
 
 using Finch
 using Serialization
-#using TestImages
-using OpenCV#, TestImages, MosaicViews, Colors, Images, FileIO
+using OpenCV
 using BenchmarkTools
 using LinearAlgebra
 using JSON
