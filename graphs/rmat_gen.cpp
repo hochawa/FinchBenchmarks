@@ -68,16 +68,11 @@ void generate_rmat_graph(int scale, int avg_edges_per_vertex) {
     }
 }
 
-int main(int argc, char* args[]) {
-    if (argc != 3) {
-        std::cerr << "Usage: " << args[0] << " <scale> <avg_edges_per_vertex>" << std::endl;
-        return 1;
-    }
-
-    int scale = std::stoi(args[1]);
-    int avg_edges_per_vertex = std::stoi(args[2]);
-
-    generate_rmat_graph(scale, avg_edges_per_vertex);
-    return 0;
+int main() {
+	int avg_edges_per_vertex = 64;
+	for(int scale=22; scale<=24;scale++, avg_edges_per_vertex/= 2) {
+		generate_rmat_graph(scale, avg_edges_per_vertex);
+	}
+	return 0;
 }
 
