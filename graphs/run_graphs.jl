@@ -110,7 +110,17 @@ results = []
 
 
 for mtx in datasets[parsed_args["dataset"]]
-    A = SparseMatrixCSC(matrixdepot(mtx))
+    manual = 0
+    if mtx == "rmat_s22_e64" || mtx == "rmat_s23_e32" || mtx == "rmat_s24_e16" || mtx == "soc-orkut"
+        manual = 1
+    end
+    if manual == 1
+            filename = mtx * ".mtx"
+            A = mmread(filename)
+            #A = load_mtx_as_sparsematrixcsc("soc-orkut.mtx")
+    else
+            A = SparseMatrixCSC(matrixdepot(mtx))
+    end
     A = A + permutedims(A)
     (n, n) = size(A)
     for (op_name, check, methods) in [
