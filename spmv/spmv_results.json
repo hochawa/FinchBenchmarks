@@ -1958,5 +1958,12 @@
     "kernel": "spmv",
     "matrix": "TSOPF/TSOPF_RS_b678_c1",
     "dataset": "willow_unsymmetric"
+  },
+  {
+    "time": 0.0006160543900000001,
+    "method": "cora",
+    "kernel": "spmv",
+    "matrix": "upper_triangle",
+    "dataset": "triangle"
   }
 ]
