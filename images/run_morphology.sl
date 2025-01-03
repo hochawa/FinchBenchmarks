@@ -22,4 +22,4 @@ DATASETS=("mnist" "omniglot" "humansketches" "testimage_dip3e" "mnist_magnify" "
 # Get the corresponding dataset for this job index
 DATASET=${DATASETS[$SLURM_ARRAY_TASK_ID - 1]}
 
-julia run_morphology.jl --dataset $DATASET --output morphology_results_$SLURM_ARRAY_TASK_ID.json --num_trials 100
+julia run_morphology.jl --dataset $DATASET --output split_results_morphology_$SLURM_ARRAY_TASK_ID.json --num_trials 100
