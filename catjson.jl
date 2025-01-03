@@ -1,11 +1,8 @@
 #!/usr/bin/env julia
 if abspath(PROGRAM_FILE) == @__FILE__
     using Pkg
-    Pkg.activate(@__DIR__)
-    Pkg.instantiate()
+    Pkg.activate(@__DIR__, io=devnul)
 end
-include(joinpath(@__DIR__, "deps/diagnostics.jl"))
-print_diagnostics()
 
 using JSON
 
