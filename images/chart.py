@@ -5,7 +5,7 @@ from collections import defaultdict
 import os
 from scipy.stats import gmean
 
-RESULTS_FILE_PATH = "lanka_data.json"
+RESULTS_FILE_PATH = "results_morphology.json"
 CHARTS_DIRECTORY = "./charts/"  # Ensure this directory exists
 
 

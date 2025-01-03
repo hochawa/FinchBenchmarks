@@ -191,13 +191,15 @@ def run_trmm(built, i_inputs_tensors, t_inputs_tensors, lw_args, args, pad_sum=N
 
     with open("spmv_results_cora.json", "w") as f:
         f.write(
-            """{{
-    "time": {},
-    "method": "cora",
-    "kernel": "spmv",
-    "matrix": "upper_triangle",
-    "dataset": "triangle"
-}}""".format(time)
+            """[
+    {{
+        "time": {},
+        "method": "cora",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    }}
+]""".format(time)
         )
 
     for i in range(len(t_inputs)):
@@ -248,7 +250,6 @@ parser.add_argument('--optimize', dest='optimize', default=False, action='store_
 parser.add_argument('--manual-code', dest='manual_code', default=False, action='store_true')
 parser.add_argument('--dense-storage', dest='dense_storage', default=False, action='store_true')
 parser.add_argument('--only-prep-code', dest='only_prep_code', default=False, action='store_true')
-
 parser.add_argument('--m1', dest='m1', default=2, type=int)
 parser.add_argument('--m2', dest='m2', default=1, type=int)
 parser.add_argument('--n1', dest='n1', default=32, type=int)

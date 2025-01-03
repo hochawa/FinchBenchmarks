@@ -1,11 +1,11 @@
 #!/usr/bin/env julia
 if abspath(PROGRAM_FILE) == @__FILE__
     using Pkg
-    Pkg.activate(@__DIR__)
+    Pkg.activate(joinpath(@__DIR__, ".."))
     Pkg.instantiate()
+    Pkg.status("Finch")
+    println("Julia Version: $(VERSION)")
 end
-include("../deps/diagnostics.jl")
-print_diagnostics()
 
 using MatrixDepot
 using BenchmarkTools
@@ -64,6 +64,7 @@ datasets = Dict(
         "file:./data/rand_4096.ttx",
         "file:./data/rand_8192.ttx",
         "file:./data/rand_16384.ttx",
+        "file:./data/rand_32768.ttx",
     ],
     "zhang_small" => [
         "SNAP/email-Eu-core",
@@ -112,8 +113,8 @@ methods = Dict(
         (has_taco() ? ["spgemm_taco_inner" => spgemm_taco_inner] : [])...,
         (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
         (has_taco() ? ["spgemm_taco_outer" => spgemm_taco_outer] : [])...,
-        (has_eigen() ? ["eigen" => spgemm_eigen] : [])...,
-        (has_mkl() ? ["mkl" => spgemm_mkl] : [])...,
+        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
+        (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
         "spgemm_finch_inner" => spgemm_finch_inner,
         "spgemm_finch_gustavson" => spgemm_finch_gustavson,
         "spgemm_finch_outer" => spgemm_finch_outer,
@@ -122,8 +123,8 @@ methods = Dict(
     ],
     "fast" => [
         (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
-        (has_eigen() ? ["eigen" => spgemm_eigen] : [])...,
-        (has_mkl() ? ["mkl" => spgemm_mkl] : [])...,
+        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
+        (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
         "spgemm_finch_gustavson" => spgemm_finch_gustavson,
     ],
 )
