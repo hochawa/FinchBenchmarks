@@ -1,5 +1,5 @@
 {
-    "time": 0.00080577835,
+    "time": 0.0008136561600000001,
     "method": "cora",
     "kernel": "spmv",
     "matrix": "upper_triangle",
