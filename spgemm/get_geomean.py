@@ -34,13 +34,13 @@ def main(filename):
         max_speedups[method] = max(speedups)
         geo_speedups[method] = geometric_mean(speedups)
 
-    print("Maximum Speedups:")
-    for method, max_speedup in max_speedups.items():
-        print(f"{method}: {max_speedup:.4f}")
-
     print("Geometric Speedups:")
     for method, geo_speedup in geo_speedups.items():
         print(f"{method}: {geo_speedup:.4f}")
+
+    print("Maximum Speedups:")
+    for method, max_speedup in max_speedups.items():
+        print(f"{method}: {max_speedup:.4f}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Calculate geometric speedup from JSON results.")
