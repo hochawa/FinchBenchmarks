@@ -50,7 +50,7 @@ def generate_chart_for_operation(path, operation, filename, method_order, matrix
     #Strip everything except the digits from the matrix name
     filtered_matrix_order = [re.sub(r'\D', '', mtx) for mtx in filtered_matrix_order]
 
-    make_line_plot(filtered_method_order, filtered_matrix_order, ordered_data, filename, title=f"SpGEMM Runtime Versus Increasing Dimension (Density = 0.001)", log_scale=log_scale)
+    make_line_plot(filtered_method_order, filtered_matrix_order, ordered_data, filename, title=f"SpGEMM Runtime Versus Increasing Dimension (4 nonzeros per row)", log_scale=log_scale)
 
 def make_line_plot(labels, x_axis, data, filename, title="", y_label="Runtime (s)", log_scale=False):
     x = np.arange(len(x_axis))  # Positions for each matrix
@@ -63,9 +63,9 @@ def make_line_plot(labels, x_axis, data, filename, title="", y_label="Runtime (s
         "spgemm_finch_gustavson": "Finch Gustavson",
         "spgemm_eigen": "Eigen",
         "spgemm_mkl": "MKL",
-        "spgemm_taco_outer": "TACO Outer",
+        "spgemm_taco_outer": "TACO Outer Dense",
         "spgemm_finch_outer_dense": "Finch Outer Dense",
-        "spgemm_finch_outer": "Finch Outer",
+        "spgemm_finch_outer": "Finch Outer Hash",
         "spgemm_finch_outer_bytemap": "Finch Outer Bytemap",
     }
 
@@ -99,7 +99,6 @@ matrix_order = [
     "file:./data/rand_4096.ttx",
     "file:./data/rand_8192.ttx",
     "file:./data/rand_16384.ttx",
-    "file:./data/rand_32768.ttx",
 ]
 
 method_order = [

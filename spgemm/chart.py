@@ -61,9 +61,9 @@ def make_grouped_bar_chart(labels, x_axis, data, filename, title="", y_label="Sp
         "spgemm_finch_gustavson": "Finch Gustavson",
         "spgemm_eigen": "Eigen",
         "spgemm_mkl": "MKL",
-        "spgemm_taco_outer": "TACO Outer",
+        "spgemm_taco_outer": "TACO Outer Dense",
         "spgemm_finch_outer_dense": "Finch Outer Dense",
-        "spgemm_finch_outer": "Finch Outer",
+        "spgemm_finch_outer": "Finch Outer Hash",
         "spgemm_finch_outer_bytemap": "Finch Outer Bytemap",
     }
 

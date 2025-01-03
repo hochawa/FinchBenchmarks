@@ -25,19 +25,19 @@ FORMAT_ORDER = {
 }
 FORMAT_LABELS = {
     "finch_sym_sparselist": "Symmetric SparseList",
-    "finch_col_maj_sparselist": "SparseList",
-    "finch_row_maj_sparselist": "SparseList (Row-Major)",
-    "finch_sym_sparseblocklist": "Symmetric SparseVBL",
-    "finch_col_maj_sparseblocklist": "SparseVBL",
-    "finch_row_maj_sparseblocklist": "SparseVBL (Row-Major)",
+    "finch_col_maj_sparselist": "Col-Maj SparseList",
+    "finch_row_maj_sparselist": "Row-Maj SparseList",
+    "finch_sym_sparseblocklist": "Symmetric SparseBlockList",
+    "finch_col_maj_sparseblocklist": "Col-Maj SparseBlockList",
+    "finch_row_maj_sparseblocklist": "Row-Maj SparseBlockList",
     "finch_sym_sparseband": "Symmetric SparseBand",
-    "finch_col_maj_sparseband": "SparseBand",
-    "finch_row_maj_sparseband": "SparseBand (Row-Major)",
-    "finch_sym_sparselist_pattern": "Symmetric Pattern",
-    "finch_col_maj_sparselist_pattern": "Pattern",
-    "finch_row_maj_sparselist_pattern": "Pattern (Row-Major)",
-    "finch_col_maj_sparsepoint_pattern": "SparsePoint Pattern",
-    "finch_row_maj_sparsepoint_pattern": "SparsePoint Pattern (Row-Major)",
+    "finch_col_maj_sparseband": "Col-Maj SparseBand",
+    "finch_row_maj_sparseband": "Row-Maj SparseBand",
+    "finch_sym_sparselist_pattern": "Symmetric SparseList Pattern",
+    "finch_col_maj_sparselist_pattern": "Col-Maj SparseList Pattern",
+    "finch_row_maj_sparselist_pattern": "Row-Maj SparseList Pattern",
+    "finch_col_maj_sparsepoint_pattern": "Col-Maj SparsePoint Pattern",
+    "finch_row_maj_sparsepoint_pattern": "Row-Maj SparsePoint Pattern",
 }
 
 def all_formats_chart(ordered_by_format=False):
@@ -94,9 +94,10 @@ def all_formats_chart(ordered_by_format=False):
     labels = [FORMAT_LABELS[finch_formats[mtx]] for mtx, _ in ordered_data]
     short_mtxs = [mtx.rsplit('/',1)[-1] for mtx in ordered_mtxs]
     new_mtxs = {
-        "toeplitz_large_sparseband_sym": "large_sparseband_sym",
-        "toeplitz_medium_sparseband_sym": "medium_sparseband_sym",
-        "toeplitz_small_sparseband_sym": "small_sparseband_sym",
+        "toeplitz_large_band": "large_band",
+        "toeplitz_medium_band": "medium_band",
+        "toeplitz_small_band": "small_band",
+        "permutation_synthetic": "permutation",
         #"TSOPF_RS_b678_c1": "*RS_b678_c1",
     }
     short_mtxs = [new_mtxs.get(mtx, mtx) for mtx in short_mtxs]
