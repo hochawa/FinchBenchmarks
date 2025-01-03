@@ -191,13 +191,15 @@ def run_trmm(built, i_inputs_tensors, t_inputs_tensors, lw_args, args, pad_sum=N
 
     with open("spmv_results_cora.json", "w") as f:
         f.write(
-            """{{
-    "time": {},
-    "method": "cora",
-    "kernel": "spmv",
-    "matrix": "upper_triangle",
-    "dataset": "triangle"
-}}""".format(time)
+            """[
+    {{
+        "time": {},
+        "method": "cora",
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    }}
+]""".format(time)
         )
 
     for i in range(len(t_inputs)):
