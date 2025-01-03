@@ -18,6 +18,7 @@ graphs/share
 graphs/pyvenv.cfg
 images/output/*
 */manifest.toml
+*/Manifest.toml
 old/*
 morphology/output/*
 */manifest.toml
