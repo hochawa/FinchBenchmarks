@@ -113,8 +113,8 @@ methods = Dict(
         (has_taco() ? ["spgemm_taco_inner" => spgemm_taco_inner] : [])...,
         (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
         (has_taco() ? ["spgemm_taco_outer" => spgemm_taco_outer] : [])...,
-        (has_eigen() ? ["eigen" => spgemm_eigen] : [])...,
-        (has_mkl() ? ["mkl" => spgemm_mkl] : [])...,
+        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
+        (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
         "spgemm_finch_inner" => spgemm_finch_inner,
         "spgemm_finch_gustavson" => spgemm_finch_gustavson,
         "spgemm_finch_outer" => spgemm_finch_outer,
@@ -123,8 +123,8 @@ methods = Dict(
     ],
     "fast" => [
         (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
-        (has_eigen() ? ["eigen" => spgemm_eigen] : [])...,
-        (has_mkl() ? ["mkl" => spgemm_mkl] : [])...,
+        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
+        (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
         "spgemm_finch_gustavson" => spgemm_finch_gustavson,
     ],
 )
