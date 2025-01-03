@@ -24,9 +24,21 @@ SPARSE_BENCH = deps/SparseRooflineBenchmark/build/hello
 
 TACO_DIR = deps/taco
 TACO_CLONE = $(TACO_DIR)/.git
-TACO = deps/taco/build/lib/libtaco.*
+TACO = deps/taco/build/lib/libtaco.so
 TACO_CXXFLAGS = -I$(TACO_DIR)/include -I$(TACO_DIR)/src
 TACO_LDLIBS = -L$(TACO_DIR)/build/lib -ltaco -ldl
+
+GRAPHBLAS_DIR = deps/GraphBLAS
+GRAPHBLAS_CLONE = $(GRAPHBLAS_DIR)/.git
+GRAPHBLAS = deps/GraphBLAS/build/libgraphblas.so
+GRAPHBLAS_CXXFLAGS = -I$(GRAPHBLAS_DIR)/include -I$(GRAPHBLAS_DIR)/src
+GRAPHBLAS_LDLIBS = -L$(GRAPHBLAS_DIR)/build/lib -lGraphBLAS -ldl
+
+LAGRAPH_DIR = deps/LAGraph
+LAGRAPH_CLONE = $(LAGRAPH_DIR)/.git
+LAGRAPH = deps/LAGraph/build/src/benchmark/bfs_demo
+LAGRAPH_CXXFLAGS = -I$(LAGRAPH_DIR)/include -I$(LAGRAPH_DIR)/src
+LAGRAPH_LDLIBS = -L$(LAGRAPH_DIR)/build/lib -lLAGraph -ldl
 
 EIGEN_DIR = deps/eigen
 EIGEN_CLONE = $(EIGEN_DIR)/.git
@@ -40,9 +52,9 @@ CORA_DIR = deps/cora
 CORA_Z3 = $(CORA_DIR)/z3/hello
 CORA_LLVM = $(CORA_DIR)/llvm/hello
 CORA_CLONE = $(CORA_DIR)/.git
-CORA = deps/cora/build/lib/libcora.*
+CORA = deps/cora/build/libtvm.so
 
-ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN)
+ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(GRAPHBLAS) $(LAGRAPH)
 
 ifeq ($(shell uname -m), x86_64)
 	ALL_TARGETS += $(SPMV_MKL) $(SPGEMM_MKL) $(CORA)
@@ -70,6 +82,20 @@ $(TACO): $(TACO_CLONE)
 	cd build ;\
 	cmake -DPYTHON=false -DCMAKE_BUILD_TYPE=Release .. ;\
 	make taco -j$(NPROC_VAL)
+
+$(GRAPHBLAS_CLONE): 
+	git submodule update --init $(GRAPHBLAS_DIR)
+
+$(GRAPHBLAS): $(GRAPHBLAS_CLONE)
+	cd $(GRAPHBLAS_DIR) ;\
+	make JOBS=32
+
+$(LAGRAPH_CLONE): 
+	git submodule update --init $(LAGRAPH_DIR)
+
+$(LAGRAPH): $(LAGRAPH_CLONE)
+	cd $(LAGRAPH_DIR) ;\
+	GRAPHBLAS_ROOT=$(GRAPHBLAS_DIR) make
 
 $(EIGEN_CLONE): 
 	git submodule update --init $(EIGEN_DIR)
