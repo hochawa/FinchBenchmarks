@@ -1,0 +1,7 @@
+{
+    "time": 0.0008119623099999999,
+    "method": "cora",
+    "kernel": "spmv",
+    "matrix": "upper_triangle",
+    "dataset": "triangle"
+}
