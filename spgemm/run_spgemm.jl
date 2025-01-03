@@ -64,6 +64,7 @@ datasets = Dict(
         "file:./data/rand_4096.ttx",
         "file:./data/rand_8192.ttx",
         "file:./data/rand_16384.ttx",
+        "file:./data/rand_32768.ttx",
     ],
     "zhang_small" => [
         "SNAP/email-Eu-core",

@@ -99,6 +99,7 @@ matrix_order = [
     "file:./data/rand_4096.ttx",
     "file:./data/rand_8192.ttx",
     "file:./data/rand_16384.ttx",
+    "file:./data/rand_32768.ttx",
 ]
 
 method_order = [
