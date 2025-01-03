@@ -1,0 +1,26 @@
+[
+    {
+        "time": 0.18445397200000002,
+        "method": "spgemm_taco_gustavson",
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3"
+    },
+    {
+        "time": 0.33778494600000003,
+        "method": "eigen",
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3"
+    },
+    {
+        "time": 0.087008708,
+        "method": "mkl",
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3"
+    },
+    {
+        "time": 0.196578681,
+        "method": "spgemm_finch_gustavson",
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3"
+    }
+]

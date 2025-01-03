@@ -1,0 +1,26 @@
+[
+    {
+        "time": 1.083722273,
+        "method": "spgemm_taco_gustavson",
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere"
+    },
+    {
+        "time": 0.9531932420000001,
+        "method": "eigen",
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere"
+    },
+    {
+        "time": 0.618821232,
+        "method": "mkl",
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere"
+    },
+    {
+        "time": 0.793531707,
+        "method": "spgemm_finch_gustavson",
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere"
+    }
+]
