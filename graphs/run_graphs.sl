@@ -18,5 +18,5 @@ echo $PATH
 echo $(pwd)
 
 # Call the Julia function with the selected dataset and output file
-julia run_spgemm.jl -d "yang" --kernels "all" -b $SLURM_ARRAY_TASK_ID -B  -o split_results_scale_$SLURM_ARRAY_TASK_ID.json
+julia run_graphs.jl -d "yang" -b $SLURM_ARRAY_TASK_ID -B  -o split_results_yang_$SLURM_ARRAY_TASK_ID.json
 
