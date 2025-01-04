@@ -147,73 +147,73 @@
     "time": 65.701638655,
     "method": "Finch",
     "operation": "bellmanford",
-    "matrix": "rmat_s22_e64"
+    "matrix": "file:./rmat_s22_e64"
   },
   {
     "time": 68.2414,
     "method": "GraphBLAS",
     "operation": "bellmanford",
-    "matrix": "rmat_s22_e64"
+    "matrix": "file:./rmat_s22_e64"
   },
   {
     "time": 137.839532526,
     "method": "Graphs.jl",
     "operation": "bellmanford",
-    "matrix": "rmat_s22_e64"
+    "matrix": "file:./rmat_s22_e64"
   },
   {
     "time": 85.094860649,
     "method": "Finch",
     "operation": "bellmanford",
-    "matrix": "rmat_s23_e32"
+    "matrix": "file:./rmat_s23_e32"
   },
   {
     "time": 88.4202,
     "method": "GraphBLAS",
     "operation": "bellmanford",
-    "matrix": "rmat_s23_e32"
+    "matrix": "file:./rmat_s23_e32"
   },
   {
     "time": 145.558694452,
     "method": "Graphs.jl",
     "operation": "bellmanford",
-    "matrix": "rmat_s23_e32"
+    "matrix": "file:./rmat_s23_e32"
   },
   {
     "time": 111.433078026,
     "method": "Finch",
     "operation": "bellmanford",
-    "matrix": "rmat_s24_e16"
+    "matrix": "file:./rmat_s24_e16"
   },
   {
     "time": 120.6271,
     "method": "GraphBLAS",
     "operation": "bellmanford",
-    "matrix": "rmat_s24_e16"
+    "matrix": "file:./rmat_s24_e16"
   },
   {
     "time": 153.542372026,
     "method": "Graphs.jl",
     "operation": "bellmanford",
-    "matrix": "rmat_s24_e16"
+    "matrix": "file:./rmat_s24_e16"
   },
   {
     "time": 6.680340131,
     "method": "Finch",
     "operation": "bellmanford",
-    "matrix": "soc-orkut"
+    "matrix": "file:./soc-orkut"
   },
   {
     "time": 18.83133,
     "method": "GraphBLAS",
     "operation": "bellmanford",
-    "matrix": "soc-orkut"
+    "matrix": "file:./soc-orkut"
   },
   {
     "time": 8.074640833,
     "method": "Graphs.jl",
     "operation": "bellmanford",
-    "matrix": "soc-orkut"
+    "matrix": "file:./soc-orkut"
   },
   {
     "time": 0.002,
@@ -483,96 +483,96 @@
     "time": 0.152,
     "method": "GraphBLAS",
     "operation": "bfs",
-    "matrix": "rmat_s22_e64"
+    "matrix": "file:./rmat_s22_e64"
   },
   {
     "time": 2.481893706,
     "method": "Graphs.jl",
     "operation": "bfs",
-    "matrix": "rmat_s22_e64"
+    "matrix": "file:./rmat_s22_e64"
   },
   {
     "time": 3.84099259,
     "method": "finch_push_only",
     "operation": "bfs",
-    "matrix": "rmat_s22_e64"
+    "matrix": "file:./rmat_s22_e64"
   },
   {
     "time": 0.187473325,
     "method": "finch_push_pull",
     "operation": "bfs",
-    "matrix": "rmat_s22_e64"
+    "matrix": "file:./rmat_s22_e64"
   },
   {
     "time": 0.324,
     "method": "GraphBLAS",
     "operation": "bfs",
-    "matrix": "rmat_s23_e32"
+    "matrix": "file:./rmat_s23_e32"
   },
   {
     "time": 2.948368837,
     "method": "Graphs.jl",
     "operation": "bfs",
-    "matrix": "rmat_s23_e32"
+    "matrix": "file:./rmat_s23_e32"
   },
   {
     "time": 5.785549853,
     "method": "finch_push_only",
     "operation": "bfs",
-    "matrix": "rmat_s23_e32"
+    "matrix": "file:./rmat_s23_e32"
   },
   {
     "time": 0.42744879,
     "method": "finch_push_pull",
     "operation": "bfs",
-    "matrix": "rmat_s23_e32"
+    "matrix": "file:./rmat_s23_e32"
   },
   {
     "time": 0.602,
     "method": "GraphBLAS",
     "operation": "bfs",
-    "matrix": "rmat_s24_e16"
+    "matrix": "file:./rmat_s24_e16"
   },
   {
     "time": 5.217652691,
     "method": "Graphs.jl",
     "operation": "bfs",
-    "matrix": "rmat_s24_e16"
+    "matrix": "file:./rmat_s24_e16"
   },
   {
     "time": 8.144931099,
     "method": "finch_push_only",
     "operation": "bfs",
-    "matrix": "rmat_s24_e16"
+    "matrix": "file:./rmat_s24_e16"
   },
   {
     "time": 0.83375303,
     "method": "finch_push_pull",
     "operation": "bfs",
-    "matrix": "rmat_s24_e16"
+    "matrix": "file:./rmat_s24_e16"
   },
   {
     "time": 0.166,
     "method": "GraphBLAS",
     "operation": "bfs",
-    "matrix": "soc-orkut"
+    "matrix": "file:./soc-orkut"
   },
   {
     "time": 1.552378217,
     "method": "Graphs.jl",
     "operation": "bfs",
-    "matrix": "soc-orkut"
+    "matrix": "file:./soc-orkut"
   },
   {
     "time": 1.79257968,
     "method": "finch_push_only",
     "operation": "bfs",
-    "matrix": "soc-orkut"
+    "matrix": "file:./soc-orkut"
   },
   {
     "time": 0.271723298,
     "method": "finch_push_pull",
     "operation": "bfs",
-    "matrix": "soc-orkut"
+    "matrix": "file:./soc-orkut"
   }
 ]
