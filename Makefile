@@ -54,7 +54,7 @@ CORA_LLVM = $(CORA_DIR)/llvm/hello
 CORA_CLONE = $(CORA_DIR)/.git
 CORA = deps/cora/build/libtvm.so
 
-ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(GRAPHBLAS) $(LAGRAPH)
+ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(GRAPHBLAS) $(LAGRAPH) graphs/rmat_gen
 
 ifeq ($(shell uname -m), x86_64)
 	ALL_TARGETS += $(SPMV_MKL) $(SPGEMM_MKL) $(CORA)
@@ -95,6 +95,7 @@ $(LAGRAPH_CLONE):
 
 $(LAGRAPH): $(LAGRAPH_CLONE)
 	cd $(LAGRAPH_DIR) ;\
+	cp ../lagraph_BF.c experimental/test/test_BF.c ;\
 	GRAPHBLAS_ROOT=$(GRAPHBLAS_DIR) make
 
 $(EIGEN_CLONE): 
@@ -123,7 +124,7 @@ $(CORA_Z3):
 $(CORA): $(CORA_CLONE) $(CORA_LLVM) $(CORA_Z3)
 	cd $(CORA_DIR) ;\
 	mkdir -p build ;\
-	cp ../config.cmake build/config.cmake ;\
+	cp ../cora_config.cmake build/config.cmake ;\
 	cd build ;\
         LLVM_PATH=$(shell pwd)/$(CORA_DIR)/llvm \
         USE_LLVM=$(shell pwd)/$(CORA_DIR)/llvm/bin/llvm-config \
@@ -151,3 +152,6 @@ spmv/spmv_mkl: $(SPARSE_BENCH) spmv/spmv_mkl.cpp
 
 spgemm/spgemm_mkl: $(SPARSE_BENCH) spgemm/spgemm_mkl.cpp
 	bash -c 'source deps/intel/setvars.sh; $(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) $(MKL_CXXFLAGS) -o $@ spgemm/spgemm_mkl.cpp $(LDLIBS) $(MKL_LDLIBS)'
+
+graphs/rmat_gen: graphs/rmat_gen.cpp
+	$(CXX) $(CXXFLAGS) -o graphs/rmat_gen graphs/rmat_gen.cpp

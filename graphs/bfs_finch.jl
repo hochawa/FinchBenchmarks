@@ -89,3 +89,20 @@ function bfs_finch_kernel(edges, edgesT, source=5, alpha = 0.01)
     end
     return P
 end
+
+
+function bfs_finch_push_pull(mtx)
+    A = pattern!(Tensor(SparseMatrixCSC(mtx)))
+    AT = pattern!(Tensor(permutedims(SparseMatrixCSC(mtx))))
+    time = @belapsed bfs_finch_kernel($A, $AT, 1)
+    output = bfs_finch_kernel(A, AT, 1)
+    return (; time = time, mem = Base.summarysize(A), output = output)
+end
+
+function bfs_finch_push_only(mtx)
+    A = pattern!(Tensor(SparseMatrixCSC(mtx)))
+    AT = pattern!(Tensor(permutedims(SparseMatrixCSC(mtx))))
+    time = @belapsed bfs_finch_kernel($A, $AT, 1, 2)
+    output = bfs_finch_kernel(A, AT, 1, 2)
+    return (; time = time, mem = Base.summarysize(A), output = output)
+end

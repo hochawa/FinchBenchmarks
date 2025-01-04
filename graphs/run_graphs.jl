@@ -33,41 +33,29 @@ s = ArgParseSettings("Run graph experiments.")
         arg_type = String
         help = "dataset keyword"
         default = "willow"
+    "--batch", "-b"
+        arg_type = Int
+        help = "batch number"
+        default = 1
+    "--num_batches", "-B"
+        arg_type = Int
+        help = "number of batches"
+        default = 1
 end
 
 parsed_args = parse_args(ARGS, s)
 
 include("datasets.jl")
-include("shortest_paths.jl")
-include("bfs.jl")
+include("bellmanford_finch.jl")
+include("bfs_finch.jl")
 
-function bfs_finch_push_pull(mtx)
-    A = pattern!(Tensor(SparseMatrixCSC(mtx)))
-    AT = pattern!(Tensor(permutedims(SparseMatrixCSC(mtx))))
-    time = @belapsed bfs_finch_kernel($A, $AT, 1)
-    output = bfs_finch_kernel(A, AT, 1)
-    return (; time = time, mem = Base.summarysize(A), output = output)
-end
-
-function bfs_finch_push_only(mtx)
-    A = pattern!(Tensor(SparseMatrixCSC(mtx)))
-    AT = pattern!(Tensor(permutedims(SparseMatrixCSC(mtx))))
-    time = @belapsed bfs_finch_kernel($A, $AT, 1, 2)
-    output = bfs_finch_kernel(A, AT, 1, 2)
-    return (; time = time, mem = Base.summarysize(A), output = output)
-end
+include("bfs_lagraph.jl")
+include("bellmanford_lagraph.jl")
 
 function bfs_graphs(mtx)
     A = SimpleDiGraph(transpose(mtx))
     time = @belapsed Graphs.bfs_parents($A, 1)
     output = Graphs.bfs_parents(A, 1)
-    return (; time = time, mem = Base.summarysize(A), output = output)
-end
-
-function bellmanford_finch(mtx)
-    A = redefault!(Tensor(SparseMatrixCSC{Float64}(mtx)), Inf)
-    time = @belapsed bellmanford_finch_kernel($A, 1)
-    output = bellmanford_finch_kernel(A, 1)
     return (; time = time, mem = Base.summarysize(A), output = output)
 end
 
@@ -79,6 +67,7 @@ function bellmanford_graphs(mtx)
 end
 
 function check_bfs(A, src, res_parent, ref_parent)
+    isnothing(res_parent) && return true # skip correctness check for LAGraph
     g = SimpleDiGraph(transpose(A))
     ref_levels = gdistances(g, src)
     for i in 1:nv(g)
@@ -94,6 +83,7 @@ function check_bfs(A, src, res_parent, ref_parent)
 end
 
 function check_bellman(A, src, res, ref)
+    isnothing(res) && return true # skip correctness check for LAGraph
     n = length(ref.dists)
     for i in 1:n
         if ref.dists[i] != res.dists[i]
@@ -109,8 +99,22 @@ end
 results = []
 
 
-for mtx in datasets[parsed_args["dataset"]]
-    A = SparseMatrixCSC(matrixdepot(mtx))
+batch = let 
+    dataset = datasets[parsed_args["dataset"]]
+    batch_num = parsed_args["batch"]
+    num_batches = parsed_args["num_batches"]
+    N = length(dataset)
+    start_idx = min(fld1(N * (batch_num - 1) + 1, min(num_batches, N)), N + 1)
+    end_idx = min(fld1(N * batch_num, min(num_batches, N)), N)
+    dataset[start_idx:end_idx]
+end
+
+for mtx in batch
+    if mtx[1:5] == "file:"
+        A = SparseMatrixCSC(fread(mtx[6:end]))
+    else
+        A = SparseMatrixCSC(matrixdepot(mtx))
+    end
     A = A + permutedims(A)
     (n, n) = size(A)
     for (op_name, check, methods) in [
@@ -120,6 +124,7 @@ for mtx in datasets[parsed_args["dataset"]]
                 "Graphs.jl" => bfs_graphs,
                 "finch_push_pull" => bfs_finch_push_pull,
                 "finch_push_only" => bfs_finch_push_only,
+                "graphblas" => bfs_lagraph,
             ]
         ),
         ("bellmanford",
@@ -127,9 +132,13 @@ for mtx in datasets[parsed_args["dataset"]]
             [
                 "Graphs.jl" => bellmanford_graphs,
                 "Finch" => bellmanford_finch,
+                "graphblas" => bellmanford_lagraph,
             ]
         ),
     ]
+        if op_name == "bellmanford" && mtx in big_diameter
+            continue
+        end
         @info "testing" op_name mtx
         reference = nothing
         for (key, method) in methods

@@ -67,3 +67,11 @@ function bellmanford_finch_kernel(edges, source=1)
 
     return (dists=dists, parents=parents)
 end
+
+function bellmanford_finch(mtx)
+    A = redefault!(Tensor(SparseMatrixCSC{Float64}(mtx)), Inf)
+    time = @belapsed bellmanford_finch_kernel($A, 1)
+    output = bellmanford_finch_kernel(A, 1)
+    return (; time = time, mem = Base.summarysize(A), output = output)
+end
+
