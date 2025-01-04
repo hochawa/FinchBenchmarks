@@ -12,7 +12,7 @@ using TensorMarket
 
 mkpath("data")
 
-for N = 7:15
+for N = 7:14
     m = n = 2^N
     nnz = 4*m
     fwrite("data/rand_$(m).ttx", fsprand(m, n, nnz))
